@@ -36,7 +36,7 @@ import com.google.android.material.color.DynamicColors
  * `Context.getApplicationContext()` as a `android.content.Context` argument when invoking your
  * singleton's `getInstance()` method.
  */
-class RecyclerViewApplication : Application() {
+class FirebaseAuthenticationApplication : Application() {
     /**
      * Called when the application is starting, before any activity, service, or receiver objects
      * (excluding content providers) have been created.
