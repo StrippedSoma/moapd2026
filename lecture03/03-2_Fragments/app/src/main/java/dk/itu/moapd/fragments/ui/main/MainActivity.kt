@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setupNavigation(navController: androidx.navigation.NavController) {
         // Portrait: bottom navigation. Landscape: navigation rail.
-        binding.bottomNavigation?.setupWithNavController(navController)
+        binding.contentMain.bottomNavigation?.setupWithNavController(navController)
         binding.navigationRail?.setupWithNavController(navController)
     }
 
