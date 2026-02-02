@@ -18,24 +18,24 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.lazylist.ui.main
+package dk.itu.moapd.firebaseauthentication.ui.common
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import dk.itu.moapd.lazylist.ui.theme.LazyListTheme
+import android.content.Context
+import android.view.View
+import com.google.android.material.snackbar.Snackbar
+import kotlin.math.roundToInt
 
-class MainActivity : ComponentActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        setContent {
-            LazyListTheme {
-                LazyListScreen()
-            }
-        }
-    }
+/**
+ * Shows a short [Snackbar] anchored to this [View].
+ */
+fun View.showSnackBar(
+    message: CharSequence,
+    duration: Int = Snackbar.LENGTH_SHORT
+) {
+    Snackbar.make(this, message, duration).show()
 }
+
+/**
+ * Converts dp units to px using this [Context]'s display metrics.
+ */
+fun Context.dpToPx(dp: Int): Int = (dp * resources.displayMetrics.density).roundToInt()

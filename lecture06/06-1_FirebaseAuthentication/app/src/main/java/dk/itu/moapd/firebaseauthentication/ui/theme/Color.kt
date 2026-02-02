@@ -18,24 +18,36 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.lazylist.ui.main
+package dk.itu.moapd.firebaseauthentication.ui.theme
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import dk.itu.moapd.lazylist.ui.theme.LazyListTheme
+import androidx.compose.ui.graphics.Color
 
-class MainActivity : ComponentActivity() {
+/**
+ * The primary color in the dark mode.
+ */
+val Purple80 = Color(0xFFD0BCFF)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+/**
+ * The secondary color in the dark mode.
+ */
+val PurpleGrey80 = Color(0xFFCCC2DC)
 
-        setContent {
-            LazyListTheme {
-                LazyListScreen()
-            }
-        }
-    }
-}
+/**
+ * The tertiary color in the dark mode.
+ */
+val Pink80 = Color(0xFFEFB8C8)
+
+/**
+ * The primary color in the light mode.
+ */
+val Purple40 = Color(0xFF6650a4)
+
+/**
+ * The secondary color in the light mode.
+ */
+val PurpleGrey40 = Color(0xFF625b71)
+
+/**
+ * The tertiary color in the light mode.
+ */
+val Pink40 = Color(0xFF7D5260)

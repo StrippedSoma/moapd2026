@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>NewLineAtEndOfFile:Dimens.kt:dk.itu.moapd.firebaseauthentication.ui.common.Dimens.kt</ID>
+  </CurrentIssues>
+</SmellBaseline>

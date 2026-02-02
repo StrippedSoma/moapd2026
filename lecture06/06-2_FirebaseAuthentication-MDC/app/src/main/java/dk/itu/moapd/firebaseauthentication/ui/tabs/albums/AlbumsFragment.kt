@@ -18,24 +18,26 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.lazylist.ui.main
+package dk.itu.moapd.firebaseauthentication.ui.tabs.albums
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import dk.itu.moapd.lazylist.ui.theme.LazyListTheme
+import androidx.fragment.app.Fragment
+import dk.itu.moapd.firebaseauthentication.R
+import dk.itu.moapd.firebaseauthentication.databinding.FragmentAlbumsBinding
+import dk.itu.moapd.firebaseauthentication.ui.utils.viewBinding
 
-class MainActivity : ComponentActivity() {
+/**
+ * A fragment to display a list of artists' photos. In practice, we are not going to design the UI
+ * components in this way. We are going to use ListView, ViewHolder, and RecyclerView to display the
+ * lists dynamically.
+ */
+class AlbumsFragment : Fragment(R.layout.fragment_albums) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+    /**
+     * View binding is a feature that allows you to more easily write code that interacts with
+     * views. Once view binding is enabled in a module, it generates a binding class for each XML
+     * layout file present in that module. An instance of a binding class contains direct references
+     * to all views that have an ID in the corresponding layout.
+     */
+    private val binding by viewBinding(FragmentAlbumsBinding::bind)
 
-        setContent {
-            LazyListTheme {
-                LazyListScreen()
-            }
-        }
-    }
 }

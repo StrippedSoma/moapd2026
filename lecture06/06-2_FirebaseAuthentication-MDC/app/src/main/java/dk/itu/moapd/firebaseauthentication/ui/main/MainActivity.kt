@@ -18,24 +18,39 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.fragments.ui.main
+package dk.itu.moapd.firebaseauthentication.ui.main
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.core.view.WindowCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import dk.itu.moapd.fragments.R
-import dk.itu.moapd.fragments.databinding.ActivityMainBinding
+import dk.itu.moapd.firebaseauthentication.R
+import dk.itu.moapd.firebaseauthentication.ui.auth.LoginActivity
+import dk.itu.moapd.firebaseauthentication.ui.dialogs.UserInfoDialogFragment
+import com.google.firebase.auth.FirebaseAuth
+import dk.itu.moapd.firebaseauthentication.databinding.ActivityMainBinding
 
 /**
- * An activity class with methods to manage the main activity of Android Fragments application.
+ * An activity class with several methods to manage the main activity of Firebase Authentication
+ * application.
  */
 class MainActivity : AppCompatActivity() {
+
+    /**
+     * The entry point of the Firebase Authentication SDK.
+     */
+    private lateinit var auth: FirebaseAuth
+
     /**
      * View binding is a feature that allows you to more easily write code that interacts with
      * views. Once view binding is enabled in a module, it generates a binding class for each XML
@@ -79,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Define the NavController from the NavHostFragment.
+        // Search the view hierarchy and fragment for the `NavController` and return it to you.
         val navController =
             (
                 supportFragmentManager.findFragmentById(R.id.fragment_container_view)
@@ -92,6 +107,9 @@ class MainActivity : AppCompatActivity() {
         // Setup the bottom navigation (portrait) and the navigation rail (landscape).
         setupActionBarIfPortrait(navController)
         setupNavigation(navController)
+
+        // Initialize Firebase Auth.
+        auth = FirebaseAuth.getInstance()
     }
 
     /**
@@ -119,6 +137,94 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
+     * Called after `onCreate()` method; or after `onRestart()` method when the activity had been
+     * stopped, but is now again being displayed to the user. It will usually be followed by
+     * `onResume()`. This is a good place to begin drawing visual elements, running animations, etc.
+     *
+     * You can call `finish()` from within this function, in which case `onStop()` will be
+     * immediately called after `onStart()` without the lifecycle transitions in-between
+     * (`onResume()`, `onPause()`, etc) executing.
+     *
+     * <em>Derived classes must call through to the super class's implementation of this method. If
+     * they do not, an exception will be thrown.</em>
+     */
+    override fun onStart() {
+        super.onStart()
+
+        // Redirect the user to the LoginActivity if they are not logged in.
+        auth.currentUser ?: startLoginActivity()
+    }
+
+    /**
+     * This method starts the login activity which allows the user log in or sign up to the Firebase
+     * Authentication application.
+     *
+     * Before accessing the main activity, the user must log in the application through a Firebase
+     * Auth backend service. The method starts a new activity using explicit intent and used the
+     * method `finish()` to disable back button.
+     */
+    private fun startLoginActivity() {
+        Intent(this, LoginActivity::class.java).apply {
+            // An alternative to instead of calling finish() method.
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }.let(::startActivity)
+    }
+
+    /**
+     * Initialize the contents of the Activity's standard options menu.  You should place your menu
+     * items in to menu.  This is only called once, the first time the options menu is displayed.
+     * To update the menu every time it is displayed, see `onPrepareOptionsMenu(Menu)`.  The default
+     * implementation populates the menu with standard system menu items.  These are placed in the
+     * `Menu#CATEGORY_SYSTEM` group so that they will be correctly ordered with application-defined
+     * menu items.  Deriving classes should always call through to the base implementation.  You can
+     * safely hold on to menu (and any items created from it), making modifications to it as
+     * desired, until the next time `onCreateOptionsMenu()` is called.  When you add items to the
+     * menu, you can implement the Activity's `onOptionsItemSelected(MenuItem)` method to handle
+     * them there.
+     *
+     * @param menu The options menu in which you place your items.
+     *
+     * @return You must return `true` for the menu to be displayed; if you return `false` it will
+     *      not be shown.
+     */
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.top_app_bar, menu)
+        return true
+    }
+
+    /**
+     * This hook is called whenever an item in your options menu is selected.  The default
+     * implementation simply returns `false` to have the normal processing happen (calling the
+     * item's `Runnable` or sending a message to its `Handler` as appropriate).  You can use this
+     * method for any items for which you would like to do processing without those other
+     * facilities.  Derived classes should call through to the base class for it to perform the
+     * default menu handling.
+     *
+     * @param item The menu item that was selected.  This value cannot be `null`.
+     *
+     * @return Return `false` to allow normal menu processing to proceed, `true` to consume it here.
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        // Handle top app bar menu item clicks.
+        R.id.action_user_info -> {
+            UserInfoDialogFragment().apply {
+                isCancelable = false
+            }.also { dialogFragment ->
+                dialogFragment.show(supportFragmentManager, "UserInfoDialogFragment")
+            }
+            true
+        }
+        R.id.action_logout -> {
+            auth.signOut()
+            startLoginActivity()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
+    }
+
+
+    /**
      * This method is called whenever the user chooses to navigate Up within your application's
      * activity hierarchy from the action bar.
      *
@@ -133,11 +239,8 @@ class MainActivity : AppCompatActivity() {
      *      `false` otherwise.
      */
     override fun onSupportNavigateUp(): Boolean {
-        val navController =
-            (
-                supportFragmentManager.findFragmentById(R.id.fragment_container_view)
-                    as NavHostFragment
-            ).navController
+        val navController = findNavController(R.id.fragment_container_view)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
 }
