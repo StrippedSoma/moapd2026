@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>FunctionNaming:AlbumsScreen.kt:@Composable fun AlbumsScreen</ID>
+    <ID>FunctionNaming:ArticlesScreen.kt:@Composable fun ArticlesScreen</ID>
+    <ID>FunctionNaming:ContactsScreen.kt:@Composable fun ContactsScreen</ID>
+    <ID>FunctionNaming:ContactsScreen.kt:@Composable private fun ContactRowItem</ID>
+    <ID>FunctionNaming:MainScaffold.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun MainScaffold</ID>
+    <ID>FunctionNaming:Theme.kt:@Composable fun FirebaseAuthenticationTheme</ID>
+    <ID>FunctionNaming:UserInfoDialog.kt:@Composable fun UserInfoDialog</ID>
+    <ID>LongMethod:ArticlesScreen.kt:@Composable fun ArticlesScreen</ID>
+    <ID>LongMethod:MainScaffold.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun MainScaffold</ID>
+    <ID>MagicNumber:Color.kt:0xFF625b71</ID>
+    <ID>MagicNumber:Color.kt:0xFF6650a4</ID>
+    <ID>MagicNumber:Color.kt:0xFF7D5260</ID>
+    <ID>MagicNumber:Color.kt:0xFFCCC2DC</ID>
+    <ID>MagicNumber:Color.kt:0xFFD0BCFF</ID>
+    <ID>MagicNumber:Color.kt:0xFFEFB8C8</ID>
+    <ID>MagicNumber:ContactsScreen.kt:42</ID>
+    <ID>MagicNumber:ContactsScreen.kt:50</ID>
+    <ID>MatchingDeclarationName:FirebaseAuthenticationApplication.kt:RecyclerViewApplication : Application</ID>
+    <ID>NewLineAtEndOfFile:Color.kt:dk.itu.moapd.firebaseauthentication.ui.theme.Color.kt</ID>
+    <ID>NewLineAtEndOfFile:ContactsScreen.kt:dk.itu.moapd.firebaseauthentication.ui.screens.contacts.ContactsScreen.kt</ID>
+    <ID>NewLineAtEndOfFile:FirebaseAuthenticationApplication.kt:dk.itu.moapd.firebaseauthentication.app.FirebaseAuthenticationApplication.kt</ID>
+    <ID>NewLineAtEndOfFile:Theme.kt:dk.itu.moapd.firebaseauthentication.ui.theme.Theme.kt</ID>
+    <ID>NewLineAtEndOfFile:Type.kt:dk.itu.moapd.firebaseauthentication.ui.theme.Type.kt</ID>
+  </CurrentIssues>
+</SmellBaseline>
