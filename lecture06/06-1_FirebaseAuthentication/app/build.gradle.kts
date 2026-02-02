@@ -92,6 +92,7 @@ dependencies {
     implementation(libs.picasso)
     implementation(libs.circleimageview)
     implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.ui.auth)
