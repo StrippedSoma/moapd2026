@@ -19,7 +19,7 @@
     <ID>MagicNumber:Color.kt:0xFFEFB8C8</ID>
     <ID>MagicNumber:ContactsScreen.kt:42</ID>
     <ID>MagicNumber:ContactsScreen.kt:50</ID>
-    <ID>MatchingDeclarationName:FirebaseAuthenticationApplication.kt:RecyclerViewApplication : Application</ID>
+    <ID>MatchingDeclarationName:FirebaseAuthenticationApplication.kt:FirebaseAuthenticationApplication : Application</ID>
     <ID>NewLineAtEndOfFile:Color.kt:dk.itu.moapd.firebaseauthentication.ui.theme.Color.kt</ID>
     <ID>NewLineAtEndOfFile:ContactsScreen.kt:dk.itu.moapd.firebaseauthentication.ui.screens.contacts.ContactsScreen.kt</ID>
     <ID>NewLineAtEndOfFile:FirebaseAuthenticationApplication.kt:dk.itu.moapd.firebaseauthentication.app.FirebaseAuthenticationApplication.kt</ID>
