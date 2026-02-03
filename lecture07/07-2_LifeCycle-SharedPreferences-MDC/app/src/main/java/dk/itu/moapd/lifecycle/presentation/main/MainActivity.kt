@@ -118,8 +118,8 @@ class MainActivity : AppCompatActivity() {
 
             checkBoxSelect.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (!buttonView.isPressed) return@setOnCheckedChangeListener
-                val status = if (isChecked) "checked" else "unchecked"
-                textViewMessage.text = resources.getString(R.string.selected_text, status)
+                val textId = if (isChecked) R.string.checked_text else R.string.unchecked_text
+                textViewMessage.text = resources.getString(textId)
                 saveSharedPreferences()
             }
         }
