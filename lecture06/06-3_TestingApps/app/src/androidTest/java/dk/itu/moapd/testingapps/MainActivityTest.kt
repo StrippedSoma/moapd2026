@@ -20,7 +20,6 @@
  */
 package dk.itu.moapd.testingapps
 
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -40,7 +39,6 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.text.AnnotatedString
 
-import dk.itu.moapd.testingapps.ui.main.MainActivity
 import dk.itu.moapd.testingapps.ui.main.MainScreen
 import dk.itu.moapd.testingapps.ui.main.MainTestTags
 import dk.itu.moapd.testingapps.ui.theme.TestingAppsTheme
@@ -57,12 +55,6 @@ class MainActivityTest {
      */
     @get:Rule
     val composeRule = createAndroidComposeRule<ComponentActivity>()
-
-    /**
-     * A JUnit Test Rule that launches the activity under test before each test.
-     */
-    @get:Rule
-    var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     /**
      * Sets the content of the activity under test.
