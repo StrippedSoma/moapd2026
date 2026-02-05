@@ -28,6 +28,10 @@ import com.google.firebase.database.database
 import dk.itu.moapd.realtimedatabase.core.DATABASE_URL
 import dk.itu.moapd.realtimedatabase.domain.model.Dummy
 
+/**
+ * A class that represents a single source of truth for all app data, clean API for UI to
+ * communicate with.
+ */
 class DummyRepository(
     private val auth: FirebaseAuth = FirebaseAuth.getInstance(),
     private val root: DatabaseReference = Firebase.database(DATABASE_URL).reference,
