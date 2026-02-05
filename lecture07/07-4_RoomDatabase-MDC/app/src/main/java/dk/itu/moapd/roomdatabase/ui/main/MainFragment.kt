@@ -119,7 +119,7 @@ class MainFragment :
      * @param dummy An instance of `Dummy` class.
      */
     override fun onItemLongClick(dummy: Dummy) {
-        UpdateDataDialogFragment(dummy)
+        UpdateDataDialogFragment.createInstance(dummy)
             .apply { isCancelable = false }
             .show(parentFragmentManager, tag())
     }
