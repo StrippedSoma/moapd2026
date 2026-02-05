@@ -27,7 +27,7 @@ import com.google.android.material.snackbar.Snackbar
 import dk.itu.moapd.roomdatabase.R
 
 /**
- * This class implements in interface to allow users swipe items to left and right in a
+ * This class implements an interface to allow users swipe items to left and right in a
  * `RecyclerView`.
  */
 open class SwipeToDeleteCallback :

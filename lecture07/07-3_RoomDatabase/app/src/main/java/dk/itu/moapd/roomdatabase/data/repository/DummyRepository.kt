@@ -33,7 +33,7 @@ class DummyRepository(
     private val dummyDao: DummyDao,
 ) {
     /**
-     * The `LiveData` used to monitor the elements available in the `Dummy` table.
+     * The `Flow<List<Dummy>>` used to monitor the elements available in the `Dummy` table.
      */
     val dummies: Flow<List<Dummy>> = dummyDao.getAll()
 
