@@ -55,7 +55,8 @@ class UpdateDataDialogFragment : DialogFragment() {
         get() = requireArguments().getInt(ARG_DUMMY_ID)
 
     private val dummyName: String
-        get() = requireArguments().getString(ARG_DUMMY_NAME) ?: ""
+        get() = requireArguments().getString(ARG_DUMMY_NAME)
+            ?: error("Dummy name argument is required but was null")
     /**
      * View binding is a feature that allows you to more easily write code that interacts with
      * views. Once view binding is enabled in a module, it generates a binding class for each XML
