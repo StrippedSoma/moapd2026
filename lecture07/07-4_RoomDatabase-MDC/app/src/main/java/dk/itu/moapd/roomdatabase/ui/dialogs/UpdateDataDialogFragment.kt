@@ -38,25 +38,55 @@ import dk.itu.moapd.roomdatabase.ui.main.DummyViewModelFactory
  * `String` value.
  */
 class UpdateDataDialogFragment : DialogFragment() {
-
+    /**
+     * A set of private constants used in this class.
+     */
     companion object {
+        /**
+         * The argument key for the dummy identifier.
+         */
         private const val ARG_DUMMY_ID = "dummyIdentifier"
+
+        /**
+         * The argument key for the dummy name.
+         */
         private const val ARG_DUMMY_NAME = "dummyNameValue"
 
-        fun createInstance(dummyData: Dummy) = UpdateDataDialogFragment().apply {
-            arguments = Bundle().apply {
-                putInt(ARG_DUMMY_ID, dummyData.id)
-                putString(ARG_DUMMY_NAME, dummyData.name)
+        /**
+         * Creates an instance of this dialog fragment with the provided dummy data.
+         *
+         * @param dummyData The dummy data to be displayed in the dialog.
+         *
+         * @return A new instance of this dialog fragment.
+         */
+        fun createInstance(dummyData: Dummy) =
+            UpdateDataDialogFragment().apply {
+                arguments =
+                    Bundle().apply {
+                        putInt(ARG_DUMMY_ID, dummyData.id)
+                        putString(ARG_DUMMY_NAME, dummyData.name)
+                    }
             }
-        }
     }
 
+    /**
+     * Retrieves the dummy identifier from the arguments.
+     *
+     * @return The dummy identifier.
+     */
     private val dummyId: Int
         get() = requireArguments().getInt(ARG_DUMMY_ID)
 
+    /**
+     * Retrieves the dummy name from the arguments.
+     *
+     * @return The dummy name.
+     */
     private val dummyName: String
-        get() = requireArguments().getString(ARG_DUMMY_NAME)
-            ?: error("Dummy name argument is required but was null")
+        get() =
+            requireArguments().getString(ARG_DUMMY_NAME)
+                ?: error("Dummy name argument is required but was null")
+
     /**
      * View binding is a feature that allows you to more easily write code that interacts with
      * views. Once view binding is enabled in a module, it generates a binding class for each XML
