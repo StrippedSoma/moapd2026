@@ -37,9 +37,25 @@ import dk.itu.moapd.roomdatabase.ui.main.DummyViewModelFactory
  * A DialogFragment subclass for updating data to a database. This dialog shows a field to type a
  * `String` value.
  */
-class UpdateDataDialogFragment(
-    private val dummy: Dummy,
-) : DialogFragment() {
+class UpdateDataDialogFragment : DialogFragment() {
+
+    companion object {
+        private const val ARG_DUMMY_ID = "dummyIdentifier"
+        private const val ARG_DUMMY_NAME = "dummyNameValue"
+
+        fun createInstance(dummyData: Dummy) = UpdateDataDialogFragment().apply {
+            arguments = Bundle().apply {
+                putInt(ARG_DUMMY_ID, dummyData.id)
+                putString(ARG_DUMMY_NAME, dummyData.name)
+            }
+        }
+    }
+
+    private val dummyId: Int
+        get() = requireArguments().getInt(ARG_DUMMY_ID)
+
+    private val dummyName: String
+        get() = requireArguments().getString(ARG_DUMMY_NAME) ?: ""
     /**
      * View binding is a feature that allows you to more easily write code that interacts with
      * views. Once view binding is enabled in a module, it generates a binding class for each XML
@@ -83,13 +99,14 @@ class UpdateDataDialogFragment(
 
         // Inflate the view using view binding.
         _binding = DialogDummyDataBinding.inflate(layoutInflater)
-        binding.editTextName.setText(dummy.name)
+        binding.editTextName.setText(dummyName)
 
         // Create a lambda for positive button click handling.
         val onPositiveButtonClick: (DialogInterface, Int) -> Unit = { dialog, _ ->
             val name = binding.editTextName.text.toString()
             if (name.isNotBlank()) {
-                dummyViewModel.update(dummy.copy(name = name))
+                val updatedDummy = Dummy(id = dummyId, name = name)
+                dummyViewModel.update(updatedDummy)
             }
             dialog.dismiss()
         }
