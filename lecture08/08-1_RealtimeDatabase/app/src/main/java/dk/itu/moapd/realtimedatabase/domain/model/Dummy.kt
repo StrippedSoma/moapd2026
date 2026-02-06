@@ -18,17 +18,22 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.realtimedatabase.ui.common
+package dk.itu.moapd.realtimedatabase.domain.model
 
-import android.view.View
-import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.IgnoreExtraProperties
 
 /**
- * Shows a short [Snackbar] anchored to this [View].
+ * Model stored in Firebase Realtime Database.
+ *
+ * Firebase deserialization requires a no-arg constructor; default values provide that.
+ *
+ * @property name The name of the dummy.
+ * @property createdAt The creation time of the dummy.
+ * @property updatedAt The last update time of the dummy.
  */
-fun View.showSnackBar(
-    message: CharSequence,
-    duration: Int = Snackbar.LENGTH_SHORT
-) {
-    Snackbar.make(this, message, duration).show()
-}
+@IgnoreExtraProperties
+data class Dummy(
+    val name: String = "",
+    val createdAt: Long? = null,
+    val updatedAt: Long? = null,
+)

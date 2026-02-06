@@ -18,17 +18,18 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.realtimedatabase.ui.common
+package dk.itu.moapd.realtimedatabase.core
 
-import android.view.View
-import com.google.android.material.snackbar.Snackbar
+import io.github.cdimascio.dotenv.dotenv
 
 /**
- * Shows a short [Snackbar] anchored to this [View].
+ * Firebase Realtime Database URL.
+ *
+ * IMPORTANT: This is sensitive information and should not be hardcoded.
+ * Create an `env` file in `/app/src/main/assets` with:
+ * DATABASE_URL=https://xxxxxxxxxx-default-rtdb.europe-west1.firebasedatabase.app
  */
-fun View.showSnackBar(
-    message: CharSequence,
-    duration: Int = Snackbar.LENGTH_SHORT
-) {
-    Snackbar.make(this, message, duration).show()
-}
+val DATABASE_URL: String = dotenv {
+    directory = "/assets"
+    filename = "env"
+}["DATABASE_URL"]

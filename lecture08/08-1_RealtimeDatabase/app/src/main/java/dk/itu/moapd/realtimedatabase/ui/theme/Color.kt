@@ -18,17 +18,36 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.realtimedatabase.ui.common
+package dk.itu.moapd.realtimedatabase.ui.theme
 
-import android.view.View
-import com.google.android.material.snackbar.Snackbar
+import androidx.compose.ui.graphics.Color
 
 /**
- * Shows a short [Snackbar] anchored to this [View].
+ * The primary color in the dark mode.
  */
-fun View.showSnackBar(
-    message: CharSequence,
-    duration: Int = Snackbar.LENGTH_SHORT
-) {
-    Snackbar.make(this, message, duration).show()
-}
+val Purple80 = Color(0xFFD0BCFF)
+
+/**
+ * The secondary color in the dark mode.
+ */
+val PurpleGrey80 = Color(0xFFCCC2DC)
+
+/**
+ * The tertiary color in the dark mode.
+ */
+val Pink80 = Color(0xFFEFB8C8)
+
+/**
+ * The primary color in the light mode.
+ */
+val Purple40 = Color(0xFF6650a4)
+
+/**
+ * The secondary color in the light mode.
+ */
+val PurpleGrey40 = Color(0xFF625b71)
+
+/**
+ * The tertiary color in the light mode.
+ */
+val Pink40 = Color(0xFF7D5260)

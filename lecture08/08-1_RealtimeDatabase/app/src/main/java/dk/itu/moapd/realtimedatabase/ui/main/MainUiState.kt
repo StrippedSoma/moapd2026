@@ -18,17 +18,15 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.realtimedatabase.ui.common
-
-import android.view.View
-import com.google.android.material.snackbar.Snackbar
+package dk.itu.moapd.realtimedatabase.ui.main
 
 /**
- * Shows a short [Snackbar] anchored to this [View].
+ * Data class representing the main UI state.
+ *
+ * @property userId The ID of the current user.
+ * @property dummies A list of dummy UI elements.
  */
-fun View.showSnackBar(
-    message: CharSequence,
-    duration: Int = Snackbar.LENGTH_SHORT
-) {
-    Snackbar.make(this, message, duration).show()
-}
+data class MainUiState(
+    val userId: String? = null,
+    val dummies: List<DummyUi> = emptyList(),
+)

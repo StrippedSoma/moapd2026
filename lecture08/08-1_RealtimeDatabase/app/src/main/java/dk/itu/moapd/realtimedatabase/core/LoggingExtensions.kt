@@ -18,17 +18,9 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.realtimedatabase.ui.common
-
-import android.view.View
-import com.google.android.material.snackbar.Snackbar
+package dk.itu.moapd.realtimedatabase.core
 
 /**
- * Shows a short [Snackbar] anchored to this [View].
+ * Returns a short tag name for logging.
  */
-fun View.showSnackBar(
-    message: CharSequence,
-    duration: Int = Snackbar.LENGTH_SHORT
-) {
-    Snackbar.make(this, message, duration).show()
-}
+inline fun <reified T> T.tag(): String = T::class.java.simpleName
