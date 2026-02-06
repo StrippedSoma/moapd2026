@@ -31,18 +31,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.Firebase
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.database
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.storage
-import dk.itu.moapd.firebasestorage.core.FirebaseConfig.BUCKET_URL
-import dk.itu.moapd.firebasestorage.core.FirebaseConfig.DATABASE_URL
 import dk.itu.moapd.firebasestorage.databinding.ActivityMainBinding
-import dk.itu.moapd.firebasestorage.domain.model.Image
 import java.util.UUID
 import dk.itu.moapd.firebasestorage.ui.auth.LoginActivity
+import dk.itu.moapd.firebasestorage.data.repository.StorageRepository
+import dk.itu.moapd.firebasestorage.data.repository.ImageRepository
 
 /**
  * An activity class with several methods to manage the main activity of Firebase Storage
@@ -64,10 +59,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     /**
-     * A Firebase reference represents a particular location in your Database and can be used for
-     * reading or writing data to that Database location.
+     * The repository for handling Firebase Storage operations.
      */
-    private lateinit var database: DatabaseReference
+    private val storageRepo by lazy { StorageRepository() }
+
+    /**
+     * The repository for handling Realtime Database operations.
+     */
+    private val imageRepo by lazy { ImageRepository(storageRepository = storageRepo) }
 
     /**
      * This object launches a new activity and receives back some result data.
@@ -100,9 +99,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Initialize Firebase Auth and connect to the Firebase Realtime Database.
+        // Initialize Firebase Auth (DB/Storage are handled by repositories).
         auth = FirebaseAuth.getInstance()
-        database = Firebase.database(DATABASE_URL).reference
 
         // Migrate from Kotlin synthetics to Jetpack view binding.
         // https://developer.android.com/topic/libraries/view-binding/migration
@@ -222,9 +220,8 @@ class MainActivity : AppCompatActivity() {
         val uploadAction: (Uri) -> Unit = { uri ->
             auth.currentUser?.uid?.let { uid ->
                 val filename = UUID.randomUUID().toString()
-                val imageRef = Firebase.storage(BUCKET_URL).reference
-                    .child("images/$uid/$filename")
-                uploadImageToBucket(uri, imageRef)
+                val remotePath = "images/$uid/$filename"
+                uploadImageToBucket(uri, remotePath)
             }
         }
 
@@ -239,46 +236,26 @@ class MainActivity : AppCompatActivity() {
      * creates a reference of uploaded images in the database.
      *
      * @param uri The URI of original image.
-     * @param imageRef The original image's storage reference in the Firebase Storage.
+     * @param remotePath The storage path where the image will be uploaded.
      */
-    private fun uploadImageToBucket(uri: Uri, imageRef: StorageReference) {
+    private fun uploadImageToBucket(uri: Uri, remotePath: String) {
         with(binding.contentMain.progressBar) {
-            // Upload the original image.
             visibility = View.VISIBLE
-            imageRef.putFile(uri)
-                .addOnSuccessListener { url -> saveImageInDatabase(url.toString(), imageRef.path) }
-                .addOnCompleteListener { visibility = View.GONE }
-                .addOnFailureListener { visibility = View.GONE }
-        }
-    }
-
-    /**
-     * This method saves a reference of uploaded image in the database. The Firebase Storage does
-     * NOT have a option to observe changes in the bucket an automatically updates the application.
-     * We must use a database to have this feature in our application.
-     *
-     * @param url The public URL of uploaded image.
-     * @param path The private URL of uploaded image on Firebase Storage.
-     */
-    private fun saveImageInDatabase(url: String, path: String) {
-        val timestamp = System.currentTimeMillis()
-        val image = Image(url, path, timestamp)
-
-        // In the case of authenticated user, create a new unique key for the object in the
-        // database.
-        auth.currentUser?.uid?.let { userId ->
-            val imageKey = database.child("images")
-                .child(userId)
-                .push()
-                .key
-
-            // Insert the object in the database.
-            imageKey?.let {
-                database.child("images")
-                    .child(userId)
-                    .child(it)
-                    .setValue(image)
-            }
+            storageRepo.uploadFile(uri, remotePath)
+                .addOnSuccessListener { downloadUri ->
+                    imageRepo.saveImage(downloadUri.toString(), remotePath)
+                        ?.addOnCompleteListener { visibility = View.GONE }
+                        ?.addOnFailureListener { _ ->
+                            visibility = View.GONE
+                            val sb = Snackbar.make(binding.root, getString(R.string.error_save_image_database), Snackbar.LENGTH_LONG)
+                            sb.show()
+                        }
+                }
+                .addOnFailureListener { _ ->
+                    visibility = View.GONE
+                    val sb = Snackbar.make(binding.root, getString(R.string.error_upload_image), Snackbar.LENGTH_LONG)
+                    sb.show()
+                }
         }
     }
 

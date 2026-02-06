@@ -8,4 +8,8 @@
     <string name="button_delete">Delete</string>
     <string name="button_cancel">Cancel</string>
     <string name="action_logout">Logout</string>
+    <string name="error_upload_image">Failed to upload image. Please try again.</string>
+    <string name="error_save_image_database">Failed to save image information. Please try again.</string>
+    <string name="error_delete_image">Failed to delete image. Please try again.</string>
+    <string name="message_image_deleted">Image deleted</string>
 </resources>

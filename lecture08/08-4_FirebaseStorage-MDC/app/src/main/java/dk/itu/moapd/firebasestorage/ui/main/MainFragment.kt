@@ -31,11 +31,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.database
 import com.google.gson.Gson
-import dk.itu.moapd.firebasestorage.core.FirebaseConfig.DATABASE_URL
 import dk.itu.moapd.firebasestorage.core.tag
 import dk.itu.moapd.firebasestorage.databinding.FragmentMainBinding
 import dk.itu.moapd.firebasestorage.domain.model.Image
@@ -43,6 +39,7 @@ import dk.itu.moapd.firebasestorage.ui.list.ImagesAdapter
 import dk.itu.moapd.firebasestorage.ui.list.ImageItemListener
 import dk.itu.moapd.firebasestorage.ui.dialogs.DeleteImageDialogFragment
 import dk.itu.moapd.firebasestorage.ui.utils.viewBinding
+import dk.itu.moapd.firebasestorage.data.repository.ImageRepository
 
 /**
  * Fragment that lists the user's uploaded images.
@@ -79,12 +76,10 @@ class MainFragment : Fragment(R.layout.fragment_main), ImageItemListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize Firebase Auth and connect to the Firebase Realtime Database.
-        FirebaseAuth.getInstance().currentUser?.uid?.let { userId ->
-            val query = Firebase.database(DATABASE_URL).reference
-                .child("images")
-                .child(userId)
-                .orderByChild("createdAt")
+        // Initialize repository and build a query for the current user.
+        val repo = ImageRepository()
+        repo.currentUserId()?.let { userId ->
+            val query = repo.imagesQuery(userId)
 
             val options = FirebaseRecyclerOptions.Builder<Image>()
                 .setQuery(query, Image::class.java)

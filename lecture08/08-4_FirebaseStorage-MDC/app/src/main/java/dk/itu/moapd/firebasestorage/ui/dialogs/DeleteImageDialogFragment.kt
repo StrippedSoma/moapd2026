@@ -25,12 +25,8 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.database
-import com.google.firebase.storage.storage
-import dk.itu.moapd.firebasestorage.core.FirebaseConfig.BUCKET_URL
-import dk.itu.moapd.firebasestorage.core.FirebaseConfig.DATABASE_URL
+import com.google.android.material.snackbar.Snackbar
+import dk.itu.moapd.firebasestorage.data.repository.ImageRepository
 
 /**
  * DialogFragment for deleting an image entry from Realtime Database and the corresponding file
@@ -108,19 +104,15 @@ class DeleteImageDialogFragment : DialogFragment() {
      * @param path The path of the image file in Firebase Storage.
      */
     private fun deleteImage(key: String, path: String) {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
         if (key.isBlank() || path.isBlank()) return
-
-        // Remove the database entry first. When successful, delete the file from Storage.
-        Firebase.database(DATABASE_URL).reference
-            .child("images")
-            .child(userId)
-            .child(key)
-            .removeValue()
-            .addOnSuccessListener {
-                Firebase.storage(BUCKET_URL).reference
-                    .child(path)
-                    .delete()
+        val repo = ImageRepository()
+        repo.deleteImage(key, path)
+            ?.addOnSuccessListener {
+                // Show confirmation
+                view?.let { v -> Snackbar.make(v, R.string.message_image_deleted, Snackbar.LENGTH_SHORT).show() }
+            }
+            ?.addOnFailureListener { _ ->
+                view?.let { v -> Snackbar.make(v, R.string.error_delete_image, Snackbar.LENGTH_LONG).show() }
             }
     }
 }
