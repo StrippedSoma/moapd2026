@@ -18,7 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.realtimedatabase.ui.common
+package dk.itu.moapd.firebasestorage.ui.common
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar

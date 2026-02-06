@@ -18,20 +18,30 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.realtimedatabase.ui.common
+package dk.itu.moapd.firebasestorage.ui.list
 
-import android.view.View
-import com.google.android.material.snackbar.Snackbar
+import dk.itu.moapd.firebasestorage.domain.model.Image
 
 /**
- * Shows a short [Snackbar] anchored to this [View].
- *
- * @param message The text to show.
- * @param duration The duration of the [Snackbar].
+ * An interface to implements listener methods for `RecyclerView` items.
  */
-fun View.showSnackBar(
-    message: CharSequence,
-    duration: Int = Snackbar.LENGTH_SHORT
-) {
-    Snackbar.make(this, message, duration).show()
+interface ImageItemListener  {
+
+    /**
+     * Implement this method to be executed when the user press an item in the `RecyclerView` for a
+     * short time.
+     *
+     * @param image An instance of `Image` class.
+     */
+    fun onItemClickListener(image: Image)
+
+    /**
+     * Implement this method to be executed when the user press an item in the `RecyclerView` for a
+     * long time.
+     *
+     * @param image An instance of `Image` class.
+     * @param position The position of selected view holder in the `RecyclerView`.
+     */
+    fun onItemLongClickListener(image: Image, position: Int)
+
 }
