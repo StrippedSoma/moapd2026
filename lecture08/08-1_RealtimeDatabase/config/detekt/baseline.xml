@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>FunctionNaming:DummyEditDialog.kt:@Composable fun DummyEditDialog</ID>
+    <ID>FunctionNaming:DummyEditDialog.kt:@Composable private fun DummyNameField</ID>
+    <ID>FunctionNaming:DummyRow.kt:@Composable fun DummyRow</ID>
+    <ID>FunctionNaming:MainScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun MainScreen</ID>
+    <ID>FunctionNaming:Theme.kt:@Composable fun RealtimeDatabaseTheme</ID>
+    <ID>LongMethod:MainScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun MainScreen</ID>
+    <ID>MagicNumber:Color.kt:0xFF625b71</ID>
+    <ID>MagicNumber:Color.kt:0xFF6650a4</ID>
+    <ID>MagicNumber:Color.kt:0xFF7D5260</ID>
+    <ID>MagicNumber:Color.kt:0xFFCCC2DC</ID>
+    <ID>MagicNumber:Color.kt:0xFFD0BCFF</ID>
+    <ID>MagicNumber:Color.kt:0xFFEFB8C8</ID>
+    <ID>MaxLineLength:DummyRepository.kt:DummyRepository$fun</ID>
+    <ID>NewLineAtEndOfFile:DummyRow.kt:dk.itu.moapd.realtimedatabase.ui.main.components.DummyRow.kt</ID>
+    <ID>NewLineAtEndOfFile:Theme.kt:dk.itu.moapd.realtimedatabase.ui.theme.Theme.kt</ID>
+    <ID>WildcardImport:MainScreen.kt:import androidx.compose.foundation.layout.*</ID>
+    <ID>WildcardImport:MainScreen.kt:import androidx.compose.runtime.*</ID>
+  </CurrentIssues>
+</SmellBaseline>
