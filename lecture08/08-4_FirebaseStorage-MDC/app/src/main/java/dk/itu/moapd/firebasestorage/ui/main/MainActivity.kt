@@ -20,9 +20,11 @@
  */
 package dk.itu.moapd.firebasestorage.ui.main
 
+import android.Manifest
 import dk.itu.moapd.firebasestorage.R
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -30,7 +32,12 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
+import androidx.core.app.ActivityCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import dk.itu.moapd.firebasestorage.databinding.ActivityMainBinding
@@ -78,6 +85,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
+     * Launcher to request POST_NOTIFICATIONS permission (Android 13+).
+     */
+    private val requestNotificationPermissionLauncher = registerForActivityResult(
+        RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // Permission granted — you can post notifications.
+            // No immediate action required here for this app.
+        } else {
+            // Permission denied — inform the user that notifications won't be shown.
+            val sb = Snackbar.make(
+                binding.root,
+                getString(R.string.permission_notifications_denied_message),
+                Snackbar.LENGTH_LONG
+            )
+            sb.show()
+        }
+    }
+
+    /**
      * Called when the activity is starting. This is where most initialization should go: calling
      * `setContentView(int)` to inflate the activity's UI, using `findViewById()` to
      * programmatically interact with widgets in the UI, calling
@@ -110,10 +137,46 @@ class MainActivity : AppCompatActivity() {
         // Set the toolbar as the app bar for the activity.
         setSupportActionBar(binding.toolbar)
 
+        // Request notification permission on Android 13+ (only if needed).
+        requestNotificationPermissionIfNeeded()
+
         // Define the add button behavior.
         binding.floatingActionButton.setOnClickListener {
             launchGalleryIntent()
         }
+    }
+
+    /**
+     * Checks and requests the POST_NOTIFICATIONS runtime permission on Android 13+.
+     * We only request it when target SDK requires it; the manifest already declares it.
+     */
+    private fun requestNotificationPermissionIfNeeded() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val permission = android.Manifest.permission.POST_NOTIFICATIONS
+            val hasPermission = ContextCompat.checkSelfPermission(this, permission) == PERMISSION_GRANTED
+            if (!hasPermission) {
+                // Show a rationale if appropriate, otherwise request permission directly.
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+                    showNotificationPermissionRationale()
+                } else {
+                    requestNotificationPermissionLauncher.launch(permission)
+                }
+            }
+        }
+    }
+
+    /**
+     * Shows a rationale dialog for the POST_NOTIFICATIONS permission.
+     */
+    private fun showNotificationPermissionRationale() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.permission_notifications_rationale_title))
+            .setMessage(getString(R.string.permission_notifications_rationale_message))
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                requestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     /**

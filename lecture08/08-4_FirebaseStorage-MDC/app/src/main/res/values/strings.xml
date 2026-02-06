@@ -12,4 +12,7 @@
     <string name="error_save_image_database">Failed to save image information. Please try again.</string>
     <string name="error_delete_image">Failed to delete image. Please try again.</string>
     <string name="message_image_deleted">Image deleted</string>
+    <string name="permission_notifications_rationale_title">Notifications permission</string>
+    <string name="permission_notifications_rationale_message">This app may post notifications. Please allow notifications to receive important updates.</string>
+    <string name="permission_notifications_denied_message">Notifications are disabled. You can enable them in Settings.</string>
 </resources>
