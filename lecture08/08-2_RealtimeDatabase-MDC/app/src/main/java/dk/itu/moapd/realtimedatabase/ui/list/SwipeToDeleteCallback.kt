@@ -20,8 +20,10 @@
  */
 package dk.itu.moapd.realtimedatabase.ui.list
 
+import androidx.core.content.ContextCompat.getString
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import dk.itu.moapd.realtimedatabase.R
 import dk.itu.moapd.realtimedatabase.ui.common.showSnackBar
 
 /**
@@ -76,6 +78,8 @@ open class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(
         viewHolder: RecyclerView.ViewHolder,
         direction: Int
     ) {
-        viewHolder.itemView.showSnackBar("Item deleted successfully")
+        viewHolder.itemView.showSnackBar(
+            getString(viewHolder.itemView.context, R.string.item_deleted)
+        )
     }
 }

@@ -11,4 +11,5 @@
     <string name="button_update">Update</string>
     <string name="button_cancel">Cancel</string>
     <string name="action_logout">Logout</string>
+    <string name="item_deleted">Item deleted successfully</string>
 </resources>
