@@ -102,34 +102,33 @@ class ImageRepository(
     }
 
     /**
-     * Deletes an image entry from the database and, on success, deletes the file from storage.
+     * Deletes an image from storage and, on success, deletes the database entry.
      * Returns a Task that represents the whole operation: it completes successfully only after the
-     * storage deletion completes. If the database deletion fails, the returned Task fails and the
-     * storage deletion will not be attempted.
+     * database deletion completes. If the storage deletion fails, the returned Task fails and the
+     * database deletion will not be attempted, allowing the operation to be retried.
      *
      * @param key The unique key of the image entry.
      * @param path The path of the image file in Firebase Storage.
      *
      * @return A Task that represents the whole operation: it completes successfully only after the
-     *      storage deletion completes.
+     *      database deletion completes.
      */
     fun deleteImage(key: String, path: String): Task<Void>? {
         val userId = currentUserId() ?: return null
 
-        val dbTask = root.child(PATH_IMAGES)
-            .child(userId)
-            .child(key)
-            .removeValue()
+        // First, delete the file from storage.
+        val storageTask = storageRepository.delete(path)
 
-        // Chain the DB deletion to the storage deletion: on DB success, return the storage deletion
-        // Task.
-        return dbTask.continueWithTask { task ->
+        // Chain the storage deletion to the database deletion: on storage success, delete from DB.
+        return storageTask.continueWithTask { task ->
             if (!task.isSuccessful) {
-                throw (task.exception ?: Exception("Database deletion failed"))
+                throw (task.exception ?: Exception("Storage deletion failed"))
             }
-            // Proceed to delete the file from storage and return that Task so callers can observe
-            // it.
-            storageRepository.delete(path)
+            // Proceed to delete the database entry and return that Task so callers can observe it.
+            root.child(PATH_IMAGES)
+                .child(userId)
+                .child(key)
+                .removeValue()
         }
     }
 }
