@@ -56,12 +56,13 @@ class ImagesAdapter(
          * @param image The current `Image` instance.
          */
         fun bind(image: Image) {
-            if (image.url != null) {
-                Picasso.get().load(image.url).into(binding.imageView)
-            } else {
-                // Clear any previously loaded image to prevent recycled views from showing stale data
-                Picasso.get().cancelRequest(binding.imageView)
-                binding.imageView.setImageDrawable(null)
+            // Always clear the ImageView first to prevent recycled views from showing stale data
+            Picasso.get().cancelRequest(binding.imageView)
+            binding.imageView.setImageDrawable(null)
+            
+            // Load the new image if URL is available
+            image.url?.let { url ->
+                Picasso.get().load(url).into(binding.imageView)
             }
         }
 
