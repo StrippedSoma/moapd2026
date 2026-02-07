@@ -56,11 +56,13 @@ class ImagesAdapter(
          * @param image The current `Image` instance.
          */
         fun bind(image: Image) {
-            // Use Picasso to load the image, with null placeholder to clear recycled views
-            Picasso.get()
-                .load(image.url)
-                .placeholder(android.R.color.transparent)
-                .into(binding.imageView)
+            if (image.url != null) {
+                Picasso.get().load(image.url).into(binding.imageView)
+            } else {
+                // Clear any previously loaded image to prevent recycled views from showing stale data
+                Picasso.get().cancelRequest(binding.imageView)
+                binding.imageView.setImageDrawable(null)
+            }
         }
 
     }
