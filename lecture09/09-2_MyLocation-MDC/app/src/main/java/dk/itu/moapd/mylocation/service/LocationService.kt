@@ -142,6 +142,24 @@ class LocationService : Service() {
     }
 
     /**
+     * Called by the system every time a client explicitly starts the service by calling
+     * `startService(Intent)`, providing the arguments it supplied and a unique integer token
+     * representing the start request.
+     *
+     * @param intent The Intent supplied to `startService(Intent)`, as given. This may be null if
+     *      the service is being restarted after its process has gone away.
+     * @param flags Additional data about this start request.
+     * @param startId A unique integer representing this specific request to start.
+     *
+     * @return The return value indicates what semantics the system should use for the service's
+     *      current started state.
+     */
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        startForeground(NOTIFICATION_ID, createNotification())
+        return START_NOT_STICKY
+    }
+
+    /**
      * Return the communication channel to the service. May return `null` if clients can not bind to
      * the service. The returned `IBinder` is usually for a complex interface that has been
      * described using aidl.
@@ -183,11 +201,16 @@ class LocationService : Service() {
      */
     private fun createNotification(): Notification {
         val notificationIntent = Intent(this, MainActivity::class.java)
+        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_IMMUTABLE
+        } else {
+            0
+        }
         val pendingIntent = PendingIntent.getActivity(
             this,
             0,
             notificationIntent,
-            PendingIntent.FLAG_IMMUTABLE
+            flags
         )
 
         return NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
@@ -201,8 +224,6 @@ class LocationService : Service() {
 
     fun subscribeToLocationUpdates() {
         LocationTrackingPreferences.setTrackingEnabled(this, true)
-
-        startForeground(NOTIFICATION_ID, createNotification())
 
         val locationRequest = LocationRequest
             .Builder(Priority.PRIORITY_HIGH_ACCURACY, LOCATION_UPDATE_INTERVAL_MS)
