@@ -30,9 +30,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.IBinder
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -45,10 +43,9 @@ import dk.itu.moapd.mylocation.ui.utils.viewBinding
 import kotlinx.coroutines.launch
 import java.util.Locale
 
-/**
- * Main screen showing the last known location from [LocationService].
- */
-class MainFragment : Fragment(R.layout.fragment_main), SharedPreferences.OnSharedPreferenceChangeListener {
+class MainFragment : Fragment(
+    R.layout.fragment_main
+), SharedPreferences.OnSharedPreferenceChangeListener {
     /**
      * A set of private constants used in this class.
      */
@@ -88,6 +85,12 @@ class MainFragment : Fragment(R.layout.fragment_main), SharedPreferences.OnShare
     private var locationServiceBound: Boolean = false
 
     /**
+     * When a start-tracking request happens but the service is not yet bound, this flag marks a
+     * pending request. Once the service bind completes we will subscribe to updates.
+     */
+    private var pendingStartTracking: Boolean = false
+
+    /**
      * Defines callbacks for service binding, passed to `bindService()`.
      */
     private val serviceConnection = object : ServiceConnection {
@@ -108,9 +111,15 @@ class MainFragment : Fragment(R.layout.fragment_main), SharedPreferences.OnShare
             val binder = service as LocationService.LocalBinder
             locationService = binder.service
             locationServiceBound = true
-            locationService?.let { service ->
+
+            if (pendingStartTracking) {
+                locationService?.subscribeToLocationUpdates()
+                pendingStartTracking = false
+            }
+
+            locationService?.let { svc ->
                 viewLifecycleOwner.lifecycleScope.launch {
-                    service.locationUpdates.collect(::updateLocationDetails)
+                    svc.locationUpdates.collect(::updateLocationDetails)
                 }
             }
         }
@@ -146,9 +155,24 @@ class MainFragment : Fragment(R.layout.fragment_main), SharedPreferences.OnShare
             if (LocationTrackingPreferences.isTrackingEnabled(requireContext())) {
                 resetLocationDetails()
                 locationService?.unsubscribeToLocationUpdates()
+                pendingStartTracking = false
+                requireActivity().stopService(
+                    Intent(
+                        requireContext(), LocationService::class.java
+                    )
+                )
             } else {
                 if (hasLocationPermission()) {
-                    locationService?.subscribeToLocationUpdates()
+                    pendingStartTracking = true
+                    requireActivity().startService(
+                        Intent(
+                            requireContext(), LocationService::class.java
+                        )
+                    )
+                    if (locationServiceBound) {
+                        locationService?.subscribeToLocationUpdates()
+                        pendingStartTracking = false
+                    }
                 } else {
                     requestLocationPermission()
                 }
@@ -163,11 +187,31 @@ class MainFragment : Fragment(R.layout.fragment_main), SharedPreferences.OnShare
     override fun onStart() {
         super.onStart()
 
-        updateButtonState(LocationTrackingPreferences.isTrackingEnabled(requireContext()))
+        updateButtonState(
+            LocationTrackingPreferences.isTrackingEnabled(requireContext())
+        )
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
 
         val serviceIntent = Intent(requireContext(), LocationService::class.java)
-        requireActivity().bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE)
+        requireActivity().bindService(
+            serviceIntent,
+            serviceConnection,
+            Context.BIND_AUTO_CREATE
+        )
+
+        val alreadyEnabled = LocationTrackingPreferences.isTrackingEnabled(requireContext())
+        if (alreadyEnabled) {
+            pendingStartTracking = true
+            requireActivity().startService(
+                Intent(
+                    requireContext(), LocationService::class.java
+                )
+            )
+            if (locationServiceBound) {
+                locationService?.subscribeToLocationUpdates()
+                pendingStartTracking = false
+            }
+        }
     }
 
     /**
@@ -196,7 +240,9 @@ class MainFragment : Fragment(R.layout.fragment_main), SharedPreferences.OnShare
      */
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         if (key == LocationTrackingPreferences.KEY_TRACKING_ENABLED) {
-            updateButtonState(LocationTrackingPreferences.isTrackingEnabled(requireContext()))
+            updateButtonState(
+                LocationTrackingPreferences.isTrackingEnabled(requireContext())
+            )
         }
     }
 
@@ -243,11 +289,21 @@ class MainFragment : Fragment(R.layout.fragment_main), SharedPreferences.OnShare
      */
     private fun updateLocationDetails(location: Location) {
         with(binding) {
-            editTextLatitude.setText(String.format(Locale.getDefault(), "%.6f", location.latitude))
-            editTextLongitude.setText(String.format(Locale.getDefault(), "%.6f", location.longitude))
-            editTextAltitude.setText(String.format(Locale.getDefault(), "%.6f", location.altitude))
-            editTextSpeed.setText(getString(R.string.text_speed_km, location.speed.toInt()))
-            editTextTime.setText(location.time.toSimpleDateTimeString())
+            editTextLatitude.setText(
+                String.format(Locale.getDefault(), "%.6f", location.latitude)
+            )
+            editTextLongitude.setText(
+                String.format(Locale.getDefault(), "%.6f", location.longitude)
+            )
+            editTextAltitude.setText(
+                String.format(Locale.getDefault(), "%.6f", location.altitude)
+            )
+            editTextSpeed.setText(
+                getString(R.string.text_speed_km, location.speed.toInt())
+            )
+            editTextTime.setText(
+                location.time.toSimpleDateTimeString()
+            )
         }
     }
 
