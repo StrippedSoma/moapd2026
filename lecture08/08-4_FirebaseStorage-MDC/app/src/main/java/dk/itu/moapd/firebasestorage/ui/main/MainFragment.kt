@@ -20,7 +20,6 @@
  */
 package dk.itu.moapd.firebasestorage.ui.main
 
-import dk.itu.moapd.firebasestorage.R
 import android.content.res.Configuration
 import android.graphics.Rect
 import android.os.Bundle
@@ -31,16 +30,17 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import dk.itu.moapd.firebasestorage.R
 import dk.itu.moapd.firebasestorage.core.tag
+import dk.itu.moapd.firebasestorage.data.repository.ImageRepository
 import dk.itu.moapd.firebasestorage.databinding.FragmentMainBinding
 import dk.itu.moapd.firebasestorage.domain.model.Image
-import dk.itu.moapd.firebasestorage.ui.list.ImagesAdapter
-import dk.itu.moapd.firebasestorage.ui.list.ImageItemListener
 import dk.itu.moapd.firebasestorage.ui.dialogs.DeleteImageDialogFragment
+import dk.itu.moapd.firebasestorage.ui.list.ImageItemListener
+import dk.itu.moapd.firebasestorage.ui.list.ImagesAdapter
 import dk.itu.moapd.firebasestorage.ui.utils.viewBinding
-import dk.itu.moapd.firebasestorage.data.repository.ImageRepository
-import com.google.android.material.snackbar.Snackbar
 
 /**
  * Fragment that lists the user's uploaded images.
