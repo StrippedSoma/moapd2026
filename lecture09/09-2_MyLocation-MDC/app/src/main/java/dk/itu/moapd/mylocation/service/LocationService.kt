@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2026 Fabricio Batista Narcizo 
+ * Copyright (c) 2026 Fabricio Batista Narcizo
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -48,19 +48,19 @@ class LocationService : Service() {
          * The interval for active location updates. Updates may be less frequent than this interval
          * if the app is not in the foreground.
          */
-        private const val LOCATION_UPDATE_INTERVAL_MS = 60L
+        private const val LOCATION_UPDATE_INTERVAL_MS = 60_000L
 
         /**
          * The fastest rate for active location updates. Updates will never be more frequent
          * than this value.
          */
-        private const val MIN_UPDATE_INTERVAL_MS = 30L
+        private const val MIN_UPDATE_INTERVAL_MS = 30_000L
 
         /**
          * The maximum time when batched location updates are delivered. Updates may be
          * delivered sooner than this interval.
          */
-        private const val MAX_UPDATE_DELAY_MS = 2L
+        private const val MAX_UPDATE_DELAY_MS = 2_000L
     }
 
     /**
