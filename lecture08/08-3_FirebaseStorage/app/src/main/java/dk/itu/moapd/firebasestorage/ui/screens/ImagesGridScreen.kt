@@ -169,17 +169,23 @@ fun ImagesGridScreen(
                     val path = target.image.path ?: return@DeleteImageDialog
                     isDeleting = true
 
-                    imageRepository.deleteImage(target.key, path)
-                        ?.addOnSuccessListener {
-                            isDeleting = false
-                            deleteTarget = null
-                            scope.launch { snackbarHostState.showSnackbar(messageDeleted) }
-                        }
-                        ?.addOnFailureListener {
-                            isDeleting = false
-                            deleteTarget = null
-                            scope.launch { snackbarHostState.showSnackbar(messageErrorDelete) }
-                        }
+                    val deleteTask = imageRepository.deleteImage(target.key, path)
+                    if (deleteTask == null) {
+                        isDeleting = false
+                        scope.launch { snackbarHostState.showSnackbar(messageErrorDelete) }
+                    } else {
+                        deleteTask
+                            .addOnSuccessListener {
+                                isDeleting = false
+                                deleteTarget = null
+                                scope.launch { snackbarHostState.showSnackbar(messageDeleted) }
+                            }
+                            .addOnFailureListener {
+                                isDeleting = false
+                                deleteTarget = null
+                                scope.launch { snackbarHostState.showSnackbar(messageErrorDelete) }
+                            }
+                    }
                 },
                 onCancel = { deleteTarget = null },
             )
