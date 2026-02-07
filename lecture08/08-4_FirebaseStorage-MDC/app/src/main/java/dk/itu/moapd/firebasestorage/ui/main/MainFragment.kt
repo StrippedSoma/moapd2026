@@ -78,7 +78,7 @@ class MainFragment : Fragment(R.layout.fragment_main), ImageItemListener {
         super.onViewCreated(view, savedInstanceState)
 
         // Set up the FragmentResultListener to handle delete results
-        requireActivity().supportFragmentManager.setFragmentResultListener(
+        parentFragmentManager.setFragmentResultListener(
             DeleteImageDialogFragment.REQUEST_KEY,
             viewLifecycleOwner
         ) { _, bundle ->
@@ -173,6 +173,6 @@ class MainFragment : Fragment(R.layout.fragment_main), ImageItemListener {
 
         DeleteImageDialogFragment.createInstance(key = key, path = path).apply {
             isCancelable = false
-        }.show(requireActivity().supportFragmentManager, tag())
+        }.show(parentFragmentManager, tag())
     }
 }
