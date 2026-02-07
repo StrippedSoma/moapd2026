@@ -20,7 +20,6 @@
  */
 package dk.itu.moapd.firebasestorage.ui.main
 
-import dk.itu.moapd.firebasestorage.R
 import android.content.res.Configuration
 import android.graphics.Rect
 import android.os.Bundle
@@ -31,15 +30,17 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import dk.itu.moapd.firebasestorage.R
 import dk.itu.moapd.firebasestorage.core.tag
+import dk.itu.moapd.firebasestorage.data.repository.ImageRepository
 import dk.itu.moapd.firebasestorage.databinding.FragmentMainBinding
 import dk.itu.moapd.firebasestorage.domain.model.Image
-import dk.itu.moapd.firebasestorage.ui.list.ImagesAdapter
-import dk.itu.moapd.firebasestorage.ui.list.ImageItemListener
 import dk.itu.moapd.firebasestorage.ui.dialogs.DeleteImageDialogFragment
+import dk.itu.moapd.firebasestorage.ui.list.ImageItemListener
+import dk.itu.moapd.firebasestorage.ui.list.ImagesAdapter
 import dk.itu.moapd.firebasestorage.ui.utils.viewBinding
-import dk.itu.moapd.firebasestorage.data.repository.ImageRepository
 
 /**
  * Fragment that lists the user's uploaded images.
@@ -75,6 +76,19 @@ class MainFragment : Fragment(R.layout.fragment_main), ImageItemListener {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Set up the FragmentResultListener to handle delete results
+        parentFragmentManager.setFragmentResultListener(
+            DeleteImageDialogFragment.REQUEST_KEY,
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val success = bundle.getBoolean(DeleteImageDialogFragment.RESULT_SUCCESS, false)
+            if (success) {
+                Snackbar.make(binding.root, R.string.message_image_deleted, Snackbar.LENGTH_SHORT).show()
+            } else {
+                Snackbar.make(binding.root, R.string.error_delete_image, Snackbar.LENGTH_LONG).show()
+            }
+        }
 
         // Initialize repository and build a query for the current user.
         val repo = ImageRepository()
@@ -159,6 +173,6 @@ class MainFragment : Fragment(R.layout.fragment_main), ImageItemListener {
 
         DeleteImageDialogFragment.createInstance(key = key, path = path).apply {
             isCancelable = false
-        }.show(requireActivity().supportFragmentManager, tag())
+        }.show(parentFragmentManager, tag())
     }
 }
