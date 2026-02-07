@@ -28,10 +28,12 @@ import android.content.ServiceConnection
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.view.View
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import dk.itu.moapd.mylocation.R
@@ -164,11 +166,12 @@ class MainFragment : Fragment(
             } else {
                 if (hasLocationPermission()) {
                     pendingStartTracking = true
-                    requireActivity().startService(
-                        Intent(
-                            requireContext(), LocationService::class.java
-                        )
-                    )
+                    val serviceIntent = Intent(requireContext(), LocationService::class.java)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        ContextCompat.startForegroundService(requireActivity(), serviceIntent)
+                    } else {
+                        requireActivity().startService(serviceIntent)
+                    }
                     if (locationServiceBound) {
                         locationService?.subscribeToLocationUpdates()
                         pendingStartTracking = false
@@ -202,11 +205,12 @@ class MainFragment : Fragment(
         val alreadyEnabled = LocationTrackingPreferences.isTrackingEnabled(requireContext())
         if (alreadyEnabled) {
             pendingStartTracking = true
-            requireActivity().startService(
-                Intent(
-                    requireContext(), LocationService::class.java
-                )
-            )
+            val serviceIntent = Intent(requireContext(), LocationService::class.java)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                ContextCompat.startForegroundService(requireActivity(), serviceIntent)
+            } else {
+                requireActivity().startService(serviceIntent)
+            }
             if (locationServiceBound) {
                 locationService?.subscribeToLocationUpdates()
                 pendingStartTracking = false
