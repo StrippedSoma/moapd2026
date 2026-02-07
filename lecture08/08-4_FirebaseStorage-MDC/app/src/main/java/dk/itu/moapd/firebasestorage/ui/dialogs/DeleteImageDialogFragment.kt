@@ -119,12 +119,16 @@ class DeleteImageDialogFragment : DialogFragment() {
         val repo = ImageRepository()
         repo.deleteImage(key, path)
             ?.addOnSuccessListener {
-                // Notify the host fragment of success via FragmentResult
-                setFragmentResult(REQUEST_KEY, bundleOf(RESULT_SUCCESS to true))
+                if (isAdded) {
+                    // Notify the host fragment of success via FragmentResult
+                    setFragmentResult(REQUEST_KEY, bundleOf(RESULT_SUCCESS to true))
+                }
             }
             ?.addOnFailureListener { _ ->
-                // Notify the host fragment of failure via FragmentResult
-                setFragmentResult(REQUEST_KEY, bundleOf(RESULT_SUCCESS to false))
+                if (isAdded) {
+                    // Notify the host fragment of failure via FragmentResult
+                    setFragmentResult(REQUEST_KEY, bundleOf(RESULT_SUCCESS to false))
+                }
             }
     }
 }
