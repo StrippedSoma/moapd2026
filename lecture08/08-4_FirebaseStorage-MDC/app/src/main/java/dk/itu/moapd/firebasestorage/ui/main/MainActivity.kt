@@ -295,6 +295,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
+     * Shows an error message using a Snackbar.
+     *
+     * @param messageResId The resource ID of the error message to display.
+     */
+    private fun showErrorSnackbar(messageResId: Int) {
+        Snackbar.make(binding.root, getString(messageResId), Snackbar.LENGTH_LONG).show()
+    }
+
+    /**
      * This method uploads the original and the thumbnail images to the Firebase Storage, and
      * creates a reference of uploaded images in the database.
      *
@@ -309,22 +318,19 @@ class MainActivity : AppCompatActivity() {
                     val saveTask = imageRepo.saveImage(downloadUri.toString(), remotePath)
                     if (saveTask == null) {
                         visibility = View.GONE
-                        val sb = Snackbar.make(binding.root, getString(R.string.error_save_image_database), Snackbar.LENGTH_LONG)
-                        sb.show()
+                        showErrorSnackbar(R.string.error_save_image_database)
                     } else {
                         saveTask
                             .addOnCompleteListener { visibility = View.GONE }
                             .addOnFailureListener { _ ->
                                 visibility = View.GONE
-                                val sb = Snackbar.make(binding.root, getString(R.string.error_save_image_database), Snackbar.LENGTH_LONG)
-                                sb.show()
+                                showErrorSnackbar(R.string.error_save_image_database)
                             }
                     }
                 }
                 .addOnFailureListener { _ ->
                     visibility = View.GONE
-                    val sb = Snackbar.make(binding.root, getString(R.string.error_upload_image), Snackbar.LENGTH_LONG)
-                    sb.show()
+                    showErrorSnackbar(R.string.error_upload_image)
                 }
         }
     }
