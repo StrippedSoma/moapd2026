@@ -202,9 +202,9 @@ class LocationService : Service() {
     private fun createNotification(): Notification {
         val notificationIntent = Intent(this, MainActivity::class.java)
         val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         } else {
-            0
+            PendingIntent.FLAG_UPDATE_CURRENT
         }
         val pendingIntent = PendingIntent.getActivity(
             this,
@@ -222,6 +222,9 @@ class LocationService : Service() {
             .build()
     }
 
+    /**
+     * Subscribes this application to get the location changes via the `locationCallback()`.
+     */
     fun subscribeToLocationUpdates() {
         LocationTrackingPreferences.setTrackingEnabled(this, true)
 
