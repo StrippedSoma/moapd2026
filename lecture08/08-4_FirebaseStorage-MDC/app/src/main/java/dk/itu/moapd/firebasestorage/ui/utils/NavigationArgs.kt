@@ -18,20 +18,14 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.realtimedatabase.ui.common
-
-import android.view.View
-import com.google.android.material.snackbar.Snackbar
+package dk.itu.moapd.firebasestorage.ui.utils
 
 /**
- * Shows a short [Snackbar] anchored to this [View].
- *
- * @param message The text to show.
- * @param duration The duration of the [Snackbar].
+ * Centralized navigation argument keys to ensure consistency across fragments.
  */
-fun View.showSnackBar(
-    message: CharSequence,
-    duration: Int = Snackbar.LENGTH_SHORT
-) {
-    Snackbar.make(this, message, duration).show()
+object NavigationArgs {
+    /**
+     * Argument key for passing image data between fragments.
+     */
+    const val ARG_IMAGE = "ARG_IMAGE"
 }

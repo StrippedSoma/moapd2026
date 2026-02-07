@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>MagicNumber:MainFragment.kt:MainFragment$4</ID>
+    <ID>MaxLineLength:MainActivity.kt:MainActivity$val sb = Snackbar.make(binding.root, getString(R.string.error_save_image_database), Snackbar.LENGTH_LONG)</ID>
+    <ID>NewLineAtEndOfFile:ImagesAdapter.kt:dk.itu.moapd.firebasestorage.ui.list.ImagesAdapter.kt</ID>
+    <ID>NewLineAtEndOfFile:LoginActivity.kt:dk.itu.moapd.firebasestorage.ui.auth.LoginActivity.kt</ID>
+    <ID>ReturnCount:ImageRepository.kt:ImageRepository$fun saveImage: Task&lt;Void&gt;?</ID>
+    <ID>ReturnCount:MainFragment.kt:MainFragment$override fun onItemLongClickListener</ID>
+  </CurrentIssues>
+</SmellBaseline>

@@ -18,20 +18,22 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.realtimedatabase.ui.common
+package dk.itu.moapd.firebasestorage.domain.model
 
-import android.view.View
-import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.IgnoreExtraProperties
 
 /**
- * Shows a short [Snackbar] anchored to this [View].
+ * Model stored in Firebase Realtime Database.
  *
- * @param message The text to show.
- * @param duration The duration of the [Snackbar].
+ * Firebase deserialization requires a no-arg constructor; default values provide that.
+ *
+ * @property url The URL of the image.
+ * @property path The path of the image.
+ * @property createdAt The timestamp when the image was created.
  */
-fun View.showSnackBar(
-    message: CharSequence,
-    duration: Int = Snackbar.LENGTH_SHORT
-) {
-    Snackbar.make(this, message, duration).show()
-}
+@IgnoreExtraProperties
+data class Image(
+    val url: String? = null,
+    val path: String? = null,
+    val createdAt: Long? = null
+)

@@ -18,20 +18,35 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.realtimedatabase.ui.common
+package dk.itu.moapd.firebasestorage.core
 
-import android.view.View
-import com.google.android.material.snackbar.Snackbar
+import io.github.cdimascio.dotenv.dotenv
 
 /**
- * Shows a short [Snackbar] anchored to this [View].
- *
- * @param message The text to show.
- * @param duration The duration of the [Snackbar].
+ * Centralized access to Firebase configuration values loaded from `/app/src/main/assets/env`.
  */
-fun View.showSnackBar(
-    message: CharSequence,
-    duration: Int = Snackbar.LENGTH_SHORT
-) {
-    Snackbar.make(this, message, duration).show()
+object FirebaseConfig {
+
+    private val env = dotenv {
+        directory = "/assets"
+        filename = "env"
+    }
+
+    /**
+     * Firebase Realtime Database URL.
+     *
+     * IMPORTANT: This is sensitive information and should not be hardcoded.
+     * Create an `env` file in `/app/src/main/assets` with:
+     * DATABASE_URL=https://xxxxxxxxxx-default-rtdb.europe-west1.firebasedatabase.app
+     */
+    val DATABASE_URL: String = env["DATABASE_URL"]
+
+    /**
+     * Firebase Cloud Storage bucket URL.
+     *
+     * IMPORTANT: This is sensitive information and should not be hardcoded.
+     * Create an `env` file in `/app/src/main/assets` with:
+     * BUCKET_URL=gs://xxxxxxxxxx.firebasestorage.app
+     */
+    val BUCKET_URL: String = env["BUCKET_URL"]
 }
