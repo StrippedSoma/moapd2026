@@ -275,20 +275,34 @@ private fun DeleteImageDialog(
  * @param contentDescription The content description of the image.
  * @param modifier The modifier to be applied to the image.
  */
+private val downloadUrlCache = mutableMapOf<String, String>()
+
 @Composable
 private fun FirebaseStorageImage(
     path: String,
     contentDescription: String,
     modifier: Modifier = Modifier,
 ) {
-    var url by remember(path) { mutableStateOf<String?>(null) }
+    var url by remember(path) { mutableStateOf<String?>(downloadUrlCache[path]) }
 
     LaunchedEffect(path) {
-        url = null
+        // If we already have a cached URL for this path, reuse it and skip the network call.
+        val cached = downloadUrlCache[path]
+        if (cached != null) {
+            url = cached
+            return@LaunchedEffect
+        }
+
         val ref = Firebase.storage(BUCKET_URL).reference.child(path)
         ref.downloadUrl
-            .addOnSuccessListener { downloadUrl -> url = downloadUrl.toString() }
-            .addOnFailureListener { url = null }
+            .addOnSuccessListener { downloadUrl ->
+                val resolvedUrl = downloadUrl.toString()
+                downloadUrlCache[path] = resolvedUrl
+                url = resolvedUrl
+            }
+            .addOnFailureListener {
+                url = null
+            }
     }
 
     AsyncImage(
