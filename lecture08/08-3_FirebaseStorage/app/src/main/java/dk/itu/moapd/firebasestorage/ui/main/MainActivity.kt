@@ -199,16 +199,25 @@ class MainActivity : ComponentActivity() {
 
         storageRepo.uploadFile(uri, remotePath)
             .addOnSuccessListener { downloadUri ->
-                imageRepo.saveImage(downloadUri.toString(), remotePath)
-                    ?.addOnCompleteListener { isUploadingSetter(false) }
-                    ?.addOnFailureListener {
-                        isUploadingSetter(false)
-                        scope.launch {
-                            snackbarHostState.showSnackbar(
-                                message = getString(R.string.error_save_image_database)
-                            )
-                        }
+                val saveTask = imageRepo.saveImage(downloadUri.toString(), remotePath)
+                if (saveTask == null) {
+                    isUploadingSetter(false)
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            message = getString(R.string.error_save_image_database)
+                        )
                     }
+                } else {
+                    saveTask
+                        .addOnCompleteListener { isUploadingSetter(false) }
+                        .addOnFailureListener {
+                            scope.launch {
+                                snackbarHostState.showSnackbar(
+                                    message = getString(R.string.error_save_image_database)
+                                )
+                            }
+                        }
+                }
             }
             .addOnFailureListener {
                 isUploadingSetter(false)
