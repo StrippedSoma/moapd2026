@@ -23,9 +23,10 @@ package dk.itu.moapd.firebasestorage.ui.dialogs
 import dk.itu.moapd.firebasestorage.R
 import android.app.Dialog
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.setFragmentResult
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import dk.itu.moapd.firebasestorage.data.repository.ImageRepository
 
 /**
@@ -46,6 +47,16 @@ class DeleteImageDialogFragment : DialogFragment() {
          * The argument key for the image path.
          */
         private const val ARG_IMAGE_PATH = "arg_image_path"
+
+        /**
+         * The request key for delete result.
+         */
+        const val REQUEST_KEY = "delete_image_request"
+
+        /**
+         * The bundle key for delete result status.
+         */
+        const val RESULT_SUCCESS = "result_success"
 
         /**
          * Creates an instance of the [DeleteImageDialogFragment] with the provided image key and
@@ -108,11 +119,12 @@ class DeleteImageDialogFragment : DialogFragment() {
         val repo = ImageRepository()
         repo.deleteImage(key, path)
             ?.addOnSuccessListener {
-                // Show confirmation
-                view?.let { v -> Snackbar.make(v, R.string.message_image_deleted, Snackbar.LENGTH_SHORT).show() }
+                // Notify the host fragment of success via FragmentResult
+                setFragmentResult(REQUEST_KEY, bundleOf(RESULT_SUCCESS to true))
             }
             ?.addOnFailureListener { _ ->
-                view?.let { v -> Snackbar.make(v, R.string.error_delete_image, Snackbar.LENGTH_LONG).show() }
+                // Notify the host fragment of failure via FragmentResult
+                setFragmentResult(REQUEST_KEY, bundleOf(RESULT_SUCCESS to false))
             }
     }
 }

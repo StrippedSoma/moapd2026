@@ -40,6 +40,7 @@ import dk.itu.moapd.firebasestorage.ui.list.ImageItemListener
 import dk.itu.moapd.firebasestorage.ui.dialogs.DeleteImageDialogFragment
 import dk.itu.moapd.firebasestorage.ui.utils.viewBinding
 import dk.itu.moapd.firebasestorage.data.repository.ImageRepository
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * Fragment that lists the user's uploaded images.
@@ -75,6 +76,19 @@ class MainFragment : Fragment(R.layout.fragment_main), ImageItemListener {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Set up the FragmentResultListener to handle delete results
+        requireActivity().supportFragmentManager.setFragmentResultListener(
+            DeleteImageDialogFragment.REQUEST_KEY,
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val success = bundle.getBoolean(DeleteImageDialogFragment.RESULT_SUCCESS, false)
+            if (success) {
+                Snackbar.make(binding.root, R.string.message_image_deleted, Snackbar.LENGTH_SHORT).show()
+            } else {
+                Snackbar.make(binding.root, R.string.error_delete_image, Snackbar.LENGTH_LONG).show()
+            }
+        }
 
         // Initialize repository and build a query for the current user.
         val repo = ImageRepository()
