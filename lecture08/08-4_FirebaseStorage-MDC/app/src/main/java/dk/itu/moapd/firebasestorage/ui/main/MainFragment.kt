@@ -40,21 +40,13 @@ import dk.itu.moapd.firebasestorage.domain.model.Image
 import dk.itu.moapd.firebasestorage.ui.dialogs.DeleteImageDialogFragment
 import dk.itu.moapd.firebasestorage.ui.list.ImageItemListener
 import dk.itu.moapd.firebasestorage.ui.list.ImagesAdapter
+import dk.itu.moapd.firebasestorage.ui.utils.NavigationArgs
 import dk.itu.moapd.firebasestorage.ui.utils.viewBinding
 
 /**
  * Fragment that lists the user's uploaded images.
  */
 class MainFragment : Fragment(R.layout.fragment_main), ImageItemListener {
-    /**
-     * A set of private constants used in this class.
-     */
-    companion object {
-        /**
-         * The argument key for the image.
-         */
-        private const val ARG_IMAGE = "ARG_IMAGE"
-    }
 
     /**
      * View binding is a feature that allows you to more easily write code that interacts with
@@ -151,7 +143,7 @@ class MainFragment : Fragment(R.layout.fragment_main), ImageItemListener {
      */
     override fun onItemClickListener(image: Image) {
         val json = Gson().toJson(image)
-        val bundle = bundleOf(ARG_IMAGE to json)
+        val bundle = bundleOf(NavigationArgs.ARG_IMAGE to json)
 
         requireActivity().findNavController(R.id.fragment_container_view).navigate(
             R.id.action_main_to_image,

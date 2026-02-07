@@ -31,6 +31,7 @@ import com.squareup.picasso.Picasso
 import dk.itu.moapd.firebasestorage.core.FirebaseConfig.BUCKET_URL
 import dk.itu.moapd.firebasestorage.databinding.FragmentImageBinding
 import dk.itu.moapd.firebasestorage.domain.model.Image
+import dk.itu.moapd.firebasestorage.ui.utils.NavigationArgs
 import dk.itu.moapd.firebasestorage.ui.utils.viewBinding
 
 /**
@@ -68,7 +69,7 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
      * loads and displays the image using the provided path.
      */
     private fun displaySelectedImage() {
-        arguments?.getString("ARG_IMAGE")?.let { json ->
+        arguments?.getString(NavigationArgs.ARG_IMAGE)?.let { json ->
             Gson().fromJson(json, Image::class.java).path?.also { imagePath ->
                 loadImage(imagePath)
             }
