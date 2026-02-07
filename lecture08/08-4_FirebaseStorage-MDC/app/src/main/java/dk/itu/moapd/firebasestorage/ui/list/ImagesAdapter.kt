@@ -26,10 +26,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.Firebase
-import com.google.firebase.storage.storage
 import com.squareup.picasso.Picasso
-import dk.itu.moapd.firebasestorage.core.FirebaseConfig.BUCKET_URL
 import dk.itu.moapd.firebasestorage.core.tag
 import dk.itu.moapd.firebasestorage.databinding.RowItemBinding
 import dk.itu.moapd.firebasestorage.domain.model.Image
@@ -59,11 +56,8 @@ class ImagesAdapter(
          * @param image The current `Image` instance.
          */
         fun bind(image: Image) {
-            image.path?.let { imagePath ->
-                Firebase.storage(BUCKET_URL).reference
-                    .child(imagePath).downloadUrl.addOnSuccessListener { url ->
-                        Picasso.get().load(url).into(binding.imageView)
-                    }
+            image.url?.let { url ->
+                Picasso.get().load(url).into(binding.imageView)
             }
         }
 
