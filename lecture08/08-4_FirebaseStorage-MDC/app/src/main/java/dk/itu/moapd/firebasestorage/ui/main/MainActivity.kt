@@ -306,13 +306,20 @@ class MainActivity : AppCompatActivity() {
             visibility = View.VISIBLE
             storageRepo.uploadFile(uri, remotePath)
                 .addOnSuccessListener { downloadUri ->
-                    imageRepo.saveImage(downloadUri.toString(), remotePath)
-                        ?.addOnCompleteListener { visibility = View.GONE }
-                        ?.addOnFailureListener { _ ->
-                            visibility = View.GONE
-                            val sb = Snackbar.make(binding.root, getString(R.string.error_save_image_database), Snackbar.LENGTH_LONG)
-                            sb.show()
-                        }
+                    val saveTask = imageRepo.saveImage(downloadUri.toString(), remotePath)
+                    if (saveTask == null) {
+                        visibility = View.GONE
+                        val sb = Snackbar.make(binding.root, getString(R.string.error_save_image_database), Snackbar.LENGTH_LONG)
+                        sb.show()
+                    } else {
+                        saveTask
+                            .addOnCompleteListener { visibility = View.GONE }
+                            .addOnFailureListener { _ ->
+                                visibility = View.GONE
+                                val sb = Snackbar.make(binding.root, getString(R.string.error_save_image_database), Snackbar.LENGTH_LONG)
+                                sb.show()
+                            }
+                    }
                 }
                 .addOnFailureListener { _ ->
                     visibility = View.GONE
