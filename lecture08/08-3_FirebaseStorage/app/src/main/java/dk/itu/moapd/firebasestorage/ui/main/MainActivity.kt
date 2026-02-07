@@ -211,7 +211,6 @@ class MainActivity : ComponentActivity() {
                     saveTask
                         .addOnCompleteListener { isUploadingSetter(false) }
                         .addOnFailureListener {
-                            isUploadingSetter(false)
                             scope.launch {
                                 snackbarHostState.showSnackbar(
                                     message = getString(R.string.error_save_image_database)
