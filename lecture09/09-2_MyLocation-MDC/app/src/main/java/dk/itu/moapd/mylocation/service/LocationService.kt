@@ -66,19 +66,19 @@ class LocationService : Service() {
          * The interval for active location updates. Updates may be less frequent than this interval
          * if the app is not in the foreground.
          */
-        private const val LOCATION_UPDATE_INTERVAL_MS = 60_000L
+        private const val LOCATION_UPDATE_INTERVAL_MS = 60L
 
         /**
          * The fastest rate for active location updates. Updates will never be more frequent
          * than this value.
          */
-        private const val MIN_UPDATE_INTERVAL_MS = 30_000L
+        private const val MIN_UPDATE_INTERVAL_MS = 30L
 
         /**
          * The maximum time when batched location updates are delivered. Updates may be
          * delivered sooner than this interval.
          */
-        private const val MAX_UPDATE_DELAY_MS = 2_000L
+        private const val MAX_UPDATE_DELAY_MS = 2L
     }
 
     /**
@@ -246,7 +246,7 @@ class LocationService : Service() {
     }
 
     /**
-     * Subscribes this application to get the location changes via the `locationCallback()`.
+     * Unsubscribes this application from location changes.
      */
     fun unsubscribeToLocationUpdates() {
         try {
