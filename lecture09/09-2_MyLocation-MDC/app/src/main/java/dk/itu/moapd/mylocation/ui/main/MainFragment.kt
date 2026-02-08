@@ -32,10 +32,12 @@ import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import dk.itu.moapd.mylocation.R
 import dk.itu.moapd.mylocation.core.preferences.LocationTrackingPreferences
 import dk.itu.moapd.mylocation.core.time.toSimpleDateTimeString
@@ -48,15 +50,6 @@ import java.util.Locale
 class MainFragment : Fragment(
     R.layout.fragment_main
 ), SharedPreferences.OnSharedPreferenceChangeListener {
-    /**
-     * A set of private constants used in this class.
-     */
-    companion object {
-        /**
-         * The request code for location permission request.
-         */
-        private const val REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE = 34
-    }
 
     /**
      * View binding is a feature that allows you to more easily write code that interacts with
@@ -74,6 +67,24 @@ class MainFragment : Fragment(
             getString(R.string.preference_file_key),
             Context.MODE_PRIVATE,
         )
+    }
+
+    /**
+     * Activity Result API launcher for requesting location permission.
+     * When permission is granted, immediately starts location tracking.
+     */
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            startLocationTracking()
+        } else {
+            Snackbar.make(
+                binding.root,
+                R.string.permission_denied_message,
+                Snackbar.LENGTH_LONG
+            ).show()
+        }
     }
 
     /**
@@ -165,17 +176,7 @@ class MainFragment : Fragment(
                 )
             } else {
                 if (hasLocationPermission()) {
-                    pendingStartTracking = true
-                    val serviceIntent = Intent(requireContext(), LocationService::class.java)
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        ContextCompat.startForegroundService(requireActivity(), serviceIntent)
-                    } else {
-                        requireActivity().startService(serviceIntent)
-                    }
-                    if (locationServiceBound) {
-                        locationService?.subscribeToLocationUpdates()
-                        pendingStartTracking = false
-                    }
+                    startLocationTracking()
                 } else {
                     requestLocationPermission()
                 }
@@ -204,17 +205,7 @@ class MainFragment : Fragment(
 
         val alreadyEnabled = LocationTrackingPreferences.isTrackingEnabled(requireContext())
         if (alreadyEnabled) {
-            pendingStartTracking = true
-            val serviceIntent = Intent(requireContext(), LocationService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                ContextCompat.startForegroundService(requireActivity(), serviceIntent)
-            } else {
-                requireActivity().startService(serviceIntent)
-            }
-            if (locationServiceBound) {
-                locationService?.subscribeToLocationUpdates()
-                pendingStartTracking = false
-            }
+            startLocationTracking()
         }
     }
 
@@ -266,12 +257,23 @@ class MainFragment : Fragment(
      * Requests the app to grant permission to access the device location.
      */
     private fun requestLocationPermission() {
-        if (!hasLocationPermission()) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE,
-            )
+        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+    }
+
+    /**
+     * Starts the location tracking by starting the LocationService and subscribing to updates.
+     */
+    private fun startLocationTracking() {
+        pendingStartTracking = true
+        val serviceIntent = Intent(requireContext(), LocationService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ContextCompat.startForegroundService(requireActivity(), serviceIntent)
+        } else {
+            requireActivity().startService(serviceIntent)
+        }
+        if (locationServiceBound) {
+            locationService?.subscribeToLocationUpdates()
+            pendingStartTracking = false
         }
     }
 
