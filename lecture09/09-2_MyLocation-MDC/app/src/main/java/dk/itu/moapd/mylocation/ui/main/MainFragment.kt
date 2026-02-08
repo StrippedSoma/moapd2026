@@ -303,7 +303,7 @@ class MainFragment : Fragment(
                 String.format(Locale.getDefault(), "%.6f", location.altitude)
             )
             editTextSpeed.setText(
-                getString(R.string.text_speed_km, location.speed.toInt())
+                getString(R.string.text_speed_km, (location.speed * 3.6f).toInt())
             )
             editTextTime.setText(
                 location.time.toSimpleDateTimeString()
