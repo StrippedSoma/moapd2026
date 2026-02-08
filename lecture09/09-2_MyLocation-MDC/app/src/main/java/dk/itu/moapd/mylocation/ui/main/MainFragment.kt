@@ -36,7 +36,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.snackbar.Snackbar
 import dk.itu.moapd.mylocation.R
 import dk.itu.moapd.mylocation.core.preferences.LocationTrackingPreferences
@@ -132,7 +134,9 @@ class MainFragment : Fragment(
 
             locationService?.let { svc ->
                 viewLifecycleOwner.lifecycleScope.launch {
-                    svc.locationUpdates.collect(::updateLocationDetails)
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        svc.locationUpdates.collect(::updateLocationDetails)
+                    }
                 }
             }
         }
