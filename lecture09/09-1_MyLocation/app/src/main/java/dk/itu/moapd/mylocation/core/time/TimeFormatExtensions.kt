@@ -30,7 +30,7 @@ import java.util.Locale
  *
  * @return A readable date-time string.
  */
-fun Long.toSimpleDateTimeString(locale: Locale = Locale.US): String {
+fun Long.toSimpleDateTimeString(locale: Locale = Locale.getDefault()): String {
     val dateFormat = SimpleDateFormat("E, MMM dd yyyy hh:mm:ss a", locale)
     return dateFormat.format(this)
 }
