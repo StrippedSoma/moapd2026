@@ -14,4 +14,5 @@
     <string name="notification_channel_description">Notifications for location tracking service</string>
     <string name="notification_title">Tracking Location</string>
     <string name="notification_text">Location updates are active</string>
+    <string name="permission_denied_message">Location permission is required to track your location</string>
 </resources>

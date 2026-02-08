@@ -37,6 +37,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import dk.itu.moapd.mylocation.R
 import dk.itu.moapd.mylocation.core.preferences.LocationTrackingPreferences
 import dk.itu.moapd.mylocation.core.time.toSimpleDateTimeString
@@ -77,6 +78,12 @@ class MainFragment : Fragment(
     ) { isGranted: Boolean ->
         if (isGranted) {
             startLocationTracking()
+        } else {
+            Snackbar.make(
+                binding.root,
+                R.string.permission_denied_message,
+                Snackbar.LENGTH_LONG
+            ).show()
         }
     }
 
