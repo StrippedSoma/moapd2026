@@ -24,10 +24,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import dk.itu.moapd.mylocation.R
 import dk.itu.moapd.mylocation.core.preferences.LocationTrackingPreferences
@@ -127,9 +129,10 @@ class MainActivity : ComponentActivity(), SharedPreferences.OnSharedPreferenceCh
                     sharedPreferences = sharedPreferences,
                     onStartTracking = {
                         pendingStartTracking = true
-                        startService(Intent(this, LocationService::class.java))
+                        startLocationService()
                         if (locationServiceBound) {
                             locationService?.subscribeToLocationUpdates()
+                            pendingStartTracking = false
                         }
                     },
                     onStopTracking = {
@@ -149,7 +152,7 @@ class MainActivity : ComponentActivity(), SharedPreferences.OnSharedPreferenceCh
         val alreadyEnabledOnCreate = LocationTrackingPreferences.isTrackingEnabled(this)
         if (alreadyEnabledOnCreate) {
             pendingStartTracking = true
-            startService(Intent(this, LocationService::class.java))
+            startLocationService()
         }
 
      }
@@ -181,7 +184,7 @@ class MainActivity : ComponentActivity(), SharedPreferences.OnSharedPreferenceCh
         val alreadyEnabled = LocationTrackingPreferences.isTrackingEnabled(this)
         if (alreadyEnabled) {
             pendingStartTracking = true
-            startService(Intent(this, LocationService::class.java))
+            startLocationService()
             if (locationServiceBound) {
                 locationService?.subscribeToLocationUpdates()
                 pendingStartTracking = false
@@ -229,6 +232,19 @@ class MainActivity : ComponentActivity(), SharedPreferences.OnSharedPreferenceCh
             } else {
                 startCollectingIfReady()
             }
+        }
+    }
+
+    /**
+     * Starts the LocationService as a foreground service.
+     * Uses startForegroundService() on Android O+ and startService() on older versions.
+     */
+    private fun startLocationService() {
+        val serviceIntent = Intent(this, LocationService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ContextCompat.startForegroundService(this, serviceIntent)
+        } else {
+            startService(serviceIntent)
         }
     }
 

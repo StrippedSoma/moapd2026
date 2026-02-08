@@ -20,19 +20,27 @@
  */
 package dk.itu.moapd.mylocation.service
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.location.Location
 import android.os.Binder
+import android.os.Build
 import android.os.IBinder
 import android.os.Looper
+import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import dk.itu.moapd.mylocation.R
 import dk.itu.moapd.mylocation.core.preferences.LocationTrackingPreferences
+import dk.itu.moapd.mylocation.ui.main.MainActivity
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 
@@ -44,6 +52,16 @@ class LocationService : Service() {
      * A set of private constants used in this class.
      */
     companion object {
+        /**
+         * The notification channel ID for the foreground service.
+         */
+        private const val NOTIFICATION_CHANNEL_ID = "location_tracking_channel"
+
+        /**
+         * The notification ID for the foreground service.
+         */
+        private const val NOTIFICATION_ID = 1
+
         /**
          * The interval for active location updates. Updates may be less frequent than this interval
          * if the app is not in the foreground.
@@ -103,7 +121,10 @@ class LocationService : Service() {
     override fun onCreate() {
         super.onCreate()
 
+        createNotificationChannel()
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
         locationCallback = object : LocationCallback() {
 
             /**
@@ -118,6 +139,24 @@ class LocationService : Service() {
                 }
             }
         }
+    }
+
+    /**
+     * Called by the system every time a client explicitly starts the service by calling
+     * `startService(Intent)`, providing the arguments it supplied and a unique integer token
+     * representing the start request.
+     *
+     * @param intent The Intent supplied to `startService(Intent)`, as given. This may be null if
+     *      the service is being restarted after its process has gone away.
+     * @param flags Additional data about this start request.
+     * @param startId A unique integer representing this specific request to start.
+     *
+     * @return The return value indicates what semantics the system should use for the service's
+     *      current started state.
+     */
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        startForeground(NOTIFICATION_ID, createNotification())
+        return START_NOT_STICKY
     }
 
     /**
@@ -137,6 +176,55 @@ class LocationService : Service() {
      */
     override fun onBind(intent: Intent): IBinder = localBinder
 
+    /**
+     * Creates a notification channel for the foreground service.
+     */
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                NOTIFICATION_CHANNEL_ID,
+                getString(R.string.notification_channel_name),
+                NotificationManager.IMPORTANCE_LOW
+            ).apply {
+                description = getString(R.string.notification_channel_description)
+            }
+
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    /**
+     * Creates and returns a notification for the foreground service.
+     *
+     * @return The notification to display while the service is running.
+     */
+    private fun createNotification(): Notification {
+        val notificationIntent = Intent(this, MainActivity::class.java)
+        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            notificationIntent,
+            flags
+        )
+
+        return NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+            .setContentTitle(getString(R.string.notification_title))
+            .setContentText(getString(R.string.notification_text))
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentIntent(pendingIntent)
+            .setOngoing(true)
+            .build()
+    }
+
+    /**
+     * Subscribes this application to get the location changes via the `locationCallback()`.
+     */
     fun subscribeToLocationUpdates() {
         LocationTrackingPreferences.setTrackingEnabled(this, true)
 
@@ -158,7 +246,7 @@ class LocationService : Service() {
     }
 
     /**
-     * Subscribes this application to get the location changes via the `locationCallback()`.
+     * Unsubscribes this application from location changes.
      */
     fun unsubscribeToLocationUpdates() {
         try {
