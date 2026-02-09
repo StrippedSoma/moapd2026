@@ -73,8 +73,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             enableMyLocation()
         } else {
             // Use view (nullable) to avoid crashes if view is destroyed
-            val snackbarView = view ?: activity?.findViewById(android.R.id.content)
-            snackbarView?.let {
+            view?.let {
                 Snackbar.make(
                     it,
                     R.string.permission_denied_message,
