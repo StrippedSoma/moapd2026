@@ -72,11 +72,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         if (isGranted) {
             enableMyLocation()
         } else {
-            Snackbar.make(
-                binding.root,
-                R.string.permission_denied_message,
-                Snackbar.LENGTH_LONG
-            ).show()
+            // Use view (nullable) to avoid crashes if view is destroyed
+            view?.let {
+                Snackbar.make(
+                    it,
+                    R.string.permission_denied_message,
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
         }
     }
 
