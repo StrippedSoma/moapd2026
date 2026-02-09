@@ -29,6 +29,8 @@ import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -91,6 +93,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         // Update the Google Maps object.
         this.googleMap = googleMap
 
+        // We use the view's root to find out how big the system bars are.
+        view?.let { fragmentView ->
+            ViewCompat.setOnApplyWindowInsetsListener(fragmentView) { _, insets ->
+                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+                // It automatically pushes UI buttons below the status bar and above the navigation
+                // bar.
+                googleMap.setPadding(0, systemBars.top, 0, systemBars.bottom)
+
+                insets
+            }
+            ViewCompat.requestApplyInsets(fragmentView)
+        }
+
         // Add a marker in IT University of Copenhagen and move the camera.
         val itu = LatLng(55.6596, 12.5910)
         googleMap.addMarker(
@@ -103,9 +119,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         googleMap.setMapStyle(
             MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.maps_style_json)
         )
-
-        // Move the Google Maps UI buttons under the OS top bar.
-        googleMap.setPadding(0, 100, 0, 0)
 
         // Enable the location layer. Request the permission if it is not granted.
         if (checkPermission()) {
