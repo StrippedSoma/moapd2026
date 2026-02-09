@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GoogleMaps</string>
+    <string name="itu_title">IT University of Copenhagen</string>
+    <string name="permission_denied_message">Location permission is required to track your location</string>
+</resources>
