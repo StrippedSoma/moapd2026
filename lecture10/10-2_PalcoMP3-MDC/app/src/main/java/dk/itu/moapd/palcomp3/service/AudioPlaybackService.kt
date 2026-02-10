@@ -99,12 +99,18 @@ class AudioPlaybackService: Service() {
      */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         // Get the url from the intent and play the audio.
-        intent?.getStringExtra("url")?.let { url ->
+        val url = intent?.getStringExtra("url")
+        if (url != null) {
             // Start the service as a foreground service with a notification
             startForeground(NOTIFICATION_ID, createNotification())
-            playAudio(url)
+            playAudio(url, startId)
+        } else {
+            // No URL provided, stop the service
+            stopSelf(startId)
         }
-        return super.onStartCommand(intent, flags, startId)
+        
+        // Return START_NOT_STICKY to avoid restarting with null intent
+        return START_NOT_STICKY
     }
 
     /**
@@ -112,8 +118,9 @@ class AudioPlaybackService: Service() {
      * Stops and releases any existing MediaPlayer before creating a new one.
      *
      * @param url The URL of the audio file to be played.
+     * @param startId The unique start ID for this playback session.
      */
-    private fun playAudio(url: String) {
+    private fun playAudio(url: String, startId: Int) {
         // Stop and release any existing MediaPlayer to prevent resource leaks
         mediaPlayer?.apply {
             try {
@@ -132,13 +139,13 @@ class AudioPlaybackService: Service() {
             
             // Stop the service when playback completes
             setOnCompletionListener {
-                stopSelf()
+                stopSelf(startId)
             }
             
             // Handle errors and stop the service
             setOnErrorListener { _, what, extra ->
                 Log.e(TAG, "MediaPlayer error: what=$what, extra=$extra")
-                stopSelf()
+                stopSelf(startId)
                 true // Error was handled
             }
         }
