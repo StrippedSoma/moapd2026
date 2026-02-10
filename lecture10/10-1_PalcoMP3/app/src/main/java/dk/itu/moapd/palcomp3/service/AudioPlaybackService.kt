@@ -37,7 +37,9 @@ import dk.itu.moapd.palcomp3.ui.main.MainActivity
  * A service class with methods to play an audio in background.
  */
 class AudioPlaybackService: Service() {
-
+    /**
+     * A companion object containing constants used by the service.
+     */
     companion object {
         /**
          * The notification ID for the foreground service.
