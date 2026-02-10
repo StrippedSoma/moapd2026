@@ -62,22 +62,49 @@ class AudioPlaybackService: Service() {
      */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         // Get the url from the intent and play the audio.
-        intent?.getStringExtra("url")?.let {
-            playAudio(it)
+        val url = intent?.getStringExtra("url")
+        if (url != null) {
+            playAudio(url, startId)
+        } else {
+            // No URL provided, stop the service
+            stopSelf(startId)
         }
-        return super.onStartCommand(intent, flags, startId)
+
+        // Return START_NOT_STICKY to avoid restarting with null intent
+        return START_NOT_STICKY
     }
 
     /**
      * Plays audio from the specified URL using a MediaPlayer instance.
      *
      * @param url The URL of the audio file to be played.
+     * @param startId The unique start ID for this playback session.
      */
-    private fun playAudio(url: String) {
+    private fun playAudio(url: String, startId: Int) {
+        // Stop and release any existing MediaPlayer to avoid multiple concurrent playbacks
+        mediaPlayer?.apply {
+            if (isPlaying) {
+                stop()
+            }
+            release()
+        }
+
         mediaPlayer = MediaPlayer().apply {
+            setOnPreparedListener { start() }
+            setOnCompletionListener {
+                // Stop the service when playback completes
+                stopSelf(startId)
+            }
+            setOnErrorListener { mp, _, _ ->
+                // Release the MediaPlayer on error to avoid resource leaks
+                mp.release()
+                mediaPlayer = null
+                // Stop the service on error
+                stopSelf(startId)
+                true
+            }
             setDataSource(url)
             prepareAsync()
-            setOnPreparedListener { start() }
         }
     }
 
