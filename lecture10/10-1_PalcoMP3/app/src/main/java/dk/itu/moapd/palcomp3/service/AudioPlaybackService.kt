@@ -36,7 +36,7 @@ class AudioPlaybackService: Service() {
     private var mediaPlayer: MediaPlayer? = null
 
     /**
-     * The unique integer token representing the most recent start request.
+     * The unique integer token representing the start request for the current playback session.
      */
     private var currentStartId: Int = 0
 
@@ -72,7 +72,7 @@ class AudioPlaybackService: Service() {
         // Get the url from the intent and play the audio.
         val url = intent?.getStringExtra("url")
         if (url != null) {
-            playAudio(url)
+            playAudio(url, startId)
         } else {
             // No URL provided, stop the service
             stopSelf(startId)
@@ -86,11 +86,9 @@ class AudioPlaybackService: Service() {
      * Plays audio from the specified URL using a MediaPlayer instance.
      *
      * @param url The URL of the audio file to be played.
+     * @param startId The unique start ID for this playback session.
      */
-    private fun playAudio(url: String) {
-        // Capture the current start ID to ensure this playback session uses the correct ID
-        val startId = currentStartId
-
+    private fun playAudio(url: String, startId: Int) {
         // Stop and release any existing MediaPlayer to avoid multiple concurrent playbacks
         mediaPlayer?.apply {
             if (isPlaying) {
@@ -105,7 +103,10 @@ class AudioPlaybackService: Service() {
                 // Stop the service when playback completes
                 stopSelf(startId)
             }
-            setOnErrorListener { _, _, _ ->
+            setOnErrorListener { mp, _, _ ->
+                // Release the MediaPlayer on error to avoid resource leaks
+                mp.release()
+                mediaPlayer = null
                 // Stop the service on error
                 stopSelf(startId)
                 true
