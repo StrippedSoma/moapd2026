@@ -110,6 +110,33 @@ class AudioPlaybackService: Service() {
     }
 
     /**
+     * Ensure the service stops and releases resources when the app task is removed (e.g. user
+     * swipes the app away). This avoids leaving playback running after the app is closed.
+     */
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        // Stop and release MediaPlayer safely
+        mediaPlayer?.apply {
+            try {
+                if (isPlaying) stop()
+            } catch (ignored: IllegalStateException) {
+                // ignore
+            }
+            release()
+        }
+        mediaPlayer = null
+
+        // Remove the foreground notification and stop the service
+        try {
+            stopForeground(true)
+        } catch (ignored: Exception) {
+            // ignore
+        }
+        stopSelf()
+
+        super.onTaskRemoved(rootIntent)
+    }
+
+    /**
      * Plays audio from the specified URL using a MediaPlayer instance.
      *
      * @param url The URL of the audio file to be played.

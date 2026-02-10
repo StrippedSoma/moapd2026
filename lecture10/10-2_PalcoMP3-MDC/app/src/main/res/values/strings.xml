@@ -13,5 +13,6 @@
     <string name="notification_channel_description">Shows currently playing media</string>
     <string name="notification_title">Playing Audio</string>
     <string name="notification_text">Audio is currently playing</string>
+    <string name="action_stop">Stop</string>
     <string name="error_loading_songs">Failed to load songs. Please check your internet connection and try again.</string>
 </resources>

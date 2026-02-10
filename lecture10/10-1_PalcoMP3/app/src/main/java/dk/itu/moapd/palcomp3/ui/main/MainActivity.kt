@@ -20,11 +20,13 @@
  */
 package dk.itu.moapd.palcomp3.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.compose.setContent
 import androidx.lifecycle.viewmodel.compose.viewModel
+import dk.itu.moapd.palcomp3.service.AudioPlaybackService
 import dk.itu.moapd.palcomp3.ui.theme.PalcoMP3Theme
 
 /**
@@ -61,5 +63,14 @@ class MainActivity : ComponentActivity() {
                 MainScreen(viewModel = vm)
             }
         }
+    }
+
+    override fun onDestroy() {
+        // If the activity is finishing (user closed the app), stop the playback service so it
+        // doesn't continue playing in background unintentionally.
+        if (isFinishing) {
+            stopService(Intent(this, AudioPlaybackService::class.java))
+        }
+        super.onDestroy()
     }
 }
