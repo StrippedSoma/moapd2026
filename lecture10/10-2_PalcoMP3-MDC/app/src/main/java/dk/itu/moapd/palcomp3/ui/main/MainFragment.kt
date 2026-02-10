@@ -99,13 +99,15 @@ class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
             val data = Gson().fromJson<ArrayList<ExpandableModel>>(json, itemType)
 
             // Create the custom adapter to bind a list of cards.
-            val adapter = ExpandableAdapter(this@MainFragment, data, mainViewModel)
+            val adapter = ExpandableAdapter(this@MainFragment, data)
             binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.recyclerView.adapter = adapter
             
             // Observe current song changes to update UI
-            mainViewModel.currentSong.observe(viewLifecycleOwner) { 
-                adapter.updatePlaybackIcons()
+            mainViewModel.currentSong.observe(viewLifecycleOwner) { currentSong ->
+                if (currentSong != null) {
+                    adapter.updatePlaybackIcons()
+                }
             }
 
         }, { })
