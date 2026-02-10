@@ -37,9 +37,18 @@ import dk.itu.moapd.palcomp3.ui.main.MainActivity
  * A service class with methods to play an audio in background.
  */
 class AudioPlaybackService: Service() {
-
+    /**
+     * A companion object to hold static attributes and methods.
+     */
     companion object {
+        /**
+         * The unique identifier for the notification.
+         */
         private const val NOTIFICATION_ID = 1
+
+        /**
+         * The unique identifier for the notification channel.
+         */
         private const val CHANNEL_ID = "media_playback_channel"
     }
 
