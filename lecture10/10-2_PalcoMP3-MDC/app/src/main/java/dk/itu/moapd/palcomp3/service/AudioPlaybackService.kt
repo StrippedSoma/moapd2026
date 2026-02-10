@@ -29,6 +29,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import dk.itu.moapd.palcomp3.R
 import dk.itu.moapd.palcomp3.ui.main.MainActivity
@@ -41,6 +42,11 @@ class AudioPlaybackService: Service() {
      * A companion object to hold static attributes and methods.
      */
     companion object {
+        /**
+         * Tag for logging.
+         */
+        private val TAG = AudioPlaybackService::class.qualifiedName
+
         /**
          * The unique identifier for the notification.
          */
@@ -110,8 +116,10 @@ class AudioPlaybackService: Service() {
     private fun playAudio(url: String) {
         // Stop and release any existing MediaPlayer to prevent resource leaks
         mediaPlayer?.apply {
-            if (isPlaying) {
+            try {
                 stop()
+            } catch (e: IllegalStateException) {
+                Log.w(TAG, "MediaPlayer was not in a valid state to stop", e)
             }
             release()
         }
@@ -129,6 +137,7 @@ class AudioPlaybackService: Service() {
             
             // Handle errors and stop the service
             setOnErrorListener { _, what, extra ->
+                Log.e(TAG, "MediaPlayer error: what=$what, extra=$extra")
                 stopSelf()
                 true // Error was handled
             }
