@@ -124,6 +124,8 @@ class ExpandableAdapter(
         private fun togglePlayback(song: SongModel) {
             song.isPlaying = !song.isPlaying
             itemClickListener.onItemClickListener(song, binding.imageViewPlayer)
+            // Update the clicked button immediately for responsive UX
+            updateButtonIcon(binding.imageViewPlayer, song)
         }
 
     }
