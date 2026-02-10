@@ -279,8 +279,10 @@ class ExpandableAdapter(
                     val childSongs = row.artistParent.songs.map {
                         ExpandableModel(ExpandableModel.CHILD, it)
                     }
-                    data.addAll(position + 1, childSongs)
-                    notifyItemRangeInserted(position + 1, childSongs.size)
+                    if (childSongs.isNotEmpty()) {
+                        data.addAll(position + 1, childSongs)
+                        notifyItemRangeInserted(position + 1, childSongs.size)
+                    }
                 }
             }
         }
