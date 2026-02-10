@@ -22,6 +22,7 @@ package dk.itu.moapd.palcomp3.ui.main
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -164,7 +165,13 @@ fun MainScreen(viewModel: MainViewModel) {
 private fun startAudio(context: Context, url: String) {
     Intent(context, AudioPlaybackService::class.java).apply {
         putExtra("url", url)
-    }.also { context.startService(it) }
+    }.also { 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(it)
+        } else {
+            context.startService(it)
+        }
+    }
 }
 
 /**

@@ -20,20 +20,49 @@
  */
 package dk.itu.moapd.palcomp3.service
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.IBinder
+import androidx.core.app.NotificationCompat
+import dk.itu.moapd.palcomp3.R
+import dk.itu.moapd.palcomp3.ui.main.MainActivity
 
 /**
  * A service class with methods to play an audio in background.
  */
 class AudioPlaybackService: Service() {
 
+    companion object {
+        /**
+         * The notification ID for the foreground service.
+         */
+        private const val NOTIFICATION_ID = 1
+
+        /**
+         * The notification channel ID for media playback notifications.
+         */
+        private const val CHANNEL_ID = "media_playback_channel"
+    }
+
     /**
      * MediaPlayer instance used to control playback of audio/video files and streams.
      */
     private var mediaPlayer: MediaPlayer? = null
+
+    /**
+     * Called by the system when the service is first created. This is where we create the
+     * notification channel for media playback notifications.
+     */
+    override fun onCreate() {
+        super.onCreate()
+        createNotificationChannel()
+    }
 
     /**
      * Called by the system every time a client explicitly starts the service by calling
@@ -61,6 +90,10 @@ class AudioPlaybackService: Service() {
      *      `START_CONTINUATION_MASK` bits.
      */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // Start the service as a foreground service with a notification first
+        // This must be done within 5 seconds when started with startForegroundService()
+        startForeground(NOTIFICATION_ID, createNotification())
+        
         // Get the url from the intent and play the audio.
         val url = intent?.getStringExtra("url")
         if (url != null) {
@@ -106,6 +139,46 @@ class AudioPlaybackService: Service() {
             setDataSource(url)
             prepareAsync()
         }
+    }
+
+    /**
+     * Creates a notification channel for media playback notifications on Android O and above.
+     */
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.notification_channel_name)
+            val descriptionText = getString(R.string.notification_channel_description)
+            val importance = NotificationManager.IMPORTANCE_LOW
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    /**
+     * Creates an ongoing notification for the foreground service.
+     *
+     * @return The notification to be displayed.
+     */
+    private fun createNotification(): Notification {
+        val notificationIntent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            notificationIntent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        return NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentTitle(getString(R.string.notification_title))
+            .setContentText(getString(R.string.notification_text))
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentIntent(pendingIntent)
+            .setOngoing(true)
+            .build()
     }
 
     /**
