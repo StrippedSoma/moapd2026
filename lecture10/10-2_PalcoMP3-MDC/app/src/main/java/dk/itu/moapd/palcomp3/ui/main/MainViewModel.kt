@@ -20,9 +20,8 @@
  */
 package dk.itu.moapd.palcomp3.ui.main
 
-import dk.itu.moapd.palcomp3.R
 import dk.itu.moapd.palcomp3.domain.model.SongModel
-import android.widget.ImageView
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -34,7 +33,12 @@ class MainViewModel : ViewModel() {
     /**
      * The current song playing in the main activity.
      */
-    private val _song = MutableLiveData<SongModel>()
+    private val _currentSong = MutableLiveData<SongModel?>(null)
+
+    /**
+     * Exposes the current playing song as immutable LiveData.
+     */
+    val currentSong: LiveData<SongModel?> = _currentSong
 
     /**
      * This method will be executed when the user interacts with any player control button. It sets
@@ -43,31 +47,11 @@ class MainViewModel : ViewModel() {
      * @param song A instance of `SongModel` class.
      */
     fun onSongChanged(song: SongModel) {
-        _song.value?.let { prevSong ->
+        _currentSong.value?.let { prevSong ->
             if (prevSong != song)
                 prevSong.isPlaying = false
         }
-        _song.value = song
-    }
-
-    /**
-     * The current player control button from the RecyclerView.
-     */
-    private val _imageView = MutableLiveData<ImageView>()
-
-    /**
-     * This method returns the current player control button.
-     *
-     * @param imageView The latest player control button.
-     */
-    fun onImageViewChanged(imageView: ImageView) {
-        // Disable the previous song.
-        _imageView.value?.setImageResource(
-            R.drawable.baseline_play_circle_outline_64
-        )
-
-        // Update the current player control button.
-        _imageView.value = imageView
+        _currentSong.value = song
     }
 
 }

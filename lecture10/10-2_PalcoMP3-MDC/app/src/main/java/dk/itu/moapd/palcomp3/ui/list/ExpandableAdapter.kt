@@ -110,6 +110,8 @@ class ExpandableAdapter(
                 // Play control button
                 val song = row.songChild
                 binding.imageViewPlayer.setOnClickListener { togglePlayback(song) }
+                
+                // Update button icon based on current song state
                 updateButtonIcon(binding.imageViewPlayer, song)
             }
         }
@@ -122,6 +124,7 @@ class ExpandableAdapter(
         private fun togglePlayback(song: SongModel) {
             song.isPlaying = !song.isPlaying
             itemClickListener.onItemClickListener(song, binding.imageViewPlayer)
+            // Update the clicked button immediately for responsive UX
             updateButtonIcon(binding.imageViewPlayer, song)
         }
 
@@ -223,6 +226,18 @@ class ExpandableAdapter(
             else
                 R.drawable.baseline_play_circle_outline_64
         )
+    }
+
+    /**
+     * Updates the play button icons for all visible song items based on their current state.
+     * This is more efficient than notifyDataSetChanged() as it only updates specific items.
+     */
+    fun updatePlaybackIcons() {
+        data.forEachIndexed { index, item ->
+            if (item.type == ExpandableModel.CHILD) {
+                notifyItemChanged(index)
+            }
+        }
     }
 
     /**
