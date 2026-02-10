@@ -9,4 +9,8 @@
     <string name="content_description_close">Close</string>
     <string name="content_description_open">Open</string>
     <string name="content_description_play">Play</string>
+    <string name="notification_channel_name">Media Playback</string>
+    <string name="notification_channel_description">Shows currently playing media</string>
+    <string name="notification_title">Playing Audio</string>
+    <string name="notification_text">Audio is currently playing</string>
 </resources>
