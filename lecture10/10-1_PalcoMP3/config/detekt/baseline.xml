@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>FunctionNaming:ArtistRow.kt:@Composable fun ArtistRow</ID>
+    <ID>FunctionNaming:MainScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun MainScreen</ID>
+    <ID>FunctionNaming:SongRow.kt:@Composable fun SongRow</ID>
+    <ID>FunctionNaming:Theme.kt:@Composable fun PalcoMP3Theme</ID>
+    <ID>LongMethod:ArtistRow.kt:@Composable fun ArtistRow</ID>
+    <ID>LongMethod:MainScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun MainScreen</ID>
+    <ID>LongMethod:SongRow.kt:@Composable fun SongRow</ID>
+    <ID>MagicNumber:Color.kt:0xFF625b71</ID>
+    <ID>MagicNumber:Color.kt:0xFF6650a4</ID>
+    <ID>MagicNumber:Color.kt:0xFF7D5260</ID>
+    <ID>MagicNumber:Color.kt:0xFFCCC2DC</ID>
+    <ID>MagicNumber:Color.kt:0xFFD0BCFF</ID>
+    <ID>MagicNumber:Color.kt:0xFFEFB8C8</ID>
+    <ID>NewLineAtEndOfFile:Color.kt:dk.itu.moapd.palcomp3.ui.theme.Color.kt</ID>
+    <ID>NewLineAtEndOfFile:PlaybackAction.kt:dk.itu.moapd.palcomp3.domain.model.PlaybackAction.kt</ID>
+    <ID>NewLineAtEndOfFile:SongRow.kt:dk.itu.moapd.palcomp3.ui.main.components.SongRow.kt</ID>
+    <ID>NewLineAtEndOfFile:Theme.kt:dk.itu.moapd.palcomp3.ui.theme.Theme.kt</ID>
+    <ID>NewLineAtEndOfFile:Type.kt:dk.itu.moapd.palcomp3.ui.theme.Type.kt</ID>
+    <ID>TooGenericExceptionCaught:MainViewModel.kt:MainViewModel$t: Throwable</ID>
+  </CurrentIssues>
+</SmellBaseline>
