@@ -245,20 +245,23 @@ class ExpandableAdapter(
      *
      * @param position Position to query.
      */
-    @SuppressLint("NotifyDataSetChanged")
      private fun collapseChildren(position: Int) {
         data[position].let { row ->
             val nextPosition = position + 1
             when (row.type) {
                 ExpandableModel.PARENT -> {
+                    var removedCount = 0
                     outerloop@ while (true) {
                         if (nextPosition == data.size ||
                             data[nextPosition].type == ExpandableModel.PARENT
                         )
                             break@outerloop
                         data.removeAt(nextPosition)
+                        removedCount++
                     }
-                    notifyDataSetChanged()
+                    if (removedCount > 0) {
+                        notifyItemRangeRemoved(nextPosition, removedCount)
+                    }
                 }
             }
         }
@@ -269,7 +272,6 @@ class ExpandableAdapter(
      *
      * @param position Position to query.
      */
-    @SuppressLint("NotifyDataSetChanged")
      private fun expandChildren(position: Int) {
         data[position].let { row ->
             when (row.type) {
@@ -278,10 +280,8 @@ class ExpandableAdapter(
                         ExpandableModel(ExpandableModel.CHILD, it)
                     }
                     data.addAll(position + 1, childSongs)
-                    notifyDataSetChanged()
+                    notifyItemRangeInserted(position + 1, childSongs.size)
                 }
-
-                ExpandableModel.CHILD -> notifyDataSetChanged()
             }
         }
     }
