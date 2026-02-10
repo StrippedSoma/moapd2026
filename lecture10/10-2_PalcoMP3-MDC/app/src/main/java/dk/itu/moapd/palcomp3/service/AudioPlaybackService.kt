@@ -103,14 +103,35 @@ class AudioPlaybackService: Service() {
 
     /**
      * Plays audio from the specified URL using a MediaPlayer instance.
+     * Stops and releases any existing MediaPlayer before creating a new one.
      *
      * @param url The URL of the audio file to be played.
      */
     private fun playAudio(url: String) {
+        // Stop and release any existing MediaPlayer to prevent resource leaks
+        mediaPlayer?.apply {
+            if (isPlaying) {
+                stop()
+            }
+            release()
+        }
+        
+        // Create and configure new MediaPlayer
         mediaPlayer = MediaPlayer().apply {
             setDataSource(url)
             prepareAsync()
             setOnPreparedListener { start() }
+            
+            // Stop the service when playback completes
+            setOnCompletionListener {
+                stopSelf()
+            }
+            
+            // Handle errors and stop the service
+            setOnErrorListener { _, what, extra ->
+                stopSelf()
+                true // Error was handled
+            }
         }
     }
 
