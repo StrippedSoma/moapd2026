@@ -241,7 +241,7 @@ class ExpandableAdapter(
     }
 
     /**
-     * This method expand a set of rows to show the songs of a specific artist.
+     * This method collapses a set of rows to hide the songs of a specific artist.
      *
      * @param position Position to query.
      */
@@ -268,7 +268,7 @@ class ExpandableAdapter(
     }
 
     /**
-     * This method collapses a set of rows to hide the songs of a specific artist.
+     * This method expand a set of rows to show the songs of a specific artist.
      *
      * @param position Position to query.
      */
