@@ -88,9 +88,10 @@ class AudioPlaybackService: Service() {
      * @param url The URL of the audio file to be played.
      */
     private fun playAudio(url: String) {
+        // Release any existing MediaPlayer to avoid multiple concurrent playbacks
+        mediaPlayer?.release()
+
         mediaPlayer = MediaPlayer().apply {
-            setDataSource(url)
-            prepareAsync()
             setOnPreparedListener { start() }
             setOnCompletionListener {
                 // Stop the service when playback completes
@@ -101,6 +102,8 @@ class AudioPlaybackService: Service() {
                 stopSelf(currentStartId)
                 true
             }
+            setDataSource(url)
+            prepareAsync()
         }
     }
 
