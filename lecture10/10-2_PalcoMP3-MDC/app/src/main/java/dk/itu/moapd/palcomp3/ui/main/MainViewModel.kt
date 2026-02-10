@@ -21,6 +21,8 @@
 package dk.itu.moapd.palcomp3.ui.main
 
 import dk.itu.moapd.palcomp3.domain.model.SongModel
+import dk.itu.moapd.palcomp3.domain.model.ExpandableModel
+import java.util.ArrayList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -39,6 +41,11 @@ class MainViewModel : ViewModel() {
      * Exposes the current playing song as immutable LiveData.
      */
     val currentSong: LiveData<SongModel?> = _currentSong
+
+    /**
+     * Cache the loaded expandable items so rotation doesn't reload and reset the models.
+     */
+    var cachedItems: ArrayList<ExpandableModel>? = null
 
     /**
      * This method will be executed when the user interacts with any player control button. It sets

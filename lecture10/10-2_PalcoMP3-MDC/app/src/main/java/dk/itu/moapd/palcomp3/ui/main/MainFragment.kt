@@ -30,7 +30,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -116,6 +115,17 @@ class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
             }
         }
 
+        // If we already loaded items earlier (e.g., before rotation), reuse them to preserve
+        // expansion and playback state instead of re-downloading/parsing the JSON.
+        mainViewModel.cachedItems?.let { cached ->
+            adapter = ExpandableAdapter(this@MainFragment, cached)
+            binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            binding.recyclerView.adapter = adapter
+            // Sync the playback icons to the current song state (if any).
+            adapter?.updatePlaybackIcons()
+            return
+        }
+
         // Request a JSON response from the provided URL.
         val jsonRequest = StringRequest( Request.Method.GET, url, { response ->
 
@@ -124,10 +134,15 @@ class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
             val itemType = object : TypeToken<ArrayList<ExpandableModel>>() {}.type
             val data = Gson().fromJson<ArrayList<ExpandableModel>>(json, itemType)
 
+            // Cache the loaded items so rotation keeps the same instances and states.
+            mainViewModel.cachedItems = data
+
             // Create the custom adapter to bind a list of cards.
             adapter = ExpandableAdapter(this@MainFragment, data)
             binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.recyclerView.adapter = adapter
+            // Ensure playback icons reflect the current playing song (if any).
+            adapter?.updatePlaybackIcons()
 
         }, { error ->
             // Log the error for debugging
@@ -167,11 +182,8 @@ class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
             Intent(requireContext(), AudioPlaybackService::class.java).apply {
                 putExtra("url", song.file)
             }.also { intent ->
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    ContextCompat.startForegroundService(requireContext(), intent)
-                } else {
-                    requireActivity().startService(intent)
-                }
+                // Use startForegroundService via ContextCompat which will handle SDK differences.
+                ContextCompat.startForegroundService(requireContext(), intent)
             }
         }
     }

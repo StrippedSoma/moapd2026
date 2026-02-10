@@ -23,7 +23,6 @@ package dk.itu.moapd.palcomp3.ui.list
 import dk.itu.moapd.palcomp3.R
 import dk.itu.moapd.palcomp3.domain.model.ExpandableModel
 import dk.itu.moapd.palcomp3.domain.model.SongModel
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,15 +67,31 @@ class ExpandableAdapter(
                 imageViewOpenArrow.visibility = if (row.isExpanded) View.VISIBLE else View.GONE
                 imageViewCloseArrow.visibility = if (row.isExpanded) View.GONE else View.VISIBLE
 
-                // Set click listeners to toggle expansion.
+                // Set click listeners to toggle expansion. Use the ViewHolder's live adapter
+                // position instead of the passed `position` to avoid stale indices when the
+                // adapter items change.
                 imageViewOpenArrow.setOnClickListener {
-                    row.isExpanded = !row.isExpanded
-                    collapseChildren(position)
+                    val pos = bindingAdapterPosition
+                    if (pos == RecyclerView.NO_POSITION) return@setOnClickListener
+
+                    // Toggle model state and collapse children at the live position.
+                    data[pos].isExpanded = !data[pos].isExpanded
+                    collapseChildren(pos)
+
+                    // Ensure the parent row is rebound so arrow icons reflect the new state.
+                    notifyItemChanged(pos)
                 }
 
                 imageViewCloseArrow.setOnClickListener {
-                    row.isExpanded = !row.isExpanded
-                    expandChildren(position)
+                    val pos = bindingAdapterPosition
+                    if (pos == RecyclerView.NO_POSITION) return@setOnClickListener
+
+                    // Toggle model state and expand children at the live position.
+                    data[pos].isExpanded = !data[pos].isExpanded
+                    expandChildren(pos)
+
+                    // Ensure the parent row is rebound so arrow icons reflect the new state.
+                    notifyItemChanged(pos)
                 }
             }
         }
@@ -246,16 +261,16 @@ class ExpandableAdapter(
      * @param position Position to query.
      */
      private fun collapseChildren(position: Int) {
+        if (position < 0 || position >= data.size) return
         data[position].let { row ->
-            val nextPosition = position + 1
             when (row.type) {
                 ExpandableModel.PARENT -> {
                     var removedCount = 0
-                    outerloop@ while (true) {
-                        if (nextPosition == data.size ||
-                            data[nextPosition].type == ExpandableModel.PARENT
-                        )
-                            break@outerloop
+                    // Start removing at the position immediately following the parent.
+                    var nextPosition = position + 1
+                    while (nextPosition < data.size &&
+                        data[nextPosition].type == ExpandableModel.CHILD
+                    ) {
                         data.removeAt(nextPosition)
                         removedCount++
                     }
@@ -273,6 +288,7 @@ class ExpandableAdapter(
      * @param position Position to query.
      */
      private fun expandChildren(position: Int) {
+        if (position < 0 || position >= data.size) return
         data[position].let { row ->
             when (row.type) {
                 ExpandableModel.PARENT -> {
