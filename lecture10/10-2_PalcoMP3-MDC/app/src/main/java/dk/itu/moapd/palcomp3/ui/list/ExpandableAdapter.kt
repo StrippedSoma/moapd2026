@@ -23,6 +23,7 @@ package dk.itu.moapd.palcomp3.ui.list
 import dk.itu.moapd.palcomp3.R
 import dk.itu.moapd.palcomp3.domain.model.ExpandableModel
 import dk.itu.moapd.palcomp3.domain.model.SongModel
+import dk.itu.moapd.palcomp3.ui.main.MainViewModel
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +40,8 @@ import dk.itu.moapd.palcomp3.databinding.RowSongItemBinding
  */
 class ExpandableAdapter(
     private val itemClickListener: ItemClickListener,
-    private val data: ArrayList<ExpandableModel>
+    private val data: ArrayList<ExpandableModel>,
+    private val viewModel: MainViewModel
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     /**
      * An internal view holder class used to represent the layout that shows a single `ArtistModel`
@@ -110,6 +112,8 @@ class ExpandableAdapter(
                 // Play control button
                 val song = row.songChild
                 binding.imageViewPlayer.setOnClickListener { togglePlayback(song) }
+                
+                // Update button icon based on current song state
                 updateButtonIcon(binding.imageViewPlayer, song)
             }
         }
@@ -122,7 +126,6 @@ class ExpandableAdapter(
         private fun togglePlayback(song: SongModel) {
             song.isPlaying = !song.isPlaying
             itemClickListener.onItemClickListener(song, binding.imageViewPlayer)
-            updateButtonIcon(binding.imageViewPlayer, song)
         }
 
     }

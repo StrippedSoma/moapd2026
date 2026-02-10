@@ -99,9 +99,14 @@ class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
             val data = Gson().fromJson<ArrayList<ExpandableModel>>(json, itemType)
 
             // Create the custom adapter to bind a list of cards.
-            val adapter = ExpandableAdapter(this@MainFragment, data)
+            val adapter = ExpandableAdapter(this@MainFragment, data, mainViewModel)
             binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.recyclerView.adapter = adapter
+            
+            // Observe current song changes to update UI
+            mainViewModel.currentSong.observe(viewLifecycleOwner) { 
+                adapter.notifyDataSetChanged()
+            }
 
         }, { })
 
@@ -118,9 +123,8 @@ class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
      */
     override fun onItemClickListener(song: SongModel, imageView: ImageView) {
 
-        // Change the song and pressed button.
+        // Change the song.
         mainViewModel.onSongChanged(song)
-        mainViewModel.onImageViewChanged(imageView)
 
         // Try to stop playing a current song.
         Intent(requireContext(), AudioPlaybackService::class.java).also {
