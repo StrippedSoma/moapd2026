@@ -260,7 +260,7 @@ class ExpandableAdapter(
                         removedCount++
                     }
                     if (removedCount > 0) {
-                        notifyItemRangeRemoved(nextPosition, removedCount)
+                        notifyItemRangeRemoved(position + 1, removedCount)
                     }
                 }
             }
