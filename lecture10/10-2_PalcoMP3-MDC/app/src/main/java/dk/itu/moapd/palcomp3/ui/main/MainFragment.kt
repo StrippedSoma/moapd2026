@@ -28,6 +28,7 @@ import dk.itu.moapd.palcomp3.ui.list.ItemClickListener
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +43,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dk.itu.moapd.palcomp3.R
@@ -52,6 +54,14 @@ import dk.itu.moapd.palcomp3.ui.utils.viewBinding
  * A fragment to display the main screen of the app.
  */
 class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
+
+    companion object {
+        /**
+         * Tag for logging.
+         */
+        private const val TAG = "MainFragment"
+    }
+
     /**
      * View binding is a feature that allows you to more easily write code that interacts with
      * views. Once view binding is enabled in a module, it generates a binding class for each XML
@@ -117,7 +127,17 @@ class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
             binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.recyclerView.adapter = adapter
 
-        }, { })
+        }, { error ->
+            // Log the error for debugging
+            Log.e(TAG, "Error loading songs: ${error.message}", error)
+
+            // Show a Snackbar to inform the user
+            Snackbar.make(
+                binding.root,
+                R.string.error_loading_songs,
+                Snackbar.LENGTH_LONG
+            ).show()
+        })
 
         // Add the request to the RequestQueue.
         queue.add(jsonRequest)
