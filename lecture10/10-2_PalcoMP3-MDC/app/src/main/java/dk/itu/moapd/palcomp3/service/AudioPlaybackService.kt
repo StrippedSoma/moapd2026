@@ -83,12 +83,11 @@ class AudioPlaybackService: Service() {
      *      `START_CONTINUATION_MASK` bits.
      */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        // Start the service as a foreground service with a notification
-        startForeground(NOTIFICATION_ID, createNotification())
-        
         // Get the url from the intent and play the audio.
-        intent?.getStringExtra("url")?.let {
-            playAudio(it)
+        intent?.getStringExtra("url")?.let { url ->
+            // Start the service as a foreground service with a notification
+            startForeground(NOTIFICATION_ID, createNotification())
+            playAudio(url)
         }
         return super.onStartCommand(intent, flags, startId)
     }
@@ -130,11 +129,16 @@ class AudioPlaybackService: Service() {
      */
     private fun createNotification(): Notification {
         val notificationIntent = Intent(this, MainActivity::class.java)
+        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_IMMUTABLE
+        } else {
+            0
+        }
         val pendingIntent = PendingIntent.getActivity(
             this,
             0,
             notificationIntent,
-            PendingIntent.FLAG_IMMUTABLE
+            flags
         )
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
