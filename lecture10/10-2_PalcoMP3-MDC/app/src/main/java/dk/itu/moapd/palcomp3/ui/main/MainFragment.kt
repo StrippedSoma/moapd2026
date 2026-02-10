@@ -54,12 +54,14 @@ import dk.itu.moapd.palcomp3.ui.utils.viewBinding
  * A fragment to display the main screen of the app.
  */
 class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
-
+    /**
+     * A companion object to hold static attributes and methods.
+     */
     companion object {
         /**
          * Tag for logging.
          */
-        private const val TAG = "MainFragment"
+        private val TAG = MainFragment::class.qualifiedName
     }
 
     /**
