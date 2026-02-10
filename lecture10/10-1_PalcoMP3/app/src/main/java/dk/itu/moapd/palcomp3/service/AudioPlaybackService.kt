@@ -36,11 +36,6 @@ class AudioPlaybackService: Service() {
     private var mediaPlayer: MediaPlayer? = null
 
     /**
-     * The unique integer token representing the start request for the current playback session.
-     */
-    private var currentStartId: Int = 0
-
-    /**
      * Called by the system every time a client explicitly starts the service by calling
      * `startService()`, providing the arguments it supplied and a unique integer token representing
      * the start request. Do not call this method directly.
@@ -66,9 +61,6 @@ class AudioPlaybackService: Service() {
      *      `START_CONTINUATION_MASK` bits.
      */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        // Store the current start ID for later use
-        currentStartId = startId
-
         // Get the url from the intent and play the audio.
         val url = intent?.getStringExtra("url")
         if (url != null) {
