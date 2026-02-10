@@ -26,12 +26,14 @@ import dk.itu.moapd.palcomp3.service.AudioPlaybackService
 import dk.itu.moapd.palcomp3.ui.list.ExpandableAdapter
 import dk.itu.moapd.palcomp3.ui.list.ItemClickListener
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -139,12 +141,17 @@ class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
         }
 
         // Start playing a new song.
-        if (song.isPlaying)
+        if (song.isPlaying) {
             Intent(requireContext(), AudioPlaybackService::class.java).apply {
                 putExtra("url", song.file)
-            }.also {
-                requireActivity().startService(it)
+            }.also { intent ->
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    ContextCompat.startForegroundService(requireContext(), intent)
+                } else {
+                    requireActivity().startService(intent)
+                }
             }
+        }
     }
 
 }
