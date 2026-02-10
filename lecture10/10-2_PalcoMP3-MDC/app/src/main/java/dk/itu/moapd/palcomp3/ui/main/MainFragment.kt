@@ -65,6 +65,11 @@ class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
     private val mainViewModel: MainViewModel by activityViewModels()
 
     /**
+     * The adapter for the RecyclerView displaying the expandable list of artists and songs.
+     */
+    private var adapter: ExpandableAdapter? = null
+
+    /**
      * Called immediately after `onCreateView(LayoutInflater, ViewGroup, Bundle)` has returned, but
      * before any saved state has been restored in to the view. This gives subclasses a chance to
      * initialize themselves once they know their view hierarchy has been completely created. The
@@ -90,6 +95,13 @@ class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
             insets
         }
 
+        // Observe current song changes to update UI
+        mainViewModel.currentSong.observe(viewLifecycleOwner) { currentSong ->
+            if (currentSong != null) {
+                adapter?.updatePlaybackIcons()
+            }
+        }
+
         // Request a JSON response from the provided URL.
         val jsonRequest = StringRequest( Request.Method.GET, url, { response ->
 
@@ -99,16 +111,9 @@ class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
             val data = Gson().fromJson<ArrayList<ExpandableModel>>(json, itemType)
 
             // Create the custom adapter to bind a list of cards.
-            val adapter = ExpandableAdapter(this@MainFragment, data)
+            adapter = ExpandableAdapter(this@MainFragment, data)
             binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.recyclerView.adapter = adapter
-            
-            // Observe current song changes to update UI
-            mainViewModel.currentSong.observe(viewLifecycleOwner) { currentSong ->
-                if (currentSong != null) {
-                    adapter.updatePlaybackIcons()
-                }
-            }
 
         }, { })
 
