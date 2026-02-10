@@ -33,7 +33,7 @@ class MainViewModel : ViewModel() {
     /**
      * The current song playing in the main activity.
      */
-    private val _currentSong = MutableLiveData<SongModel?>()
+    private val _currentSong = MutableLiveData<SongModel?>(null)
 
     /**
      * Exposes the current playing song as immutable LiveData.

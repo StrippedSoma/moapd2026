@@ -105,7 +105,7 @@ class MainFragment : Fragment(R.layout.fragment_main), ItemClickListener {
             
             // Observe current song changes to update UI
             mainViewModel.currentSong.observe(viewLifecycleOwner) { 
-                adapter.notifyDataSetChanged()
+                adapter.updatePlaybackIcons()
             }
 
         }, { })

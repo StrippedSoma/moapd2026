@@ -229,6 +229,18 @@ class ExpandableAdapter(
     }
 
     /**
+     * Updates the play button icons for all visible song items based on their current state.
+     * This is more efficient than notifyDataSetChanged() as it only updates specific items.
+     */
+    fun updatePlaybackIcons() {
+        data.forEachIndexed { index, item ->
+            if (item.type == ExpandableModel.CHILD) {
+                notifyItemChanged(index)
+            }
+        }
+    }
+
+    /**
      * This method expand a set of rows to show the songs of a specific artist.
      *
      * @param position Position to query.
