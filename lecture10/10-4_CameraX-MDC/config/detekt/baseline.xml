@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>MagicNumber:PhotoCaptureManager.kt:PhotoCaptureManager$1000</ID>
+    <ID>NewLineAtEndOfFile:PhotoCaptureManager.kt:dk.itu.moapd.camerax.media.capture.PhotoCaptureManager.kt</ID>
+    <ID>TooGenericExceptionCaught:CameraXController.kt:CameraXController$t: Throwable</ID>
+  </CurrentIssues>
+</SmellBaseline>
