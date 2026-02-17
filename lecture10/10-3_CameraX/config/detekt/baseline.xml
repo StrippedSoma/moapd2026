@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>FunctionNaming:CameraXApp.kt:@Composable fun CameraXApp</ID>
+    <ID>FunctionNaming:ImageScreen.kt:@Composable fun ImageScreen</ID>
+    <ID>FunctionNaming:MainScreen.kt:@Composable fun MainScreen</ID>
+    <ID>FunctionNaming:OutlinedIconCircleButton.kt:@Composable fun OutlinedIconCircleButton</ID>
+    <ID>FunctionNaming:Theme.kt:@Composable fun CameraXTheme</ID>
+    <ID>LongMethod:MainScreen.kt:@Composable fun MainScreen</ID>
+    <ID>MagicNumber:Color.kt:0xFF625b71</ID>
+    <ID>MagicNumber:Color.kt:0xFF6650a4</ID>
+    <ID>MagicNumber:Color.kt:0xFF7D5260</ID>
+    <ID>MagicNumber:Color.kt:0xFFCCC2DC</ID>
+    <ID>MagicNumber:Color.kt:0xFFD0BCFF</ID>
+    <ID>MagicNumber:Color.kt:0xFFEFB8C8</ID>
+    <ID>MagicNumber:PhotoCaptureManager.kt:PhotoCaptureManager$1000</ID>
+    <ID>NewLineAtEndOfFile:Color.kt:dk.itu.moapd.camerax.ui.theme.Color.kt</ID>
+    <ID>NewLineAtEndOfFile:PhotoCaptureManager.kt:dk.itu.moapd.camerax.media.capture.PhotoCaptureManager.kt</ID>
+    <ID>NewLineAtEndOfFile:Theme.kt:dk.itu.moapd.camerax.ui.theme.Theme.kt</ID>
+    <ID>NewLineAtEndOfFile:Type.kt:dk.itu.moapd.camerax.ui.theme.Type.kt</ID>
+    <ID>TooGenericExceptionCaught:CameraXController.kt:CameraXController$t: Throwable</ID>
+    <ID>WildcardImport:MainScreen.kt:import androidx.compose.foundation.layout.*</ID>
+    <ID>WildcardImport:MainScreen.kt:import androidx.compose.runtime.*</ID>
+  </CurrentIssues>
+</SmellBaseline>
