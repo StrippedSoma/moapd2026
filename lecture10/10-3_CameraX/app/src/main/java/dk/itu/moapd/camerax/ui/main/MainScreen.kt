@@ -234,7 +234,13 @@ private fun takePhoto(
         context = context,
         contentResolver = context.contentResolver,
         imageCapture = imageCapture,
-        onSaved = { uri, filename -> onSaved(uri!!, filename) },
+        onSaved = { uri, filename ->
+            if (uri != null) {
+                onSaved(uri, filename)
+            } else {
+                onError("Failed to save photo")
+            }
+        },
         onError = { message, _ -> onError(message) },
     )
 }
