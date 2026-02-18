@@ -23,6 +23,8 @@ package dk.itu.moapd.opencv.ui.main
 import android.Manifest
 import android.hardware.camera2.CameraCharacteristics
 import android.net.Uri
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
@@ -36,6 +38,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -117,34 +120,53 @@ fun MainScreen(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        AndroidView(
-            modifier = Modifier.fillMaxSize(),
-            factory = { ctx ->
-                JavaCamera2View(ctx, cameraLensFacing).apply {
-                    session.cameraView = this
-                    visibility = android.view.SurfaceView.VISIBLE
-                    setCvCameraViewListener(session)
-                    setOnClickListener {
-                        viewModel.onMethodChanged((methodId + 1) % 4)
+        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+            val density = LocalDensity.current
+            val wPx = with(density) { maxWidth.toPx().toInt() }
+            val hPx = with(density) { maxHeight.toPx().toInt() }
+
+            AndroidView(
+                modifier = Modifier.fillMaxSize(),
+                factory = { ctx ->
+                    JavaCamera2View(ctx, cameraLensFacing).apply {
+                        layoutParams = FrameLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        )
+
+                        setMaxFrameSize(wPx, hPx)
+
+                        session.cameraView = this
+                        visibility = android.view.SurfaceView.VISIBLE
+                        setCvCameraViewListener(session)
+
+                        setOnClickListener {
+                            viewModel.onMethodChanged((methodId + 1) % 4)
+                        }
+                    }
+                },
+                update = { view ->
+
+                    view.layoutParams = FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                    view.setMaxFrameSize(wPx, hPx)
+
+                    session.cameraView = view
+                    if (CameraPermissionHelper.hasCameraPermission(context)) {
+                        CameraController.startCamera(
+                            context = context,
+                            cameraView = view,
+                            lensFacing = cameraLensFacing,
+                            listener = session,
+                            onCanSwitchCamera = { },
+                            onError = { msg -> scope.launch { snackbarHostState.showSnackbar(msg) } },
+                        )
                     }
                 }
-            },
-            update = { view ->
-                session.cameraView = view
-                if (CameraPermissionHelper.hasCameraPermission(context)) {
-                    CameraController.startCamera(
-                        context = context,
-                        cameraView = view,
-                        lensFacing = cameraLensFacing,
-                        listener = session,
-                        onCanSwitchCamera = { /* handled by CameraController; no UI disable here */ },
-                        onError = { msg ->
-                            scope.launch { snackbarHostState.showSnackbar(msg) }
-                        },
-                    )
-                }
-            }
-        )
+            )
+        }
 
         SnackbarHost(
             hostState = snackbarHostState,
