@@ -145,6 +145,10 @@ class MainFragment : Fragment(R.layout.fragment_main), CameraBridgeViewBase.CvCa
                 isEnabled = true
 
                 setOnClickListener {
+
+                    // Stop the current video streaming.
+                    CameraController.stopCamera(javaCameraView)
+
                     viewModel.onCameraSelectorChanged(
                         if (cameraLensFacing == CameraCharacteristics.LENS_FACING_FRONT)
                             CameraCharacteristics.LENS_FACING_BACK
@@ -153,7 +157,6 @@ class MainFragment : Fragment(R.layout.fragment_main), CameraBridgeViewBase.CvCa
                     )
 
                     // Re-start OpenCV preview to update selected camera.
-                    CameraController.stopCamera(javaCameraView)
                     startCamera()
                 }
             }
@@ -205,11 +208,7 @@ class MainFragment : Fragment(R.layout.fragment_main), CameraBridgeViewBase.CvCa
             return
         }
 
-        // Convert Mat (RGBA) -> Bitmap
-        // If the front camera is used the preview is mirrored for a selfie-like view,
-        // but we want to save the actual (non-mirrored) image. Flip the capture back
-        // horizontally before saving in that case.
-        val matToSave: Mat = if (cameraLensFacing == CameraCharacteristics.LENS_FACING_FRONT) {
+        val matToSave: Mat = if (cameraLensFacing == CameraCharacteristics.LENS_FACING_BACK) {
             val tmp = Mat()
             Core.flip(captureMat, tmp, 1)
             tmp
