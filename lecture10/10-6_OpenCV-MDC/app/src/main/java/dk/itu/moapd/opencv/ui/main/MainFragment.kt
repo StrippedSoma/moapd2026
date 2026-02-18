@@ -264,6 +264,13 @@ class MainFragment : Fragment(R.layout.fragment_main), CameraBridgeViewBase.CvCa
         } else {
             Log.w(TAG, "OpenCV not loaded onResume")
         }
+
+        // When returning from background the CameraView may have been stopped in onPause().
+        // Restart the OpenCV camera if we have camera permission and the fragment's view exists.
+        // This ensures the preview resumes correctly when the app returns to foreground.
+        if (isAdded && view != null && CameraPermissionHelper.hasCameraPermission(requireContext())) {
+            startCamera()
+        }
     }
 
     /**
