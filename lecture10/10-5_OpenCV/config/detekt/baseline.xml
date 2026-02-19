@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>FunctionNaming:ImageScreen.kt:@Composable fun ImageScreen</ID>
+    <ID>FunctionNaming:MainScreen.kt:@Composable fun MainScreen</ID>
+    <ID>FunctionNaming:OutlinedIconCircleButton.kt:@Composable fun OutlinedIconCircleButton</ID>
+    <ID>FunctionNaming:Theme.kt:@Composable fun OpenCVTheme</ID>
+    <ID>LongMethod:MainScreen.kt:@Composable fun MainScreen</ID>
+    <ID>MagicNumber:CameraController.kt:OpenCvImageProcessor$0.5</ID>
+    <ID>MagicNumber:CameraController.kt:OpenCvImageProcessor$255.0</ID>
+    <ID>MagicNumber:Color.kt:0xFF625b71</ID>
+    <ID>MagicNumber:Color.kt:0xFF6650a4</ID>
+    <ID>MagicNumber:Color.kt:0xFF7D5260</ID>
+    <ID>MagicNumber:Color.kt:0xFFCCC2DC</ID>
+    <ID>MagicNumber:Color.kt:0xFFD0BCFF</ID>
+    <ID>MagicNumber:Color.kt:0xFFEFB8C8</ID>
+    <ID>MagicNumber:MainScreen.kt:4</ID>
+    <ID>MagicNumber:OpenCvSession.kt:OpenCvSession$3</ID>
+    <ID>MagicNumber:PhotoCaptureManager.kt:PhotoCaptureManager$1000</ID>
+    <ID>MagicNumber:PhotoCaptureManager.kt:PhotoCaptureManager$95</ID>
+    <ID>NewLineAtEndOfFile:Color.kt:dk.itu.moapd.opencv.ui.theme.Color.kt</ID>
+    <ID>NewLineAtEndOfFile:OutlinedIconCircleButton.kt:dk.itu.moapd.opencv.ui.widgets.OutlinedIconCircleButton.kt</ID>
+    <ID>NewLineAtEndOfFile:Theme.kt:dk.itu.moapd.opencv.ui.theme.Theme.kt</ID>
+    <ID>NewLineAtEndOfFile:Type.kt:dk.itu.moapd.opencv.ui.theme.Type.kt</ID>
+    <ID>ReturnCount:PhotoCaptureManager.kt:PhotoCaptureManager$fun saveJpeg</ID>
+    <ID>TooGenericExceptionCaught:CameraController.kt:CameraController$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:PhotoCaptureManager.kt:PhotoCaptureManager$t: Throwable</ID>
+    <ID>WildcardImport:ImageScreen.kt:import androidx.compose.foundation.layout.*</ID>
+    <ID>WildcardImport:MainScreen.kt:import androidx.compose.foundation.layout.*</ID>
+    <ID>WildcardImport:MainScreen.kt:import androidx.compose.runtime.*</ID>
+  </CurrentIssues>
+</SmellBaseline>
