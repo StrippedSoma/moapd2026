@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>MagicNumber:CameraController.kt:OpenCvImageProcessor$0.5</ID>
+    <ID>MagicNumber:CameraController.kt:OpenCvImageProcessor$255.0</ID>
+    <ID>MagicNumber:MainFragment.kt:MainFragment$3</ID>
+    <ID>MagicNumber:MainFragment.kt:MainFragment$4</ID>
+    <ID>MagicNumber:PhotoCaptureManager.kt:PhotoCaptureManager$1000</ID>
+    <ID>MagicNumber:PhotoCaptureManager.kt:PhotoCaptureManager$95</ID>
+    <ID>NewLineAtEndOfFile:MainFragment.kt:dk.itu.moapd.opencv.ui.main.MainFragment.kt</ID>
+    <ID>ReturnCount:PhotoCaptureManager.kt:PhotoCaptureManager$fun saveJpeg</ID>
+    <ID>TooGenericExceptionCaught:CameraController.kt:CameraController$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:PhotoCaptureManager.kt:PhotoCaptureManager$t: Throwable</ID>
+  </CurrentIssues>
+</SmellBaseline>
