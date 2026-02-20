@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>FunctionNaming:MainScreen.kt:@Composable fun MainScreen</ID>
+    <ID>FunctionNaming:Theme.kt:@Composable fun MLKitTheme</ID>
+    <ID>LongMethod:MainScreen.kt:@Composable fun MainScreen</ID>
+    <ID>MagicNumber:Color.kt:0xFF625b71</ID>
+    <ID>MagicNumber:Color.kt:0xFF6650a4</ID>
+    <ID>MagicNumber:Color.kt:0xFF7D5260</ID>
+    <ID>MagicNumber:Color.kt:0xFFCCC2DC</ID>
+    <ID>MagicNumber:Color.kt:0xFFD0BCFF</ID>
+    <ID>MagicNumber:Color.kt:0xFFEFB8C8</ID>
+    <ID>MagicNumber:ObjectDetectionProcessor.kt:ObjectDetectionProcessor$100</ID>
+    <ID>MagicNumber:ObjectDetectionProcessor.kt:ObjectDetectionProcessor$8f</ID>
+    <ID>NewLineAtEndOfFile:Theme.kt:dk.itu.moapd.mlkit.ui.theme.Theme.kt</ID>
+    <ID>NewLineAtEndOfFile:Type.kt:dk.itu.moapd.mlkit.ui.theme.Type.kt</ID>
+    <ID>ReturnCount:MainScreen.kt:private fun getCapturedImageBitmap: Bitmap?</ID>
+    <ID>ReturnCount:MainScreen.kt:private fun handleCameraResult</ID>
+    <ID>WildcardImport:MainScreen.kt:import androidx.compose.runtime.*</ID>
+  </CurrentIssues>
+</SmellBaseline>

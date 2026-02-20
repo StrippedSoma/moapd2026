@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>MagicNumber:ObjectDetectionProcessor.kt:ObjectDetectionProcessor$100</ID>
+    <ID>MagicNumber:ObjectDetectionProcessor.kt:ObjectDetectionProcessor$8f</ID>
+    <ID>ReturnCount:MainFragment.kt:MainFragment$private fun getCapturedImageBitmap: Bitmap?</ID>
+  </CurrentIssues>
+</SmellBaseline>
