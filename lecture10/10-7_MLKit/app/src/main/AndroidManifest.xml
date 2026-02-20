@@ -9,7 +9,6 @@
     </queries>
 
     <application
-        android:name=".app.MLKitApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,7 +19,8 @@
         android:theme="@style/Theme.MLKit">
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.MLKit">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
