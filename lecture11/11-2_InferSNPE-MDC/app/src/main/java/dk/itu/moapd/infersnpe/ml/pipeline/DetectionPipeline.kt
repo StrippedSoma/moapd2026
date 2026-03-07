@@ -74,6 +74,15 @@ class DetectionPipeline
         override fun process(input: Bitmap): DetectionPipelineResult = processFrame(input)
 
         /**
+         * Updates the confidence threshold used for object detection.
+         *
+         * @param threshold The new confidence threshold value (between 0.0 and 1.0).
+         */
+        fun updateObjectThreshold(threshold: Float) {
+            config.objectThreshold = threshold
+        }
+
+        /**
          * Processes a frame using a full-resolution approach and returns the object detections.
          *
          * @param frame The input frame bitmap.

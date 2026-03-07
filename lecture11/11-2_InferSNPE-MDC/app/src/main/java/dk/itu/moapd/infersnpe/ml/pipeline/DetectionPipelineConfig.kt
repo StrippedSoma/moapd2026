@@ -26,7 +26,7 @@ package dk.itu.moapd.infersnpe.ml.pipeline
  * @param objectThreshold The confidence threshold for object detection.
  */
 data class DetectionPipelineConfig(
-    val objectThreshold: Float = 0.5f,
+    @Volatile var objectThreshold: Float = 0.5f,
 ) {
     /**
      * Companion object for default configuration.

@@ -153,6 +153,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun setupUi() {
         binding.apply {
             fpsText.text = getString(R.string.fps_text, 0.0)
+            confidenceSlider.addOnChangeListener { _, value, _ ->
+                detectorViewModel.updateObjectThreshold(value)
+            }
         }
     }
 

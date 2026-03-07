@@ -181,6 +181,15 @@ class DetectorController
         }
 
         /**
+         * Updates the object confidence threshold used by the detection pipeline.
+         *
+         * @param threshold The new confidence threshold value (between 0.0 and 1.0).
+         */
+        fun updateObjectThreshold(threshold: Float) {
+            frameProcessor.updateObjectThreshold(threshold)
+        }
+
+        /**
          * Updates the FPS in the detector state if the update interval has passed.
          *
          * @param fps The new frames per second value.

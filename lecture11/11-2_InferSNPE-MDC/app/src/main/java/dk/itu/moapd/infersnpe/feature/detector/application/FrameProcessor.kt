@@ -45,6 +45,15 @@ class FrameProcessor(
     }
 
     /**
+     * Updates the confidence threshold used for object detection.
+     *
+     * @param threshold The new confidence threshold value (between 0.0 and 1.0).
+     */
+    fun updateObjectThreshold(threshold: Float) {
+        pipeline.updateObjectThreshold(threshold)
+    }
+
+    /**
      * Companion object used to hold constants.
      */
     companion object {

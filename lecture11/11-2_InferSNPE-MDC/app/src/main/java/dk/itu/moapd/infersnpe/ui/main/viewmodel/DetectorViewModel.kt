@@ -95,6 +95,15 @@ constructor(
     }
 
     /**
+     * Updates the confidence threshold for object detection.
+     *
+     * @param threshold The new confidence threshold value (between 0.0 and 1.0).
+     */
+    fun updateObjectThreshold(threshold: Float) {
+        controller.updateObjectThreshold(threshold)
+    }
+
+    /**
      * Called when the ViewModel is no longer used and will be destroyed.
      */
     override fun onCleared() {
