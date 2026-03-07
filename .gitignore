@@ -44,6 +44,12 @@ opencv-4.*/
 
 # Binary files
 *.zip
+*.aar
+
+# ML models
+*.onnx
+*.dlc
+*.tflite
 
 ### Android Patch ###
 gen-external-apklibs
