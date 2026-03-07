@@ -224,7 +224,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         )
 
         isCameraStarted = true
-        binding.buttonCameraSwitch.isVisible = true
     }
 
     /**
