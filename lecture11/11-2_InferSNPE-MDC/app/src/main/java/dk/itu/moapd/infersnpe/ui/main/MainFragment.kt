@@ -39,6 +39,7 @@ import dk.itu.moapd.infersnpe.R
 import dk.itu.moapd.infersnpe.databinding.FragmentMainBinding
 import dk.itu.moapd.infersnpe.feature.detector.infra.camera.model.DetectorCameraStartRequest
 import dk.itu.moapd.infersnpe.feature.detector.overlay.paints.OverlayPaintFactory
+import dk.itu.moapd.infersnpe.ui.main.viewmodel.DetectorViewModel
 import dk.itu.moapd.infersnpe.ui.utils.viewBinding
 import kotlinx.coroutines.launch
 
