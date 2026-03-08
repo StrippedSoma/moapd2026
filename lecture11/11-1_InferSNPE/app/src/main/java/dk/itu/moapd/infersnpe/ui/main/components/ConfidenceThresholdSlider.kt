@@ -22,7 +22,9 @@ package dk.itu.moapd.infersnpe.ui.main.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -45,6 +47,11 @@ fun ConfidenceThresholdSlider(
         onValueChange = onValueChange,
         valueRange = 0f..1f,
         steps = 99,
+        colors = SliderDefaults.colors(
+            thumbColor = MaterialTheme.colorScheme.primary,
+            activeTrackColor = MaterialTheme.colorScheme.primary,
+            inactiveTrackColor = MaterialTheme.colorScheme.secondaryContainer,
+        ),
         modifier = modifier
             .fillMaxWidth()
             .padding(top = 64.dp, start = 16.dp, end = 16.dp),

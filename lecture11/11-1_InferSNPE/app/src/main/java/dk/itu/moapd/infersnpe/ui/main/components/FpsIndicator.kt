@@ -20,6 +20,7 @@
  */
 package dk.itu.moapd.infersnpe.ui.main.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -42,15 +43,20 @@ fun FpsIndicator(
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        color = MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = 0.95f),
-        shape = MaterialTheme.shapes.small,
-        tonalElevation = 2.dp,
+        color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.96f),
+        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+        shape = MaterialTheme.shapes.medium,
+        border = BorderStroke(
+            width = 2.dp,
+            color = MaterialTheme.colorScheme.primary,
+        ),
+        shadowElevation = 4.dp,
         modifier = modifier.padding(top = 120.dp),
     ) {
         Text(
             text = stringResource(R.string.fps_text, fps ?: 0.0),
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+            modifier = Modifier.padding(16.dp),
         )
     }
 }
