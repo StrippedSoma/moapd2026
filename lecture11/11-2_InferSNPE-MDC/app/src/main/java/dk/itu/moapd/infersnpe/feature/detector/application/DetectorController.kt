@@ -22,10 +22,10 @@ package dk.itu.moapd.infersnpe.feature.detector.application
 
 import android.os.SystemClock
 import android.util.Log
+import dagger.hilt.android.scopes.ViewModelScoped
 import dk.itu.moapd.infersnpe.feature.detector.domain.ports.FrameSource
 import dk.itu.moapd.infersnpe.feature.detector.infra.camera.model.CameraStartResult
 import dk.itu.moapd.infersnpe.feature.detector.infra.camera.model.DetectorCameraStartRequest
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

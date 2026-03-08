@@ -20,14 +20,14 @@
  */
 package dk.itu.moapd.infersnpe.di.detector
 
-import dk.itu.moapd.infersnpe.ml.api.Detector
-import dk.itu.moapd.infersnpe.ml.detectors.ObjectDetector
-import dk.itu.moapd.infersnpe.ml.results.ObjectResult
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dk.itu.moapd.infersnpe.di.ml.ObjectDetection
+import dk.itu.moapd.infersnpe.ml.api.Detector
+import dk.itu.moapd.infersnpe.ml.detectors.ObjectDetector
+import dk.itu.moapd.infersnpe.ml.results.ObjectResult
 
 /**
  * Module to bind detector implementations to their respective interfaces using qualifiers.

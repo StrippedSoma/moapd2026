@@ -23,11 +23,11 @@ package dk.itu.moapd.infersnpe.ui.main
 import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
-import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.camera.core.CameraSelector
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -85,7 +85,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous
      *      saved state as given here.
      */
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         configurePreview()
@@ -106,42 +109,47 @@ class MainFragment : Fragment(R.layout.fragment_main) {
      * Configures the Overlay view.
      */
     private fun configureOverlay() {
-        val primaryColor = MaterialColors.getColor(
-            requireContext(),
-            com.google.android.material.R.attr.colorPrimaryFixed,
-            Color.RED
-        )
+        val primaryColor =
+            MaterialColors.getColor(
+                requireContext(),
+                com.google.android.material.R.attr.colorPrimaryFixed,
+                Color.RED,
+            )
 
-        val labelTextColor = MaterialColors.getColor(
-            requireContext(),
-            com.google.android.material.R.attr.colorOnPrimaryFixed,
-            Color.YELLOW
-        )
+        val labelTextColor =
+            MaterialColors.getColor(
+                requireContext(),
+                com.google.android.material.R.attr.colorOnPrimaryFixed,
+                Color.YELLOW,
+            )
 
         val typedValue = TypedValue()
         val theme = requireContext().theme
 
-        val success = theme.resolveAttribute(
-            com.google.android.material.R.attr.textAppearanceTitleMediumEmphasized,
-            typedValue,
-            true
-        )
+        val success =
+            theme.resolveAttribute(
+                com.google.android.material.R.attr.textAppearanceTitleMediumEmphasized,
+                typedValue,
+                true,
+            )
 
-        val labelTextSizePx = if (success) {
-            val attributes = intArrayOf(android.R.attr.textSize)
-            val typedArray = requireContext().obtainStyledAttributes(typedValue.data, attributes)
-            val fontSize = typedArray.getDimension(0, -1f)
-            typedArray.recycle()
-            fontSize
-        } else {
-            45f
-        }
+        val labelTextSizePx =
+            if (success) {
+                val attributes = intArrayOf(android.R.attr.textSize)
+                val typedArray = requireContext().obtainStyledAttributes(typedValue.data, attributes)
+                val fontSize = typedArray.getDimension(0, -1f)
+                typedArray.recycle()
+                fontSize
+            } else {
+                45f
+            }
 
-        val overlayPaints = OverlayPaintFactory(
-            primaryColor = primaryColor,
-            labelTextColor = labelTextColor,
-            labelTextSizePx = labelTextSizePx,
-        ).create()
+        val overlayPaints =
+            OverlayPaintFactory(
+                primaryColor = primaryColor,
+                labelTextColor = labelTextColor,
+                labelTextSizePx = labelTextSizePx,
+            ).create()
 
         binding.resultsOverlayView.setOverlayPaints(overlayPaints)
     }
@@ -199,7 +207,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 cameraProvider = future.get()
                 startCameraIfReady()
             },
-            ContextCompat.getMainExecutor(requireContext())
+            ContextCompat.getMainExecutor(requireContext()),
         )
     }
 
@@ -222,7 +230,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 onResults = { results ->
                     binding.resultsOverlayView.update(results)
                 },
-            )
+            ),
         )
 
         isCameraStarted = true

@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>FunctionNaming:ConfidenceThresholdSlider.kt:@Composable fun ConfidenceThresholdSlider</ID>
+    <ID>FunctionNaming:FpsIndicator.kt:@Composable fun FpsIndicator</ID>
+    <ID>FunctionNaming:MainCameraLifecycleHandler.kt:@Composable fun MainCameraLifecycleHandler</ID>
+    <ID>FunctionNaming:MainContent.kt:@Composable fun MainContent</ID>
+    <ID>FunctionNaming:MainOverlayStyle.kt:@Composable fun ConfigureOverlayStyle</ID>
+    <ID>FunctionNaming:MainScreen.kt:@Composable fun MainScreen</ID>
+    <ID>FunctionNaming:Theme.kt:@Composable fun InferSNPETheme</ID>
+    <ID>LoopWithTooManyJumpStatements:DetectionUtils.kt:DetectionUtils$for</ID>
+    <ID>MagicNumber:Color.kt:0xFF625b71</ID>
+    <ID>MagicNumber:Color.kt:0xFF6650a4</ID>
+    <ID>MagicNumber:Color.kt:0xFF7D5260</ID>
+    <ID>MagicNumber:Color.kt:0xFFCCC2DC</ID>
+    <ID>MagicNumber:Color.kt:0xFFD0BCFF</ID>
+    <ID>MagicNumber:Color.kt:0xFFEFB8C8</ID>
+    <ID>MagicNumber:DetectorCameraConfig.kt:DetectorCameraConfig$1280</ID>
+    <ID>MagicNumber:DetectorCameraConfig.kt:DetectorCameraConfig$720</ID>
+    <ID>MagicNumber:FPSTracker.kt:FPSTracker$1000.0</ID>
+    <ID>MagicNumber:FrameTransformer.kt:FrameTransformer$270</ID>
+    <ID>MagicNumber:FrameTransformer.kt:FrameTransformer$360</ID>
+    <ID>MagicNumber:FrameTransformer.kt:FrameTransformer$90</ID>
+    <ID>MagicNumber:MainScreen.kt:0.5f</ID>
+    <ID>MagicNumber:ModelRegistry.kt:ModelRegistry$3</ID>
+    <ID>MagicNumber:ModelRegistry.kt:ModelRegistry$320</ID>
+    <ID>MatchingDeclarationName:MlQualifiers.kt:ObjectDetection</ID>
+    <ID>MaxLineLength:ResultsOverlayView.kt:ResultsOverlayView$*</ID>
+    <ID>NewLineAtEndOfFile:Color.kt:dk.itu.moapd.infersnpe.ui.theme.Color.kt</ID>
+    <ID>NewLineAtEndOfFile:DetectorConfigModule.kt:dk.itu.moapd.infersnpe.di.detector.DetectorConfigModule.kt</ID>
+    <ID>NewLineAtEndOfFile:DetectorDetectionsMapper.kt:dk.itu.moapd.infersnpe.feature.detector.application.DetectorDetectionsMapper.kt</ID>
+    <ID>NewLineAtEndOfFile:DetectorMlBindingsModule.kt:dk.itu.moapd.infersnpe.di.detector.DetectorMlBindingsModule.kt</ID>
+    <ID>NewLineAtEndOfFile:DetectorProcessingModule.kt:dk.itu.moapd.infersnpe.di.detector.DetectorProcessingModule.kt</ID>
+    <ID>NewLineAtEndOfFile:DetectorViewModel.kt:dk.itu.moapd.infersnpe.feature.detector.presentation.ui.viewmodel.DetectorViewModel.kt</ID>
+    <ID>NewLineAtEndOfFile:InferSnpeApplication.kt:dk.itu.moapd.infersnpe.app.InferSnpeApplication.kt</ID>
+    <ID>NewLineAtEndOfFile:MainViewFactory.kt:dk.itu.moapd.infersnpe.ui.main.MainViewFactory.kt</ID>
+    <ID>NewLineAtEndOfFile:OverlayPaintFactory.kt:dk.itu.moapd.infersnpe.feature.detector.overlay.paints.OverlayPaintFactory.kt</ID>
+    <ID>NewLineAtEndOfFile:ResultsOverlayView.kt:dk.itu.moapd.infersnpe.feature.detector.presentation.ui.ResultsOverlayView.kt</ID>
+    <ID>NewLineAtEndOfFile:Theme.kt:dk.itu.moapd.infersnpe.ui.theme.Theme.kt</ID>
+    <ID>NewLineAtEndOfFile:Type.kt:dk.itu.moapd.infersnpe.ui.theme.Type.kt</ID>
+    <ID>ReturnCount:SnpeModel.kt:SnpeModel$private fun loadModel: Boolean</ID>
+    <ID>TooGenericExceptionCaught:DetectionPipeline.kt:DetectionPipeline$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:DetectorViewModel.kt:DetectorViewModel$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SnpeModel.kt:SnpeModel$e: Exception</ID>
+  </CurrentIssues>
+</SmellBaseline>

@@ -30,24 +30,24 @@ import javax.inject.Inject
  * Mapper class to convert [DetectionPipelineResult] to [DetectorDetections].
  */
 class DetectorDetectionsMapper
-@Inject
-constructor() {
-    /**
-     * Maps a [DetectionPipelineResult] to a [DetectorDetections].
-     *
-     * @param result The [DetectionPipelineResult] to be mapped.
-     *
-     * @return The mapped [DetectorDetections].
-     */
-    fun map(result: DetectionPipelineResult): DetectorDetections =
-        DetectorDetections(
-            objects =
-                result.objectDetections.map {
-                    ObjectDetection(
-                        boundingBox = it.rect.toBoundingBox(),
-                        label = it.label,
-                        score = it.score,
-                    )
-                },
-        )
-}
+    @Inject
+    constructor() {
+        /**
+         * Maps a [DetectionPipelineResult] to a [DetectorDetections].
+         *
+         * @param result The [DetectionPipelineResult] to be mapped.
+         *
+         * @return The mapped [DetectorDetections].
+         */
+        fun map(result: DetectionPipelineResult): DetectorDetections =
+            DetectorDetections(
+                objects =
+                    result.objectDetections.map {
+                        ObjectDetection(
+                            boundingBox = it.rect.toBoundingBox(),
+                            label = it.label,
+                            score = it.score,
+                        )
+                    },
+            )
+    }

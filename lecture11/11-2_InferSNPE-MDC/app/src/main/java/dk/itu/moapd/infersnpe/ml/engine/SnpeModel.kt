@@ -27,13 +27,13 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.util.Log
 import androidx.core.graphics.createBitmap
+import com.qualcomm.qti.snpe.FloatTensor
+import com.qualcomm.qti.snpe.NeuralNetwork
+import com.qualcomm.qti.snpe.SNPE
 import dk.itu.moapd.infersnpe.ml.api.InferenceEngine
 import dk.itu.moapd.infersnpe.ml.api.TensorOutputs
 import dk.itu.moapd.infersnpe.ml.config.ModelConfig
 import dk.itu.moapd.infersnpe.ml.preprocess.BitmapRgbFloatPreprocessor
-import com.qualcomm.qti.snpe.FloatTensor
-import com.qualcomm.qti.snpe.NeuralNetwork
-import com.qualcomm.qti.snpe.SNPE
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock

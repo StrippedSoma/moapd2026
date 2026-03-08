@@ -44,167 +44,167 @@ import dk.itu.moapd.infersnpe.feature.detector.presentation.config.OverlayConfig
  * @param attrs The attribute set passed from the XML layout (optional).
  */
 class ResultsOverlayView
-@JvmOverloads
-constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-) : View(context, attrs) {
-    /**
-     * Companion object containing constants used for calculations.
-     */
-    companion object {
+    @JvmOverloads
+    constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+    ) : View(context, attrs) {
         /**
-         * Minimum interval between updates in milliseconds to prevent excessive UI updates.
+         * Companion object containing constants used for calculations.
          */
-        private const val MIN_UPDATE_INTERVAL_MS = 16L // ~60 FPS
-    }
+        companion object {
+            /**
+             * Minimum interval between updates in milliseconds to prevent excessive UI updates.
+             */
+            private const val MIN_UPDATE_INTERVAL_MS = 16L // ~60 FPS
+        }
 
-    /**
-     * The width of the source image used for scaling bounding boxes.
-     */
-    private var imageWidth: Int = 0
+        /**
+         * The width of the source image used for scaling bounding boxes.
+         */
+        private var imageWidth: Int = 0
 
-    /**
-     * The height of the source image used for scaling bounding boxes.
-     */
-    private var imageHeight: Int = 0
+        /**
+         * The height of the source image used for scaling bounding boxes.
+         */
+        private var imageHeight: Int = 0
 
-    /**
-     * A flag indicating whether the camera is in front or back position.
-     */
-    private var isFrontCamera: Boolean = false
+        /**
+         * A flag indicating whether the camera is in front or back position.
+         */
+        private var isFrontCamera: Boolean = false
 
-    /**
-     * The list of object detection results to be rendered on the overlay.
-     */
-    private var objectDetections: List<ObjectDetection> = emptyList()
+        /**
+         * The list of object detection results to be rendered on the overlay.
+         */
+        private var objectDetections: List<ObjectDetection> = emptyList()
 
-    /**
-     * Mapper responsible for converting raw detection results + frame info into drawing
-     * primitives (rects + labels) in view coordinates.
-     */
-    private val coordinateMapper = OverlayCoordinateMapper()
+        /**
+         * Mapper responsible for converting raw detection results + frame info into drawing
+         * primitives (rects + labels) in view coordinates.
+         */
+        private val coordinateMapper = OverlayCoordinateMapper()
 
-    /**
-     * Paint objects used for drawing various overlay elements.
-     */
-    private var paints: OverlayPaints =
-        OverlayPaintFactory(
-            primaryColor = OverlayConfig.DEFAULT_BACKGROUND_COLOR,
-            labelTextColor = OverlayConfig.DEFAULT_PRIMARY_TEXT_COLOR,
-            labelTextSizePx = OverlayConfig.DEFAULT_PRIMARY_TEXT_SIZE_PX,
-        ).create()
+        /**
+         * Paint objects used for drawing various overlay elements.
+         */
+        private var paints: OverlayPaints =
+            OverlayPaintFactory(
+                primaryColor = OverlayConfig.DEFAULT_BACKGROUND_COLOR,
+                labelTextColor = OverlayConfig.DEFAULT_PRIMARY_TEXT_COLOR,
+                labelTextSizePx = OverlayConfig.DEFAULT_PRIMARY_TEXT_SIZE_PX,
+            ).create()
 
-    /**
-     * Renderers for object overlays.
-     */
-    private var objectRenderer =
-        ObjectOverlayRenderer(
-            boxPaint = paints.objectBoxPaint,
-            backgroundPaint = paints.objectBackgroundPaint,
-            labelPaint = paints.labelPaint,
-        )
-
-    /**
-     * Handler for ensuring UI updates happen on the main thread.
-     */
-    private val uiHandler = Handler(Looper.getMainLooper())
-
-    /**
-     * Flag to prevent excessive UI update requests.
-     */
-    private var hasPendingUpdate = false
-
-    /**
-     * Last update time for throttling updates during high load.
-     */
-    private var lastUpdateTimeMs = 0L
-
-    /**
-     * Draws detection results on the canvas overlay.
-     *
-     * This method draws object bounding boxes with labels. Drawing is skipped if the image
-     * dimensions are not properly set.
-     *
-     * @param canvas The canvas on which the overlay content is drawn.
-     */
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        if (imageWidth == 0 || imageHeight == 0) return
-
-        val objectItems =
-            coordinateMapper.mapObjects(
-                frameWidth = imageWidth,
-                frameHeight = imageHeight,
-                isFrontCamera = isFrontCamera,
-                viewWidth = width,
-                viewHeight = height,
-                objects = objectDetections,
-            )
-
-        objectRenderer.render(canvas, objectItems)
-    }
-
-    /**
-     * Sets the Paint objects used for drawing overlays.
-     *
-     * @param paints An instance of [OverlayPaints] containing the Paint objects.
-     */
-    fun setOverlayPaints(paints: OverlayPaints) {
-        this.paints = paints
-        this.objectRenderer =
+        /**
+         * Renderers for object overlays.
+         */
+        private var objectRenderer =
             ObjectOverlayRenderer(
-                paints.objectBoxPaint,
-                paints.objectBackgroundPaint,
-                paints.labelPaint,
+                boxPaint = paints.objectBoxPaint,
+                backgroundPaint = paints.objectBackgroundPaint,
+                labelPaint = paints.labelPaint,
             )
-        invalidate()
-    }
 
-    /**
-     * Updates the overlay with new detection and landmark results from a
-     * [dk.itu.moapd.infersnpe.feature.detector.infra.camera.model.DetectorFramePayload].
-     *
-     * This method is thread-safe and can be called from any thread. UI updates are
-     * automatically marshalled to the main thread to prevent ANR issues. Includes throttling
-     * to prevent excessive updates during high load.
-     *
-     * @param payload The [dk.itu.moapd.infersnpe.feature.detector.infra.camera.model.DetectorFramePayload] containing detection results and frame info.
-     */
-    fun update(payload: DetectorFramePayload) {
-        val currentTimeMs = System.currentTimeMillis()
+        /**
+         * Handler for ensuring UI updates happen on the main thread.
+         */
+        private val uiHandler = Handler(Looper.getMainLooper())
 
-        if (hasPendingUpdate || (currentTimeMs - lastUpdateTimeMs < MIN_UPDATE_INTERVAL_MS)) {
-            return
+        /**
+         * Flag to prevent excessive UI update requests.
+         */
+        private var hasPendingUpdate = false
+
+        /**
+         * Last update time for throttling updates during high load.
+         */
+        private var lastUpdateTimeMs = 0L
+
+        /**
+         * Draws detection results on the canvas overlay.
+         *
+         * This method draws object bounding boxes with labels. Drawing is skipped if the image
+         * dimensions are not properly set.
+         *
+         * @param canvas The canvas on which the overlay content is drawn.
+         */
+        override fun onDraw(canvas: Canvas) {
+            super.onDraw(canvas)
+            if (imageWidth == 0 || imageHeight == 0) return
+
+            val objectItems =
+                coordinateMapper.mapObjects(
+                    frameWidth = imageWidth,
+                    frameHeight = imageHeight,
+                    isFrontCamera = isFrontCamera,
+                    viewWidth = width,
+                    viewHeight = height,
+                    objects = objectDetections,
+                )
+
+            objectRenderer.render(canvas, objectItems)
         }
 
-        hasPendingUpdate = true
-        lastUpdateTimeMs = currentTimeMs
-
-        if (Looper.myLooper() != Looper.getMainLooper()) {
-            uiHandler.postAtFrontOfQueue { performUpdate(payload) }
-        } else {
-            performUpdate(payload)
-        }
-    }
-
-    /**
-     * Performs the actual update work on the UI thread.
-     *
-     * @param payload The [DetectorFramePayload] containing detection results and frame info.
-     */
-    private fun performUpdate(payload: DetectorFramePayload) {
-        try {
-            val detections = payload.detections
-            val frame = payload.frame
-
-            this.objectDetections = detections.objects
-            this.imageWidth = frame.width
-            this.imageHeight = frame.height
-            this.isFrontCamera = frame.isFrontCamera
+        /**
+         * Sets the Paint objects used for drawing overlays.
+         *
+         * @param paints An instance of [OverlayPaints] containing the Paint objects.
+         */
+        fun setOverlayPaints(paints: OverlayPaints) {
+            this.paints = paints
+            this.objectRenderer =
+                ObjectOverlayRenderer(
+                    paints.objectBoxPaint,
+                    paints.objectBackgroundPaint,
+                    paints.labelPaint,
+                )
             invalidate()
-        } finally {
-            hasPendingUpdate = false
+        }
+
+        /**
+         * Updates the overlay with new detection and landmark results from a
+         * [dk.itu.moapd.infersnpe.feature.detector.infra.camera.model.DetectorFramePayload].
+         *
+         * This method is thread-safe and can be called from any thread. UI updates are
+         * automatically marshalled to the main thread to prevent ANR issues. Includes throttling
+         * to prevent excessive updates during high load.
+         *
+         * @param payload The [dk.itu.moapd.infersnpe.feature.detector.infra.camera.model.DetectorFramePayload] containing detection results and frame info.
+         */
+        fun update(payload: DetectorFramePayload) {
+            val currentTimeMs = System.currentTimeMillis()
+
+            if (hasPendingUpdate || (currentTimeMs - lastUpdateTimeMs < MIN_UPDATE_INTERVAL_MS)) {
+                return
+            }
+
+            hasPendingUpdate = true
+            lastUpdateTimeMs = currentTimeMs
+
+            if (Looper.myLooper() != Looper.getMainLooper()) {
+                uiHandler.postAtFrontOfQueue { performUpdate(payload) }
+            } else {
+                performUpdate(payload)
+            }
+        }
+
+        /**
+         * Performs the actual update work on the UI thread.
+         *
+         * @param payload The [DetectorFramePayload] containing detection results and frame info.
+         */
+        private fun performUpdate(payload: DetectorFramePayload) {
+            try {
+                val detections = payload.detections
+                val frame = payload.frame
+
+                this.objectDetections = detections.objects
+                this.imageWidth = frame.width
+                this.imageHeight = frame.height
+                this.isFrontCamera = frame.isFrontCamera
+                invalidate()
+            } finally {
+                hasPendingUpdate = false
+            }
         }
     }
-}

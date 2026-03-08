@@ -23,10 +23,10 @@ package dk.itu.moapd.infersnpe.feature.detector.presentation.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dk.itu.moapd.infersnpe.feature.detector.application.DetectorController
 import dk.itu.moapd.infersnpe.feature.detector.infra.camera.model.DetectorCameraStartRequest
 import dk.itu.moapd.infersnpe.feature.detector.presentation.state.DetectorState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -39,79 +39,79 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class DetectorViewModel
-@Inject
-constructor(
-    private val controller: DetectorController,
-) : ViewModel() {
-    /**
-     * A set of private constants used in this class.
-     */
-    companion object {
+    @Inject
+    constructor(
+        private val controller: DetectorController,
+    ) : ViewModel() {
         /**
-         * Tag for logging.
+         * A set of private constants used in this class.
          */
-        private val TAG = DetectorViewModel::class.qualifiedName
-    }
+        companion object {
+            /**
+             * Tag for logging.
+             */
+            private val TAG = DetectorViewModel::class.qualifiedName
+        }
 
-    /**
-     * The UI state exposed as a StateFlow.
-     */
-    private val _uiState = MutableStateFlow(DetectorState())
+        /**
+         * The UI state exposed as a StateFlow.
+         */
+        private val _uiState = MutableStateFlow(DetectorState())
 
-    /**
-     * Publicly exposed UI state as a read-only StateFlow.
-     */
-    val uiState: StateFlow<DetectorState> = _uiState
+        /**
+         * Publicly exposed UI state as a read-only StateFlow.
+         */
+        val uiState: StateFlow<DetectorState> = _uiState
 
-    /**
-     * Initialization block: loads the model when the ViewModel is created.
-     */
-    init {
-        // Initialize the frame processor to load models.
-        controller.initialize(viewModelScope)
+        /**
+         * Initialization block: loads the model when the ViewModel is created.
+         */
+        init {
+            // Initialize the frame processor to load models.
+            controller.initialize(viewModelScope)
 
-        // Start collecting runtime state updates.
-        viewModelScope.launch {
-            controller.runtimeState.collect { runtime ->
-                _uiState.value = runtime.toUiState()
+            // Start collecting runtime state updates.
+            viewModelScope.launch {
+                controller.runtimeState.collect { runtime ->
+                    _uiState.value = runtime.toUiState()
+                }
+            }
+        }
+
+        /**
+         * Starts the camera with the provided request parameters.
+         *
+         * @param request The request parameters for starting the camera.
+         */
+        fun startCamera(request: DetectorCameraStartRequest) {
+            controller.start(request)
+        }
+
+        /**
+         * Stops the camera and clears the state buffer.
+         */
+        fun stopCamera() {
+            controller.stop()
+        }
+
+        /**
+         * Updates the confidence threshold for object detection.
+         *
+         * @param threshold The new confidence threshold value (between 0.0 and 1.0).
+         */
+        fun updateObjectThreshold(threshold: Float) {
+            controller.updateObjectThreshold(threshold)
+        }
+
+        /**
+         * Called when the ViewModel is no longer used and will be destroyed.
+         */
+        override fun onCleared() {
+            super.onCleared()
+            try {
+                controller.stop()
+            } catch (e: Exception) {
+                Log.e(TAG, "Error during cleanup", e)
             }
         }
     }
-
-    /**
-     * Starts the camera with the provided request parameters.
-     *
-     * @param request The request parameters for starting the camera.
-     */
-    fun startCamera(request: DetectorCameraStartRequest) {
-        controller.start(request)
-    }
-
-    /**
-     * Stops the camera and clears the state buffer.
-     */
-    fun stopCamera() {
-        controller.stop()
-    }
-
-    /**
-     * Updates the confidence threshold for object detection.
-     *
-     * @param threshold The new confidence threshold value (between 0.0 and 1.0).
-     */
-    fun updateObjectThreshold(threshold: Float) {
-        controller.updateObjectThreshold(threshold)
-    }
-
-    /**
-     * Called when the ViewModel is no longer used and will be destroyed.
-     */
-    override fun onCleared() {
-        super.onCleared()
-        try {
-            controller.stop()
-        } catch (e: Exception) {
-            Log.e(TAG, "Error during cleanup", e)
-        }
-    }
-}

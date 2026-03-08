@@ -20,6 +20,11 @@
  */
 package dk.itu.moapd.infersnpe.di.detector
 
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 import dk.itu.moapd.infersnpe.feature.detector.application.DetectorDetectionsMapper
 import dk.itu.moapd.infersnpe.feature.detector.application.FrameProcessor
 import dk.itu.moapd.infersnpe.feature.detector.domain.ports.FrameAnalyzer
@@ -29,11 +34,6 @@ import dk.itu.moapd.infersnpe.feature.detector.infra.image.FrameTransformer
 import dk.itu.moapd.infersnpe.feature.detector.infra.image.ImageProxyToBitmapConverter
 import dk.itu.moapd.infersnpe.feature.detector.presentation.config.DetectorCameraConfig
 import dk.itu.moapd.infersnpe.ml.pipeline.DetectionPipeline
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
 
 /**
  * Hilt module to provide detector tools dependencies.

@@ -34,10 +34,11 @@ import dk.itu.moapd.infersnpe.feature.detector.presentation.ui.ResultsOverlayVie
  */
 fun createPreviewView(context: Context): PreviewView =
     PreviewView(context).apply {
-        layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT,
-        )
+        layoutParams =
+            ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+            )
         scaleType = PreviewView.ScaleType.FILL_START
     }
 
@@ -48,5 +49,4 @@ fun createPreviewView(context: Context): PreviewView =
  *
  * @return A new [ResultsOverlayView] instance.
  */
-fun createResultsOverlayView(context: Context): ResultsOverlayView =
-    ResultsOverlayView(context)
+fun createResultsOverlayView(context: Context): ResultsOverlayView = ResultsOverlayView(context)

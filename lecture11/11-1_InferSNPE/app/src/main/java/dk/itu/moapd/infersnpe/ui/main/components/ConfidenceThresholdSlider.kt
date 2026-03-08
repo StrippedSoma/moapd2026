@@ -47,13 +47,15 @@ fun ConfidenceThresholdSlider(
         onValueChange = onValueChange,
         valueRange = 0f..1f,
         steps = 99,
-        colors = SliderDefaults.colors(
-            thumbColor = MaterialTheme.colorScheme.primary,
-            activeTrackColor = MaterialTheme.colorScheme.primary,
-            inactiveTrackColor = MaterialTheme.colorScheme.secondaryContainer,
-        ),
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = 64.dp, start = 16.dp, end = 16.dp),
+        colors =
+            SliderDefaults.colors(
+                thumbColor = MaterialTheme.colorScheme.primary,
+                activeTrackColor = MaterialTheme.colorScheme.primary,
+                inactiveTrackColor = MaterialTheme.colorScheme.secondaryContainer,
+            ),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(top = 64.dp, start = 16.dp, end = 16.dp),
     )
 }

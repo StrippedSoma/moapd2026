@@ -46,10 +46,11 @@ fun FpsIndicator(
         color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.96f),
         contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
         shape = MaterialTheme.shapes.medium,
-        border = BorderStroke(
-            width = 2.dp,
-            color = MaterialTheme.colorScheme.primary,
-        ),
+        border =
+            BorderStroke(
+                width = 2.dp,
+                color = MaterialTheme.colorScheme.primary,
+            ),
         shadowElevation = 4.dp,
         modifier = modifier.padding(top = 120.dp),
     ) {

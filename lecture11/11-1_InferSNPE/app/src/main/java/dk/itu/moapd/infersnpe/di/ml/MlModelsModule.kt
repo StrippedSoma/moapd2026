@@ -21,16 +21,16 @@
 package dk.itu.moapd.infersnpe.di.ml
 
 import android.app.Application
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import dk.itu.moapd.infersnpe.ml.api.InferenceEngine
 import dk.itu.moapd.infersnpe.ml.api.TensorOutputs
 import dk.itu.moapd.infersnpe.ml.config.ModelConfig
 import dk.itu.moapd.infersnpe.ml.config.ModelRegistry
 import dk.itu.moapd.infersnpe.ml.engine.SnpeModel
 import dk.itu.moapd.infersnpe.ml.models.labels.COCO80_LABELS
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**

@@ -37,7 +37,6 @@ import dk.itu.moapd.infersnpe.databinding.ActivityMainBinding
  */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     /**
      * View binding is a feature that allows you to more easily write code that interacts with
      * views. Once view binding is enabled in a module, it generates a binding class for each XML
@@ -102,9 +101,9 @@ class MainActivity : AppCompatActivity() {
                 this,
                 Manifest.permission.CAMERA,
             ) == PackageManager.PERMISSION_DENIED &&
-                    shouldShowRequestPermissionRationale(
-                        Manifest.permission.CAMERA,
-                    ) -> {
+                shouldShowRequestPermissionRationale(
+                    Manifest.permission.CAMERA,
+                ) -> {
                 // Shows a rationale dialog to explain why the app needs camera permission.
                 showPermissionRationaleDialog()
             }

@@ -118,17 +118,16 @@ class MainActivity : ComponentActivity() {
      * grant or deny the request.
      */
     private fun showPermissionRationaleDialog() {
-        AlertDialog.Builder(this)
+        AlertDialog
+            .Builder(this)
             .setTitle(R.string.camera_permission_title)
             .setMessage(R.string.camera_permission_rationale_message)
             .setPositiveButton(R.string.button_ok) { _, _ ->
                 requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-            }
-            .setNegativeButton(R.string.button_cancel) { dialog, _ ->
+            }.setNegativeButton(R.string.button_cancel) { dialog, _ ->
                 dialog.dismiss()
                 finish()
-            }
-            .setCancelable(false)
+            }.setCancelable(false)
             .show()
     }
 

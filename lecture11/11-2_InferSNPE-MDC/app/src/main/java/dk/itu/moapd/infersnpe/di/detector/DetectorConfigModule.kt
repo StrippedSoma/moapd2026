@@ -20,13 +20,13 @@
  */
 package dk.itu.moapd.infersnpe.di.detector
 
-import dk.itu.moapd.infersnpe.feature.detector.presentation.config.DetectorCameraConfig
-import dk.itu.moapd.infersnpe.ml.pipeline.DetectionPipelineConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import dk.itu.moapd.infersnpe.feature.detector.presentation.config.DetectorCameraConfig
+import dk.itu.moapd.infersnpe.ml.pipeline.DetectionPipelineConfig
 
 /**
  * Hilt module to provide detector configuration dependencies.

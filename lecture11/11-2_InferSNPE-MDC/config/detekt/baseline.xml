@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>LoopWithTooManyJumpStatements:DetectionUtils.kt:DetectionUtils$for</ID>
+    <ID>MagicNumber:DetectorCameraConfig.kt:DetectorCameraConfig$1280</ID>
+    <ID>MagicNumber:DetectorCameraConfig.kt:DetectorCameraConfig$720</ID>
+    <ID>MagicNumber:FPSTracker.kt:FPSTracker$1000.0</ID>
+    <ID>MagicNumber:FrameTransformer.kt:FrameTransformer$270</ID>
+    <ID>MagicNumber:FrameTransformer.kt:FrameTransformer$360</ID>
+    <ID>MagicNumber:FrameTransformer.kt:FrameTransformer$90</ID>
+    <ID>MagicNumber:MainFragment.kt:MainFragment$45f</ID>
+    <ID>MagicNumber:ModelRegistry.kt:ModelRegistry$3</ID>
+    <ID>MagicNumber:ModelRegistry.kt:ModelRegistry$320</ID>
+    <ID>MatchingDeclarationName:MlQualifiers.kt:ObjectDetection</ID>
+    <ID>MaxLineLength:ResultsOverlayView.kt:ResultsOverlayView$*</ID>
+    <ID>NewLineAtEndOfFile:DetectorConfigModule.kt:dk.itu.moapd.infersnpe.di.detector.DetectorConfigModule.kt</ID>
+    <ID>NewLineAtEndOfFile:DetectorDetectionsMapper.kt:dk.itu.moapd.infersnpe.feature.detector.application.DetectorDetectionsMapper.kt</ID>
+    <ID>NewLineAtEndOfFile:DetectorMlBindingsModule.kt:dk.itu.moapd.infersnpe.di.detector.DetectorMlBindingsModule.kt</ID>
+    <ID>NewLineAtEndOfFile:DetectorProcessingModule.kt:dk.itu.moapd.infersnpe.di.detector.DetectorProcessingModule.kt</ID>
+    <ID>NewLineAtEndOfFile:DetectorViewModel.kt:dk.itu.moapd.infersnpe.feature.detector.presentation.ui.viewmodel.DetectorViewModel.kt</ID>
+    <ID>NewLineAtEndOfFile:InferSnpeApplication.kt:dk.itu.moapd.infersnpe.app.InferSnpeApplication.kt</ID>
+    <ID>NewLineAtEndOfFile:OverlayPaintFactory.kt:dk.itu.moapd.infersnpe.feature.detector.overlay.paints.OverlayPaintFactory.kt</ID>
+    <ID>NewLineAtEndOfFile:ResultsOverlayView.kt:dk.itu.moapd.infersnpe.feature.detector.presentation.ui.ResultsOverlayView.kt</ID>
+    <ID>ReturnCount:MainFragment.kt:MainFragment$private fun startCameraIfReady</ID>
+    <ID>ReturnCount:SnpeModel.kt:SnpeModel$private fun loadModel: Boolean</ID>
+    <ID>TooGenericExceptionCaught:DetectionPipeline.kt:DetectionPipeline$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:DetectorViewModel.kt:DetectorViewModel$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SnpeModel.kt:SnpeModel$e: Exception</ID>
+  </CurrentIssues>
+</SmellBaseline>

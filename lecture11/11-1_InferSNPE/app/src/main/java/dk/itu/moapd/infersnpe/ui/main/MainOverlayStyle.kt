@@ -42,7 +42,8 @@ fun ConfigureOverlayStyle(resultsOverlayView: ResultsOverlayView) {
 
     val primaryTextSizePx =
         with(density) {
-            MaterialTheme.typography.titleMedium.fontSize.toPx()
+            MaterialTheme.typography.titleMedium.fontSize
+                .toPx()
         }
 
     val overlayPaints =
