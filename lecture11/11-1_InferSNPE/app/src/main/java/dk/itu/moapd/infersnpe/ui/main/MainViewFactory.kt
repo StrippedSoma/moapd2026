@@ -23,6 +23,7 @@ package dk.itu.moapd.infersnpe.ui.main
 import android.content.Context
 import android.view.ViewGroup
 import androidx.camera.view.PreviewView
+import dk.itu.moapd.infersnpe.feature.detector.presentation.ui.ResultsOverlayView
 
 /**
  * Creates a new [PreviewView] instance with the specified context.

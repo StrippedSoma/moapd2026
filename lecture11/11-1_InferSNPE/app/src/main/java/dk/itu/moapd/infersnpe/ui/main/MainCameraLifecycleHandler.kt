@@ -28,7 +28,8 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.LifecycleOwner
 import dk.itu.moapd.infersnpe.feature.detector.infra.camera.model.DetectorCameraStartRequest
-import dk.itu.moapd.infersnpe.ui.main.viewmodel.DetectorViewModel
+import dk.itu.moapd.infersnpe.feature.detector.presentation.ui.ResultsOverlayView
+import dk.itu.moapd.infersnpe.feature.detector.presentation.ui.viewmodel.DetectorViewModel
 
 /**
  * A composable function that handles the lifecycle of the camera.

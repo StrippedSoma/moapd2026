@@ -35,7 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import dagger.hilt.android.AndroidEntryPoint
 import dk.itu.moapd.infersnpe.R
-import dk.itu.moapd.infersnpe.ui.main.viewmodel.DetectorViewModel
+import dk.itu.moapd.infersnpe.feature.detector.presentation.ui.viewmodel.DetectorViewModel
 import dk.itu.moapd.infersnpe.ui.theme.InferSNPETheme
 
 /**

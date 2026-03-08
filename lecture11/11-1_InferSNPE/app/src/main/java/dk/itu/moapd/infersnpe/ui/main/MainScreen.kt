@@ -33,7 +33,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dk.itu.moapd.infersnpe.ui.main.viewmodel.DetectorViewModel
+import dk.itu.moapd.infersnpe.feature.detector.presentation.ui.viewmodel.DetectorViewModel
 
 /**
  * A composable function that represents the main screen of the application.

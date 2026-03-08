@@ -27,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalDensity
 import dk.itu.moapd.infersnpe.feature.detector.overlay.paints.OverlayPaintFactory
+import dk.itu.moapd.infersnpe.feature.detector.presentation.ui.ResultsOverlayView
 
 /**
  * A composable function that configures the overlay style.

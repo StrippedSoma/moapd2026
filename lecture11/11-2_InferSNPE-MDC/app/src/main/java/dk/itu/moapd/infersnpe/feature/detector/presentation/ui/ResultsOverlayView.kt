@@ -18,7 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.infersnpe.ui.main
+package dk.itu.moapd.infersnpe.feature.detector.presentation.ui
 
 import android.content.Context
 import android.graphics.Canvas
@@ -163,13 +163,13 @@ constructor(
 
     /**
      * Updates the overlay with new detection and landmark results from a
-     * [DetectorFramePayload].
+     * [dk.itu.moapd.infersnpe.feature.detector.infra.camera.model.DetectorFramePayload].
      *
      * This method is thread-safe and can be called from any thread. UI updates are
      * automatically marshalled to the main thread to prevent ANR issues. Includes throttling
      * to prevent excessive updates during high load.
      *
-     * @param payload The [DetectorFramePayload] containing detection results and frame info.
+     * @param payload The [dk.itu.moapd.infersnpe.feature.detector.infra.camera.model.DetectorFramePayload] containing detection results and frame info.
      */
     fun update(payload: DetectorFramePayload) {
         val currentTimeMs = System.currentTimeMillis()
