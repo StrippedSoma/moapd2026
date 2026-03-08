@@ -24,39 +24,42 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import dagger.hilt.android.AndroidEntryPoint
 import dk.itu.moapd.infersnpe.R
-import dk.itu.moapd.infersnpe.databinding.ActivityMainBinding
+import dk.itu.moapd.infersnpe.ui.main.viewmodel.DetectorViewModel
+import dk.itu.moapd.infersnpe.ui.theme.InferSNPETheme
 
 /**
  * An activity class with several methods to manage the main activity of InferSNPE application.
  */
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
+    /**
+     * The view model that manages the state of the detector.
+     */
+    private val detectorViewModel: DetectorViewModel by viewModels()
 
     /**
-     * View binding is a feature that allows you to more easily write code that interacts with
-     * views. Once view binding is enabled in a module, it generates a binding class for each XML
-     * layout file present in that module. An instance of a binding class contains direct references
-     * to all views that have an ID in the corresponding layout.
+     * A boolean value indicating whether the camera permission is granted.
      */
-    private lateinit var binding: ActivityMainBinding
+    private var hasCameraPermission by mutableStateOf(false)
 
     /**
      * This object launches a new activity and receives back some result data.
      */
     private val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission(),
-        ) { isGranted ->
-            if (!isGranted) {
-                // PERMISSION DENIED: End the Activity.
-                finish()
-            }
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            hasCameraPermission = isGranted
+            if (!isGranted) finish()
         }
 
     /**
@@ -81,14 +84,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Migrate from Kotlin synthetics to Jetpack view binding.
-        // https://developer.android.com/topic/libraries/view-binding/migration
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        hasCameraPermission = checkPermission()
 
-        if (!checkPermission()) {
-            requestCameraPermission()
+        setContent {
+            InferSNPETheme {
+                MainScreen(
+                    detectorViewModel = detectorViewModel,
+                    hasCameraPermission = hasCameraPermission,
+                )
+            }
         }
+
+        if (!hasCameraPermission) requestCameraPermission()
     }
 
     /**
@@ -97,20 +104,12 @@ class MainActivity : AppCompatActivity() {
      */
     private fun requestCameraPermission() {
         when {
-            // If the permission is already denied.
-            ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.CAMERA,
-            ) == PackageManager.PERMISSION_DENIED &&
-                    shouldShowRequestPermissionRationale(
-                        Manifest.permission.CAMERA,
-                    ) -> {
-                // Shows a rationale dialog to explain why the app needs camera permission.
+            ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
+                PackageManager.PERMISSION_DENIED &&
+                shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
                 showPermissionRationaleDialog()
             }
-            // First time permission request or permission denied without "Don't ask again"
-            else ->
-                requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+            else -> requestPermissionLauncher.launch(Manifest.permission.CAMERA)
         }
     }
 
@@ -119,25 +118,17 @@ class MainActivity : AppCompatActivity() {
      * grant or deny the request.
      */
     private fun showPermissionRationaleDialog() {
-        // Creates and shows an AlertDialog to explain the need for camera permission.
-        AlertDialog
-            .Builder(this)
-            // Sets the title and rationale message using R.string resources.
+        AlertDialog.Builder(this)
             .setTitle(R.string.camera_permission_title)
             .setMessage(R.string.camera_permission_rationale_message)
-            // Positive Button (Main Action): Re-launches the permission request.
             .setPositiveButton(R.string.button_ok) { _, _ ->
                 requestPermissionLauncher.launch(Manifest.permission.CAMERA)
             }
-            // Negative Button (Secondary Action): Dismisses the dialog and exits the app, as the
-            //                                     camera is essential
             .setNegativeButton(R.string.button_cancel) { dialog, _ ->
                 dialog.dismiss()
                 finish()
             }
-            // Makes the dialog non-cancelable by tapping outside.
             .setCancelable(false)
-            // Shows the dialog.
             .show()
     }
 
@@ -147,9 +138,7 @@ class MainActivity : AppCompatActivity() {
      *
      * @return A boolean value with the user permission agreement.
      */
-    private fun checkPermission() =
-        ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.CAMERA,
-        ) == PackageManager.PERMISSION_GRANTED
+    private fun checkPermission(): Boolean =
+        ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
+            PackageManager.PERMISSION_GRANTED
 }

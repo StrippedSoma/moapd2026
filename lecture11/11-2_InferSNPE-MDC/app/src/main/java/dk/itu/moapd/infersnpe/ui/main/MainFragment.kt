@@ -28,7 +28,6 @@ import android.view.View
 import androidx.camera.core.CameraSelector
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -230,35 +229,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     /**
-     * Restarts the camera.
-     */
-    private fun restartCamera() {
-        stopCameraIfRunning()
-        startCameraIfReady()
-    }
-
-    /**
      * Stops the camera if it is running.
      */
     private fun stopCameraIfRunning() {
         if (!isCameraStarted) return
         detectorViewModel.stopCamera()
         isCameraStarted = false
-    }
-
-    /**
-     * Toggles the camera selector.
-     *
-     * @param currentSelector The current camera selector.
-     *
-     * @return The toggled camera selector.
-     */
-    private fun toggleCameraSelector(currentSelector: CameraSelector): CameraSelector {
-        return if (currentSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
-            CameraSelector.DEFAULT_FRONT_CAMERA
-        } else {
-            CameraSelector.DEFAULT_BACK_CAMERA
-        }
     }
 
     /**
