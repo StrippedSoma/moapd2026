@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>FunctionNaming:ConfidenceThresholdSlider.kt:@Composable fun ConfidenceThresholdSlider</ID>
+    <ID>FunctionNaming:FpsIndicator.kt:@Composable fun FpsIndicator</ID>
+    <ID>FunctionNaming:MainCameraLifecycleHandler.kt:@Composable fun MainCameraLifecycleHandler</ID>
+    <ID>FunctionNaming:MainContent.kt:@Composable fun MainContent</ID>
+    <ID>FunctionNaming:MainOverlayStyle.kt:@Composable fun ConfigureOverlayStyle</ID>
+    <ID>FunctionNaming:MainScreen.kt:@Composable fun MainScreen</ID>
+    <ID>FunctionNaming:Theme.kt:@Composable fun InferTFLiteTheme</ID>
+    <ID>LoopWithTooManyJumpStatements:DetectionUtils.kt:DetectionUtils$for</ID>
+    <ID>MagicNumber:Color.kt:0xFF625b71</ID>
+    <ID>MagicNumber:Color.kt:0xFF6650a4</ID>
+    <ID>MagicNumber:Color.kt:0xFF7D5260</ID>
+    <ID>MagicNumber:Color.kt:0xFFCCC2DC</ID>
+    <ID>MagicNumber:Color.kt:0xFFD0BCFF</ID>
+    <ID>MagicNumber:Color.kt:0xFFEFB8C8</ID>
+    <ID>MagicNumber:DetectorCameraConfig.kt:DetectorCameraConfig$1280</ID>
+    <ID>MagicNumber:DetectorCameraConfig.kt:DetectorCameraConfig$720</ID>
+    <ID>MagicNumber:FPSTracker.kt:FPSTracker$1000.0</ID>
+    <ID>MagicNumber:FrameTransformer.kt:FrameTransformer$270</ID>
+    <ID>MagicNumber:FrameTransformer.kt:FrameTransformer$360</ID>
+    <ID>MagicNumber:FrameTransformer.kt:FrameTransformer$90</ID>
+    <ID>MagicNumber:MainScreen.kt:0.5f</ID>
+    <ID>MagicNumber:ModelRegistry.kt:ModelRegistry$3</ID>
+    <ID>MagicNumber:ModelRegistry.kt:ModelRegistry$320</ID>
+    <ID>MatchingDeclarationName:MlQualifiers.kt:ObjectDetection</ID>
+    <ID>MaxLineLength:ResultsOverlayView.kt:ResultsOverlayView$*</ID>
+    <ID>ReturnCount:TFLiteModel.kt:TFLiteModel$private fun &lt;R&gt; executeInference: R?</ID>
+    <ID>ReturnCount:TFLiteModel.kt:TFLiteModel$private fun loadModel: Boolean</ID>
+    <ID>ReturnCount:TFLiteModel.kt:TFLiteModel$private fun resolveOutputSpecs: List&lt;OutputSpec&gt;?</ID>
+    <ID>TooGenericExceptionCaught:DetectionPipeline.kt:DetectionPipeline$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:DetectorViewModel.kt:DetectorViewModel$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:TFLiteModel.kt:TFLiteModel$e: Exception</ID>
+    <ID>TooManyFunctions:TFLiteModel.kt:TFLiteModel : CloseableInferenceEngine</ID>
+  </CurrentIssues>
+</SmellBaseline>
