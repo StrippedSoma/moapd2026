@@ -31,7 +31,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * A person detector that uses YOLO model to detect object in images.
+ * An object detector that uses YOLO model to detect object in images.
  *
  * @param engine The inference engine used to run the YOLO model.
  * @param postProcessor The post-processor to interpret YOLO model outputs.
