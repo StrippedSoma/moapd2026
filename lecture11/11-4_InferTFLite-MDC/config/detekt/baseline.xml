@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>LoopWithTooManyJumpStatements:DetectionUtils.kt:DetectionUtils$for</ID>
+    <ID>MagicNumber:DetectorCameraConfig.kt:DetectorCameraConfig$1280</ID>
+    <ID>MagicNumber:DetectorCameraConfig.kt:DetectorCameraConfig$720</ID>
+    <ID>MagicNumber:FPSTracker.kt:FPSTracker$1000.0</ID>
+    <ID>MagicNumber:FrameTransformer.kt:FrameTransformer$270</ID>
+    <ID>MagicNumber:FrameTransformer.kt:FrameTransformer$360</ID>
+    <ID>MagicNumber:FrameTransformer.kt:FrameTransformer$90</ID>
+    <ID>MagicNumber:MainFragment.kt:MainFragment$45f</ID>
+    <ID>MagicNumber:ModelRegistry.kt:ModelRegistry$3</ID>
+    <ID>MagicNumber:ModelRegistry.kt:ModelRegistry$320</ID>
+    <ID>MatchingDeclarationName:MlQualifiers.kt:ObjectDetection</ID>
+    <ID>MaxLineLength:ResultsOverlayView.kt:ResultsOverlayView$*</ID>
+    <ID>ReturnCount:MainFragment.kt:MainFragment$private fun startCameraIfReady</ID>
+    <ID>ReturnCount:TFLiteModel.kt:TFLiteModel$private fun &lt;R&gt; executeInference: R?</ID>
+    <ID>ReturnCount:TFLiteModel.kt:TFLiteModel$private fun loadModel: Boolean</ID>
+    <ID>ReturnCount:TFLiteModel.kt:TFLiteModel$private fun resolveOutputSpecs: List&lt;OutputSpec&gt;?</ID>
+    <ID>TooGenericExceptionCaught:DetectionPipeline.kt:DetectionPipeline$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:DetectorViewModel.kt:DetectorViewModel$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:TFLiteModel.kt:TFLiteModel$e: Exception</ID>
+    <ID>TooManyFunctions:TFLiteModel.kt:TFLiteModel : CloseableInferenceEngine</ID>
+  </CurrentIssues>
+</SmellBaseline>
