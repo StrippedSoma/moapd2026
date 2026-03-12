@@ -18,15 +18,15 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package dk.itu.moapd.infersnpe.ml.detectors
+package dk.itu.moapd.infertflite.ml.detectors
 
 import android.graphics.Bitmap
-import dk.itu.moapd.infersnpe.di.ml.ObjectDetection
-import dk.itu.moapd.infersnpe.ml.api.Detector
-import dk.itu.moapd.infersnpe.ml.api.InferenceEngine
-import dk.itu.moapd.infersnpe.ml.api.TensorOutputs
-import dk.itu.moapd.infersnpe.ml.postprocessor.ObjectPostProcessor
-import dk.itu.moapd.infersnpe.ml.results.ObjectResult
+import dk.itu.moapd.infertflite.di.ml.ObjectDetection
+import dk.itu.moapd.infertflite.ml.api.Detector
+import dk.itu.moapd.infertflite.ml.api.InferenceEngine
+import dk.itu.moapd.infertflite.ml.api.TensorOutputs
+import dk.itu.moapd.infertflite.ml.postprocessor.ObjectPostProcessor
+import dk.itu.moapd.infertflite.ml.results.ObjectResult
 import javax.inject.Inject
 import javax.inject.Singleton
 
