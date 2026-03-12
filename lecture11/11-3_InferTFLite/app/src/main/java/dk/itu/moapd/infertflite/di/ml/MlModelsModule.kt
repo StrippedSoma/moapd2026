@@ -35,7 +35,7 @@ import javax.inject.Singleton
 
 /**
  * Hilt module that provides dependencies for the application, including model configuration,
- * class names, and the DLCModel instance.
+ * class names, and the TFLiteModel instance.
  */
 @Module
 @InstallIn(SingletonComponent::class)

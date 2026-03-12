@@ -25,7 +25,8 @@ import dk.itu.moapd.infertflite.ml.api.InferenceEngine
 import dk.itu.moapd.infertflite.ml.api.TensorOutputs
 
 /**
- * An interface for post-processing the raw output tensors from a DLC model into structured results.
+ * An interface for post-processing the raw output tensors from a TFLite model into structured
+ * results.
  *
  * @param T The type of the structured result after post-processing.
  */
