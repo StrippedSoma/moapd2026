@@ -8,7 +8,7 @@ constraintlayout = "2.2.1"
 navigationFragmentKtx = "2.9.7"
 navigationUiKtx = "2.9.7"
 detekt = "2.0.0-alpha.2"
-ktlintGradle = "14.1.0"
+ktlintGradle = "14.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

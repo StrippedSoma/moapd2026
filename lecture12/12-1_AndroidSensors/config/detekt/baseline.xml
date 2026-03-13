@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>LongMethod:MainScreen.kt:@Composable fun MainScreen</ID>
+    <ID>LongMethod:SingleValueSensorPage.kt:@Composable fun SingleValueSensorPage</ID>
+    <ID>LongMethod:ThreeAxisSensorPage.kt:@Composable fun ThreeAxisSensorPage</ID>
+    <ID>MagicNumber:Color.kt:0xFF625b71</ID>
+    <ID>MagicNumber:Color.kt:0xFF6650a4</ID>
+    <ID>MagicNumber:Color.kt:0xFF7D5260</ID>
+    <ID>MagicNumber:Color.kt:0xFFCCC2DC</ID>
+    <ID>MagicNumber:Color.kt:0xFFD0BCFF</ID>
+    <ID>MagicNumber:Color.kt:0xFFEFB8C8</ID>
+    <ID>MagicNumber:SensorValueExtensions.kt:100</ID>
+    <ID>MagicNumber:SensorValueExtensions.kt:180</ID>
+    <ID>MagicNumber:ThreeAxisSensorPage.kt:100</ID>
+  </CurrentIssues>
+</SmellBaseline>
