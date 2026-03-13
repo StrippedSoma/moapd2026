@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>MagicNumber:SensorValueExtensions.kt:100</ID>
+    <ID>MagicNumber:SensorValueExtensions.kt:180</ID>
+    <ID>MaxLineLength:SensorPageFragment.kt:SensorPageFragment$override</ID>
+  </CurrentIssues>
+</SmellBaseline>
