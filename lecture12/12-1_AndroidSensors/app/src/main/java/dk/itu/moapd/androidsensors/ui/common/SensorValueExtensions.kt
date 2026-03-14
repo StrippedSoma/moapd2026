@@ -50,4 +50,7 @@ fun Float.normalizeGravity(): Int =
  *
  * @return this value in degrees.
  */
-fun Float.normalizeValue(): Int = (((this + 1) / 2f) * 100).toInt()
+fun Float.normalizeValue(): Int =
+    (((this + 1) / 2f) * 100)
+        .coerceIn(0f, 100f)
+        .toInt()
