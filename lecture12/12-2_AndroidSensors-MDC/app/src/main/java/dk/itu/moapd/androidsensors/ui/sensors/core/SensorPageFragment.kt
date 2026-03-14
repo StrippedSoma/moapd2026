@@ -114,7 +114,10 @@ class SensorPageFragment : Fragment() {
              */
             override fun onSensorChanged(event: SensorEvent) {
                 when (val currentSpec = spec) {
-                    is SingleValueSensorSpec -> renderSingleValue(currentSpec, event.values[0])
+                    is SingleValueSensorSpec -> {
+                        val value = event.values.firstOrNull() ?: return
+                        renderSingleValue(currentSpec, value)
+                    }
                     is ThreeAxisSensorSpec -> renderThreeAxes(currentSpec, event.values)
                 }
             }
