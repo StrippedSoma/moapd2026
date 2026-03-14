@@ -41,12 +41,12 @@ fun Float.toDegrees(): Int = (this * 180 / Math.PI).toInt()
  */
 fun Float.normalizeGravity(): Int =
     (
-            (
-                    min(max(this, -SensorManager.STANDARD_GRAVITY), SensorManager.STANDARD_GRAVITY) +
-                            SensorManager.STANDARD_GRAVITY
-                    ) /
-                    (2f * SensorManager.STANDARD_GRAVITY) * 100
-            ).toInt()
+        (
+            min(max(this, -SensorManager.STANDARD_GRAVITY), SensorManager.STANDARD_GRAVITY) +
+                SensorManager.STANDARD_GRAVITY
+        ) /
+            (2f * SensorManager.STANDARD_GRAVITY) * 100
+    ).toInt()
 
 /**
  * Normalizes this value to an integer percentage in the range [0, 100].
