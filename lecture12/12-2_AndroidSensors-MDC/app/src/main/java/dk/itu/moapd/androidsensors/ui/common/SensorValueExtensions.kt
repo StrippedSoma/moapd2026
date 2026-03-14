@@ -32,22 +32,31 @@ import java.lang.Float.min
 fun Float.toDegrees(): Int = (this * 180 / Math.PI).toInt()
 
 /**
- * Converts this value from degrees to radians.
+ * Normalizes a gravity-related sensor value to an integer percentage in the range [0, 100].
  *
- * @return this value in radians.
+ * The input value is first clamped to the interval [-STANDARD_GRAVITY, +STANDARD_GRAVITY],
+ * then linearly mapped so that -STANDARD_GRAVITY → 0, 0 → 50, and +STANDARD_GRAVITY → 100.
+ *
+ * @return A normalized percentage representation of this gravity value.
  */
 fun Float.normalizeGravity(): Int =
     (
-        (
-            min(max(this, -SensorManager.STANDARD_GRAVITY), SensorManager.STANDARD_GRAVITY) +
-                SensorManager.STANDARD_GRAVITY
-        ) /
-            (2f * SensorManager.STANDARD_GRAVITY) * 100
-    ).toInt()
+            (
+                    min(max(this, -SensorManager.STANDARD_GRAVITY), SensorManager.STANDARD_GRAVITY) +
+                            SensorManager.STANDARD_GRAVITY
+                    ) /
+                    (2f * SensorManager.STANDARD_GRAVITY) * 100
+            ).toInt()
 
 /**
- * Converts this value from radians to degrees.
+ * Normalizes this value to an integer percentage in the range [0, 100].
  *
- * @return this value in degrees.
+ * The value is linearly mapped from the interval [-1, 1] to [0, 100], so that -1 → 0,
+ * 0 → 50, and 1 → 100.
+ *
+ * @return A normalized percentage representation of this value.
  */
-fun Float.normalizeValue(): Int = (((this + 1) / 2f) * 100).toInt()
+fun Float.normalizeValue(): Int =
+    (((this + 1) / 2f) * 100)
+        .coerceIn(0f, 100f)
+        .toInt()
