@@ -51,6 +51,16 @@ class SensorPageFragment : Fragment() {
         private const val ARG_PAGE_KEY = "page_key"
 
         /**
+         * The minimum valid value for a [CircularProgressIndicator] progress assignment.
+         */
+        private const val PROGRESS_MIN = 0
+
+        /**
+         * The maximum valid value for a [CircularProgressIndicator] progress assignment.
+         */
+        private const val PROGRESS_MAX = 100
+
+        /**
          * Creates a new fragment instance bound to the provided page specification.
          *
          * @param pageKey The stable sensor page key defined in [SensorCatalog].
@@ -293,9 +303,9 @@ class SensorPageFragment : Fragment() {
         val z = values.getOrElse(2) { 0f }
 
         with(threeAxesBinding) {
-            circularProgressIndicatorX.progress = currentSpec.progressNormalizer(x)
-            circularProgressIndicatorY.progress = currentSpec.progressNormalizer(y)
-            circularProgressIndicatorZ.progress = currentSpec.progressNormalizer(z)
+            circularProgressIndicatorX.progress = currentSpec.progressNormalizer(x).coerceIn(PROGRESS_MIN, PROGRESS_MAX)
+            circularProgressIndicatorY.progress = currentSpec.progressNormalizer(y).coerceIn(PROGRESS_MIN, PROGRESS_MAX)
+            circularProgressIndicatorZ.progress = currentSpec.progressNormalizer(z).coerceIn(PROGRESS_MIN, PROGRESS_MAX)
 
             axisXValue.text = currentSpec.valueFormatter(requireContext(), x)
             axisYValue.text = currentSpec.valueFormatter(requireContext(), y)
