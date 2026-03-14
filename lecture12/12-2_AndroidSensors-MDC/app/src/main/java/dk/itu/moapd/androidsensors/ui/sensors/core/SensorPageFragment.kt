@@ -241,6 +241,7 @@ class SensorPageFragment : Fragment() {
      */
     private fun configureSingleValuePage(currentSpec: SingleValueSensorSpec) {
         singleValueBinding.imageView.setImageResource(currentSpec.initialIconRes)
+        singleValueBinding.imageView.contentDescription = getString(currentSpec.titleRes)
         if (currentSpec.key == "step_counter") {
             singleValueBinding.singleValue.text = resources.getQuantityString(R.plurals.steps_text, 0, 0)
         } else {

@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="@+id/circular_progress_indicator"
         app:layout_constraintTop_toTopOf="@+id/circular_progress_indicator"
         app:tint="?attr/colorPrimary"
-        android:contentDescription="@string/content_description_steps" />
+        android:contentDescription="@string/content_description_sensor_icon" />
 
     <TextView
         android:id="@+id/single_value"
