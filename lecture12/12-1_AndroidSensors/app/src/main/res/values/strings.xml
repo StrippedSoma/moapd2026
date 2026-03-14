@@ -47,7 +47,7 @@
     <string name="rotation_x">X (Pitch)</string>
     <string name="rotation_y">Y (Roll)</string>
     <string name="rotation_z">Z (Yaw)</string>
-    <string name="content_description_steps">Steps</string>
+    <string name="content_description_sensor_icon">Sensor icon</string>
     <plurals name="steps_text">
         <item quantity="one" formatted="true">%d step</item>
         <item quantity="other" formatted="true">%d steps</item>

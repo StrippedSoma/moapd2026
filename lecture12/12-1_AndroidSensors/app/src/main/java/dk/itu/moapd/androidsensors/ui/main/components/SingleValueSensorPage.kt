@@ -133,7 +133,7 @@ fun SingleValueSensorPage(spec: SingleValueSensorSpec) {
             )
             Image(
                 imageVector = state.imageVector,
-                contentDescription = stringResource(R.string.content_description_steps),
+                contentDescription = stringResource(R.string.content_description_sensor_icon),
                 modifier = Modifier.size(iconSize),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
             )
