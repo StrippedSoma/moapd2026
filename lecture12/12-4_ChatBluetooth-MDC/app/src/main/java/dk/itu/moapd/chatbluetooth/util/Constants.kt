@@ -27,11 +27,12 @@ import java.util.UUID
  *
  * ## About the UUID
  * Bluetooth RFCOMM connections require both devices to agree on a UUID that identifies the service.
- * The UUID below is the standard Serial Port Profile (SPP) UUID. Both the server and client must
- * use the same UUID to establish a connection.
+ * This project uses a fixed, app-specific UUID for its chat service. Both the server and client
+ * must use the same UUID to establish a connection.
  *
- * For a production app, you would generate your own unique UUID. For this educational project, the
- * SPP UUID works well for simple serial-style communication.
+ * For a production app, you should generate your own unique UUID (for example with
+ * `UUID.randomUUID()`), hard-code it in both the server and client, and avoid reusing well-known
+ * profile UUIDs such as the standard Serial Port Profile (SPP) UUID.
  */
 object Constants {
     /**
