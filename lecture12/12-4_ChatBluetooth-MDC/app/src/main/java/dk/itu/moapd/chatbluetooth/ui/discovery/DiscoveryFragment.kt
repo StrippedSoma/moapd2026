@@ -1,0 +1,204 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2026 Fabricio Batista Narcizo
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+package dk.itu.moapd.chatbluetooth.ui.discovery
+
+import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import dk.itu.moapd.chatbluetooth.R
+import dk.itu.moapd.chatbluetooth.bluetooth.BluetoothDiscoveryReceiver
+import dk.itu.moapd.chatbluetooth.data.model.ConnectionState
+import dk.itu.moapd.chatbluetooth.databinding.FragmentDiscoveryBinding
+import dk.itu.moapd.chatbluetooth.ui.adapters.DeviceListAdapter
+import dk.itu.moapd.chatbluetooth.ui.main.BluetoothViewModel
+import dk.itu.moapd.chatbluetooth.ui.utils.viewBinding
+
+/**
+ * Allows the user to discover nearby Bluetooth devices.
+ */
+class DiscoveryFragment : Fragment(R.layout.fragment_discovery) {
+    /**
+     * View binding is a feature that allows you to more easily write code that interacts with
+     * views. Once view binding is enabled in a module, it generates a binding class for each XML
+     * layout file present in that module. An instance of a binding class contains direct references
+     * to all views that have an ID in the corresponding layout.
+     */
+    private val binding by viewBinding(FragmentDiscoveryBinding::bind)
+
+    /**
+     * The [BluetoothViewModel] shared by all fragments.
+     */
+    private val viewModel: BluetoothViewModel by activityViewModels()
+
+    /**
+     * The adapter for the discovered devices list.
+     */
+    private lateinit var adapter: DeviceListAdapter
+
+    /**
+     * BroadcastReceiver that listens for discovery events.
+     */
+    private var discoveryReceiver: BluetoothDiscoveryReceiver? = null
+
+    /**
+     * Called immediately after `onCreateView(LayoutInflater, ViewGroup, Bundle)` has returned, but
+     * before any saved state has been restored in to the view. This gives subclasses a chance to
+     * initialize themselves once they know their view hierarchy has been completely created. The
+     * fragment's view hierarchy is not however attached to its parent at this point.
+     *
+     * @param view The View returned by `onCreateView(LayoutInflater, ViewGroup, Bundle)`.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous
+     *      saved state as given here.
+     */
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupToolbar()
+        setupRecyclerView()
+        setupButtons()
+        observeViewModel()
+    }
+
+    /**
+     * Called when the Fragment is visible to the user. This is generally tied to
+     * `Activity.onStart()` of the containing Activity's lifecycle.
+     */
+    override fun onStart() {
+        super.onStart()
+        discoveryReceiver =
+            BluetoothDiscoveryReceiver(
+                onDeviceFound = { device ->
+                    // Forward to ViewModel (which de-duplicates and updates LiveData).
+                    viewModel.controller.onDeviceDiscovered?.invoke(device)
+                },
+                onDiscoveryStarted = {
+                    activity?.runOnUiThread {
+                        binding.progressScanning.isVisible = true
+                    }
+                },
+                onDiscoveryFinished = {
+                    activity?.runOnUiThread {
+                        binding.progressScanning.isVisible = false
+                    }
+                },
+            )
+        ContextCompat.registerReceiver(
+            requireContext(),
+            discoveryReceiver,
+            BluetoothDiscoveryReceiver.getIntentFilter(),
+            ContextCompat.RECEIVER_EXPORTED,
+        )
+    }
+
+    /**
+     * Called when the Fragment is no longer started. This is generally tied to `Activity.onStop()`
+     * of the containing Activity's lifecycle.
+     */
+    override fun onStop() {
+        super.onStop()
+        viewModel.stopDiscovery()
+        discoveryReceiver?.let {
+            requireContext().unregisterReceiver(it)
+        }
+        discoveryReceiver = null
+    }
+
+    /**
+     * Sets up the toolbar and navigation button.
+     */
+    private fun setupToolbar() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
+
+    /**
+     * Sets up the discovered devices list.
+     */
+    private fun setupRecyclerView() {
+        adapter =
+            DeviceListAdapter { device ->
+                // Stop discovery before connecting (important for performance).
+                viewModel.stopDiscovery()
+
+                viewModel.clearMessages()
+                viewModel.connectToDevice(device.address, device.name)
+
+                val bundle =
+                    Bundle().apply {
+                        putString("device_address", device.address)
+                        putBoolean("is_server", false)
+                        putString("device_name", device.name)
+                    }
+                findNavController().navigate(R.id.action_discovery_to_chat, bundle)
+            }
+        binding.recyclerDiscoveredDevices.adapter = adapter
+    }
+
+    /**
+     * Sets up the start and stop scanning buttons.
+     */
+    private fun setupButtons() {
+        binding.buttonStartScan.setOnClickListener {
+            viewModel.startDiscovery()
+            binding.progressScanning.isVisible = true
+            Toast
+                .makeText(
+                    requireContext(),
+                    R.string.scanning,
+                    Toast.LENGTH_SHORT,
+                ).show()
+        }
+
+        binding.buttonStopScan.setOnClickListener {
+            viewModel.stopDiscovery()
+            binding.progressScanning.isVisible = false
+            Toast
+                .makeText(
+                    requireContext(),
+                    R.string.info_discovery_stopped,
+                    Toast.LENGTH_SHORT,
+                ).show()
+        }
+    }
+
+    /**
+     * Observes the discovered devices list in the ViewModel and updates the UI.
+     */
+    private fun observeViewModel() {
+        viewModel.discoveredDevices.observe(viewLifecycleOwner) { devices ->
+            adapter.submitList(devices.toList())
+
+            // Show empty state only when not scanning and list is empty.
+            val isScanning = viewModel.connectionState.value == ConnectionState.DISCOVERING
+            binding.textEmpty.isVisible = devices.isEmpty() && !isScanning
+            binding.recyclerDiscoveredDevices.isVisible = devices.isNotEmpty()
+        }
+    }
+}
