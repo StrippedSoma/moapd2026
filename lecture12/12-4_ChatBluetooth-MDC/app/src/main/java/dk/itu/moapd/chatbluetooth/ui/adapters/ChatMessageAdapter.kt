@@ -109,7 +109,7 @@ class ChatMessageAdapter : ListAdapter<ChatMessage, ChatMessageAdapter.MessageVi
         /**
          * Smallest margin used for the bubble (in pixels, converted from dp).
          */
-        private val BUBBLE_SMALL_MARGIN = dpToPx(64)
+        private val BUBBLE_SMALL_MARGIN = dpToPx(16)
     }
 
     /**
