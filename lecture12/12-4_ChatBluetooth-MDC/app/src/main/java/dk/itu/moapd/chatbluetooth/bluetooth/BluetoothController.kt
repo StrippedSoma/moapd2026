@@ -256,7 +256,8 @@ class BluetoothController(
      * @param text The message text to send.
      */
     fun sendMessage(text: String) {
-        connectedThread?.write(text.toByteArray())
+        // Append a newline as a simple message delimiter so the receiver can read complete messages.
+        connectedThread?.write((text + "\n").toByteArray(Charsets.UTF_8))
     }
 
     // ---------------------------------------------------------------------------------------------
