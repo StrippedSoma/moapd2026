@@ -33,6 +33,7 @@ import dk.itu.moapd.chatbluetooth.databinding.ItemChatMessageBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import android.content.res.Resources
 
 /**
  * RecyclerView adapter for displaying chat messages.
@@ -94,14 +95,21 @@ class ChatMessageAdapter : ListAdapter<ChatMessage, ChatMessageAdapter.MessageVi
         ): Boolean = oldItem == newItem
 
         /**
-         * Largest margin used for the bubble.
+         * Converts a value in density-independent pixels (dp) to pixels (px).
          */
-        private const val BUBBLE_LARGE_MARGIN = 128
+        private fun dpToPx(dp: Int): Int {
+            return (dp * Resources.getSystem().displayMetrics.density).toInt()
+        }
 
         /**
-         * Smallest margin used for the bubble.
+         * Largest margin used for the bubble (in pixels, converted from dp).
          */
-        private const val BUBBLE_SMALL_MARGIN = 64
+        private val BUBBLE_LARGE_MARGIN = dpToPx(128)
+
+        /**
+         * Smallest margin used for the bubble (in pixels, converted from dp).
+         */
+        private val BUBBLE_SMALL_MARGIN = dpToPx(64)
     }
 
     /**
