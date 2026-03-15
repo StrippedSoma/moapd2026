@@ -301,37 +301,17 @@ class BluetoothController(
 
         updateState(ConnectionState.CONNECTED)
 
-        // Buffer used to accumulate incoming bytes until full messages (newline-delimited) are available.
-        val incomingBuffer = StringBuilder()
-
         connectedThread =
             BluetoothConnectedThread(
                 socket,
                 mainHandler,
                 onRead = { bytes ->
-                    // Decode the raw bytes into text using UTF-8 and append to the buffer.
-                    val chunk = String(bytes, Charsets.UTF_8)
-                    if (chunk.isEmpty()) {
-                        return@onRead
-                    }
-                    incomingBuffer.append(chunk)
-
-                    // Extract and dispatch complete newline-delimited messages.
-                    var newlineIndex = incomingBuffer.indexOf("\n")
-                    while (newlineIndex >= 0) {
-                        val line = incomingBuffer.substring(0, newlineIndex).trim()
-                        if (line.isNotEmpty()) {
-                            val message =
-                                ChatMessage(
-                                    text = line,
-                                    isSentByMe = false,
-                                )
-                            mainHandler.post { onMessageReceived?.invoke(message) }
-                        }
-                        // Remove the processed message (including the newline) from the buffer.
-                        incomingBuffer.delete(0, newlineIndex + 1)
-                        newlineIndex = incomingBuffer.indexOf("\n")
-                    }
+                    val message =
+                        ChatMessage(
+                            text = String(bytes).trim(),
+                            isSentByMe = false,
+                        )
+                    mainHandler.post { onMessageReceived?.invoke(message) }
                 },
                 onDisconnected = {
                     mainHandler.post { updateState(ConnectionState.DISCONNECTED) }
