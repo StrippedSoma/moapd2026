@@ -181,6 +181,7 @@ class BluetoothController(
     @SuppressLint("MissingPermission")
     fun stopDiscovery() {
         bluetoothAdapter?.cancelDiscovery()
+        updateState(ConnectionState.IDLE)
     }
 
     // ---------------------------------------------------------------------------------------------
