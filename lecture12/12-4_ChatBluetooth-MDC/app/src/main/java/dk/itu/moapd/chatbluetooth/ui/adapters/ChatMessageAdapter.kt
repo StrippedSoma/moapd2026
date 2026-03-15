@@ -20,6 +20,7 @@
  */
 package dk.itu.moapd.chatbluetooth.ui.adapters
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +34,6 @@ import dk.itu.moapd.chatbluetooth.databinding.ItemChatMessageBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import android.content.res.Resources
 
 /**
  * RecyclerView adapter for displaying chat messages.
@@ -97,9 +97,7 @@ class ChatMessageAdapter : ListAdapter<ChatMessage, ChatMessageAdapter.MessageVi
         /**
          * Converts a value in density-independent pixels (dp) to pixels (px).
          */
-        private fun dpToPx(dp: Int): Int {
-            return (dp * Resources.getSystem().displayMetrics.density).toInt()
-        }
+        private fun dpToPx(dp: Int): Int = (dp * Resources.getSystem().displayMetrics.density).toInt()
 
         /**
          * Largest margin used for the bubble (in pixels, converted from dp).
