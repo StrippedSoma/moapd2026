@@ -146,12 +146,12 @@ class BluetoothViewModel(
 
     /**
      * Stops Bluetooth device discovery.
-     *
-     * @return `true` if discovery was running, `false` otherwise.
      */
     fun stopDiscovery() = controller.stopDiscovery()
 
     /**
+     * Starts the Bluetooth server (listening for incoming connections).
+     *
      * Starts the Bluetooth server (listening for incoming connections).
      *
      * @return `true` if the server was successfully started, `false` otherwise.
