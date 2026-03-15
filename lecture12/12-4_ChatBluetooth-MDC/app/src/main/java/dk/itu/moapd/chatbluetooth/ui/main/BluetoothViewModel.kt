@@ -151,10 +151,6 @@ class BluetoothViewModel(
 
     /**
      * Starts the Bluetooth server (listening for incoming connections).
-     *
-     * Starts the Bluetooth server (listening for incoming connections).
-     *
-     * @return `true` if the server was successfully started, `false` otherwise.
      */
     fun startServer() = controller.startServer()
 
