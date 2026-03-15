@@ -58,9 +58,10 @@ fun PairedDevicesScreen(
     onBack: () -> Unit,
     onDeviceSelected: (BluetoothDeviceItem) -> Unit,
 ) {
-    val devices = remember(viewModel.isBluetoothEnabled) {
-        viewModel.getPairedDevices()
-    }
+    val devices =
+        remember(viewModel.isBluetoothEnabled) {
+            viewModel.getPairedDevices()
+        }
 
     Scaffold(
         topBar = {
@@ -79,9 +80,10 @@ fun PairedDevicesScreen(
     ) { padding ->
         if (devices.isEmpty()) {
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(padding),
                 contentAlignment = Alignment.TopCenter,
             ) {
                 Text(
@@ -94,9 +96,10 @@ fun PairedDevicesScreen(
         } else {
             DeviceList(
                 devices = devices,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(padding),
                 onClick = onDeviceSelected,
             )
         }

@@ -38,15 +38,19 @@ import java.net.URLEncoder
  *
  * @return The string representation of the connection state.
  */
-fun connectionLabel(state: ConnectionState, context: Context): String = when (state) {
-    ConnectionState.IDLE -> context.getString(R.string.state_idle)
-    ConnectionState.DISCOVERING -> context.getString(R.string.state_discovering)
-    ConnectionState.LISTENING -> context.getString(R.string.state_listening)
-    ConnectionState.CONNECTING -> context.getString(R.string.state_connecting)
-    ConnectionState.CONNECTED -> context.getString(R.string.state_connected)
-    ConnectionState.CONNECTION_FAILED -> context.getString(R.string.state_connection_failed)
-    ConnectionState.DISCONNECTED -> context.getString(R.string.state_disconnected)
-}
+fun connectionLabel(
+    state: ConnectionState,
+    context: Context,
+): String =
+    when (state) {
+        ConnectionState.IDLE -> context.getString(R.string.state_idle)
+        ConnectionState.DISCOVERING -> context.getString(R.string.state_discovering)
+        ConnectionState.LISTENING -> context.getString(R.string.state_listening)
+        ConnectionState.CONNECTING -> context.getString(R.string.state_connecting)
+        ConnectionState.CONNECTED -> context.getString(R.string.state_connected)
+        ConnectionState.CONNECTION_FAILED -> context.getString(R.string.state_connection_failed)
+        ConnectionState.DISCONNECTED -> context.getString(R.string.state_disconnected)
+    }
 
 /**
  * Ensures that Bluetooth is ready for use.
@@ -65,23 +69,23 @@ fun ensureBluetoothReady(
     context: Context,
     permissionLauncher: ActivityResultLauncher<Array<String>>,
     permissions: List<String>,
-): Boolean {
-    return when {
+): Boolean =
+    when {
         !hasPermissions -> {
             permissionLauncher.launch(permissions.toTypedArray())
             false
         }
         !viewModel.isBluetoothEnabled -> {
-            Toast.makeText(
-                context,
-                R.string.error_bluetooth_required,
-                Toast.LENGTH_LONG,
-            ).show()
+            Toast
+                .makeText(
+                    context,
+                    R.string.error_bluetooth_required,
+                    Toast.LENGTH_LONG,
+                ).show()
             false
         }
         else -> true
     }
-}
 
 /**
  * Returns the list of required permissions.
@@ -104,5 +108,4 @@ fun getRequiredPermissions(): List<String> =
  *
  * @param value The string to encode.
  */
-fun encodeRoute(value: String): String =
-    URLEncoder.encode(value, Charsets.UTF_8.name())
+fun encodeRoute(value: String): String = URLEncoder.encode(value, Charsets.UTF_8.name())

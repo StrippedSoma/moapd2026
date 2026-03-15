@@ -47,39 +47,45 @@ import java.util.Locale
  */
 @Composable
 fun ChatBubble(message: ChatMessage) {
-    val alignment = if (message.isSentByMe) {
-        Alignment.CenterEnd
-    } else {
-        Alignment.CenterStart
-    }
+    val alignment =
+        if (message.isSentByMe) {
+            Alignment.CenterEnd
+        } else {
+            Alignment.CenterStart
+        }
 
-    val bubbleColor = if (message.isSentByMe) {
-        MaterialTheme.colorScheme.primaryContainer
-    } else {
-        MaterialTheme.colorScheme.surfaceVariant
-    }
+    val bubbleColor =
+        if (message.isSentByMe) {
+            MaterialTheme.colorScheme.primaryContainer
+        } else {
+            MaterialTheme.colorScheme.surfaceVariant
+        }
 
-    val textColor = if (message.isSentByMe) {
-        MaterialTheme.colorScheme.onPrimaryContainer
-    } else {
-        MaterialTheme.colorScheme.onSurfaceVariant
-    }
+    val textColor =
+        if (message.isSentByMe) {
+            MaterialTheme.colorScheme.onPrimaryContainer
+        } else {
+            MaterialTheme.colorScheme.onSurfaceVariant
+        }
 
-    val timeFormatter = remember {
-        SimpleDateFormat("HH:mm", Locale.getDefault())
-    }
+    val timeFormatter =
+        remember {
+            SimpleDateFormat("HH:mm", Locale.getDefault())
+        }
 
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = 4.dp),
         contentAlignment = alignment,
     ) {
         Card(
-            modifier = Modifier.padding(
-                start = if (message.isSentByMe) 128.dp else 16.dp,
-                end = if (message.isSentByMe) 16.dp else 128.dp,
-            ),
+            modifier =
+                Modifier.padding(
+                    start = if (message.isSentByMe) 128.dp else 16.dp,
+                    end = if (message.isSentByMe) 16.dp else 128.dp,
+                ),
             colors = CardDefaults.cardColors(containerColor = bubbleColor),
             elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         ) {

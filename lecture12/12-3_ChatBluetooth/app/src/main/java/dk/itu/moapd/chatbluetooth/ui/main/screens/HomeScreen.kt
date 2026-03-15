@@ -89,31 +89,35 @@ fun HomeScreen(
     val connectionState by viewModel.connectionState.observeAsState(ConnectionState.IDLE)
     val permissions = remember { getRequiredPermissions() }
 
-    val enableBluetoothLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.StartActivityForResult(),
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            Toast.makeText(context, R.string.bt_enabled, Toast.LENGTH_SHORT).show()
+    val enableBluetoothLauncher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                Toast.makeText(context, R.string.bt_enabled, Toast.LENGTH_SHORT).show()
+            }
         }
-    }
 
-    val permissionLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions(),
-    ) { result ->
-        if (result.values.all { it }) {
-            Toast.makeText(context, R.string.bt_enabled, Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(
-                context,
-                R.string.error_permissions_required,
-                Toast.LENGTH_LONG,
-            ).show()
+    val permissionLauncher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions(),
+        ) { result ->
+            if (result.values.all { it }) {
+                Toast.makeText(context, R.string.bt_enabled, Toast.LENGTH_SHORT).show()
+            } else {
+                Toast
+                    .makeText(
+                        context,
+                        R.string.error_permissions_required,
+                        Toast.LENGTH_LONG,
+                    ).show()
+            }
         }
-    }
 
-    fun hasPermissions(): Boolean = permissions.all {
-        ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
-    }
+    fun hasPermissions(): Boolean =
+        permissions.all {
+            ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
+        }
 
     LaunchedEffect(Unit) {
         if (!hasPermissions()) {
@@ -125,11 +129,12 @@ fun HomeScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .verticalScroll(rememberScrollState())
-                .padding(24.dp),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .verticalScroll(rememberScrollState())
+                    .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -153,14 +158,15 @@ fun HomeScreen(
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = when {
-                            !viewModel.isBluetoothSupported ->
-                                stringResource(R.string.bt_not_supported)
-                            viewModel.isBluetoothEnabled ->
-                                stringResource(R.string.bt_enabled)
-                            else ->
-                                stringResource(R.string.bt_disabled)
-                        },
+                        text =
+                            when {
+                                !viewModel.isBluetoothSupported ->
+                                    stringResource(R.string.bt_not_supported)
+                                viewModel.isBluetoothEnabled ->
+                                    stringResource(R.string.bt_enabled)
+                                else ->
+                                    stringResource(R.string.bt_disabled)
+                            },
                         style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -184,7 +190,7 @@ fun HomeScreen(
                         }
                         !viewModel.isBluetoothEnabled -> {
                             enableBluetoothLauncher.launch(
-                                Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                                Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
                             )
                         }
                         else -> {

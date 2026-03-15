@@ -84,15 +84,17 @@ fun DiscoveryScreen(
     val state by viewModel.connectionState.observeAsState(ConnectionState.IDLE)
     val permissions = remember { getRequiredPermissions() }
 
-    val discoveryReceiver = remember(viewModel) {
-        BluetoothDiscoveryReceiver(
-            onDeviceFound = viewModel.controller.onDeviceDiscovered ?: {},
-        )
-    }
+    val discoveryReceiver =
+        remember(viewModel) {
+            BluetoothDiscoveryReceiver(
+                onDeviceFound = viewModel.controller.onDeviceDiscovered ?: {},
+            )
+        }
 
-    val permissionLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions(),
-    ) {}
+    val permissionLauncher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions(),
+        ) {}
 
     DisposableEffect(context, discoveryReceiver) {
         ContextCompat.registerReceiver(
@@ -125,34 +127,38 @@ fun DiscoveryScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding),
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 16.dp),
             ) {
                 Button(
                     onClick = {
-                        val hasPermissions = permissions.all {
-                            ContextCompat.checkSelfPermission(
-                                context,
-                                it,
-                            ) == PackageManager.PERMISSION_GRANTED
-                        }
+                        val hasPermissions =
+                            permissions.all {
+                                ContextCompat.checkSelfPermission(
+                                    context,
+                                    it,
+                                ) == PackageManager.PERMISSION_GRANTED
+                            }
 
                         when {
                             !hasPermissions -> {
                                 permissionLauncher.launch(permissions.toTypedArray())
                             }
                             !viewModel.isBluetoothEnabled -> {
-                                Toast.makeText(
-                                    context,
-                                    R.string.error_bluetooth_required,
-                                    Toast.LENGTH_LONG,
-                                ).show()
+                                Toast
+                                    .makeText(
+                                        context,
+                                        R.string.error_bluetooth_required,
+                                        Toast.LENGTH_LONG,
+                                    ).show()
                             }
                             else -> {
                                 viewModel.startDiscovery()
@@ -169,11 +175,12 @@ fun DiscoveryScreen(
                 OutlinedButton(
                     onClick = {
                         viewModel.stopDiscovery()
-                        Toast.makeText(
-                            context,
-                            R.string.info_discovery_stopped,
-                            Toast.LENGTH_SHORT,
-                        ).show()
+                        Toast
+                            .makeText(
+                                context,
+                                R.string.info_discovery_stopped,
+                                Toast.LENGTH_SHORT,
+                            ).show()
                     },
                     modifier = Modifier.weight(1f),
                 ) {
@@ -188,9 +195,10 @@ fun DiscoveryScreen(
             if (devices.isEmpty()) {
                 Text(
                     text = stringResource(R.string.no_devices_found),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(32.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(32.dp),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.bodyLarge,
                 )

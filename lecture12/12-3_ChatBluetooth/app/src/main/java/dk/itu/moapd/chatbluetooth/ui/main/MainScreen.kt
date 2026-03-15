@@ -95,7 +95,7 @@ fun MainScreen(viewModel: BluetoothViewModel) {
                     viewModel.clearMessages()
                     viewModel.connectToDevice(device.address, device.name)
                     navController.navigate(
-                        "chat/${device.address}/false/${encodeRoute(device.name)}"
+                        "chat/${device.address}/false/${encodeRoute(device.name)}",
                     )
                 },
             )
@@ -111,7 +111,7 @@ fun MainScreen(viewModel: BluetoothViewModel) {
                     viewModel.clearMessages()
                     viewModel.connectToDevice(device.address, device.name)
                     navController.navigate(
-                        "chat/${device.address}/false/${encodeRoute(device.name)}"
+                        "chat/${device.address}/false/${encodeRoute(device.name)}",
                     )
                 },
             )
@@ -119,17 +119,19 @@ fun MainScreen(viewModel: BluetoothViewModel) {
 
         composable(
             route = CHAT_ROUTE,
-            arguments = listOf(
-                navArgument("deviceAddress") { type = NavType.StringType },
-                navArgument("isServer") { type = NavType.BoolType },
-                navArgument("deviceName") { type = NavType.StringType },
-            ),
+            arguments =
+                listOf(
+                    navArgument("deviceAddress") { type = NavType.StringType },
+                    navArgument("isServer") { type = NavType.BoolType },
+                    navArgument("deviceName") { type = NavType.StringType },
+                ),
         ) { backStackEntry ->
             val isServer = backStackEntry.arguments?.getBoolean("isServer") ?: false
-            val deviceName = backStackEntry.arguments
-                ?.getString("deviceName")
-                .orEmpty()
-                .ifBlank { "Remote Device" }
+            val deviceName =
+                backStackEntry.arguments
+                    ?.getString("deviceName")
+                    .orEmpty()
+                    .ifBlank { "Remote Device" }
 
             LaunchedEffect(deviceName) {
                 viewModel.setRemoteDeviceName(deviceName)
