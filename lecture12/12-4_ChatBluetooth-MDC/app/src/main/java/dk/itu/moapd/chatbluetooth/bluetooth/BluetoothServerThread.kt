@@ -86,22 +86,22 @@ class BluetoothServerThread(
     override fun run() {
         Log.d(TAG, "Server: waiting for connection…")
 
-        // Block until a connection is accepted or the socket is closed.
-        val socket: BluetoothSocket? =
-            try {
-                serverSocket?.accept()
-            } catch (e: IOException) {
-                Log.e(TAG, "Server: accept() failed", e)
-                null
+        var socket: BluetoothSocket? = null
+        try {
+            // Block until a connection is accepted or the socket is closed.
+            socket = serverSocket?.accept()
+
+            // If we got a connection, notify the controller (we only support a single connected
+            // device at a time).
+            socket?.let {
+                Log.d(TAG, "Server: connection accepted!")
+                handler.post { onConnected(it) }
             }
-
-        // If we got a connection, notify the controller and close the server socket (we only
-        // support a single connected device at a time).
-        socket?.let {
-            Log.d(TAG, "Server: connection accepted!")
-            handler.post { onConnected(it) }
-
-            // Close the server socket — we don't need to accept more connections.
+        } catch (e: IOException) {
+            Log.e(TAG, "Server: accept() failed", e)
+        } finally {
+            // Always close the server socket — we don't need to accept more connections, and this
+            // ensures the listening socket is not leaked if accept() fails.
             try {
                 serverSocket?.close()
             } catch (e: IOException) {
