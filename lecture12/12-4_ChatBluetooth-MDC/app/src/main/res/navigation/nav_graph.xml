@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <!-- Home Screen -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="dk.itu.moapd.chatbluetooth.ui.home.HomeFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_home_to_paired"
+            app:destination="@id/pairedDevicesFragment" />
+
+        <action
+            android:id="@+id/action_home_to_discovery"
+            app:destination="@id/discoveryFragment" />
+
+        <action
+            android:id="@+id/action_home_to_chat"
+            app:destination="@id/chatFragment" />
+    </fragment>
+
+    <!-- Paired Devices Screen -->
+    <fragment
+        android:id="@+id/pairedDevicesFragment"
+        android:name="dk.itu.moapd.chatbluetooth.ui.paired.PairedDevicesFragment"
+        android:label="@string/paired_devices"
+        tools:layout="@layout/fragment_paired_devices">
+
+        <action
+            android:id="@+id/action_paired_to_chat"
+            app:destination="@id/chatFragment" />
+    </fragment>
+
+    <!-- Discovery Screen -->
+    <fragment
+        android:id="@+id/discoveryFragment"
+        android:name="dk.itu.moapd.chatbluetooth.ui.discovery.DiscoveryFragment"
+        android:label="@string/discover_devices"
+        tools:layout="@layout/fragment_discovery">
+
+        <action
+            android:id="@+id/action_discovery_to_chat"
+            app:destination="@id/chatFragment" />
+    </fragment>
+
+    <!-- Chat Screen -->
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="dk.itu.moapd.chatbluetooth.ui.chat.ChatFragment"
+        android:label="@string/chat"
+        tools:layout="@layout/fragment_chat">
+
+        <!-- Arguments passed via Bundle -->
+        <argument
+            android:name="device_address"
+            app:argType="string"
+            android:defaultValue="" />
+
+        <argument
+            android:name="is_server"
+            app:argType="boolean"
+            android:defaultValue="false" />
+
+        <argument
+            android:name="device_name"
+            app:argType="string"
+            android:defaultValue="Remote Device" />
+    </fragment>
+
+</navigation>

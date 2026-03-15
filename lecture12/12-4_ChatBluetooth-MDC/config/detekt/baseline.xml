@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>LoopWithTooManyJumpStatements:BluetoothConnectedThread.kt:BluetoothConnectedThread$while</ID>
+    <ID>MagicNumber:ChatMessageAdapter.kt:ChatMessageAdapter.MessageViewHolder$0.6f</ID>
+    <ID>MagicNumber:ChatMessageAdapter.kt:ChatMessageAdapter.MessageViewHolder$255</ID>
+    <ID>ReturnCount:HomeFragment.kt:HomeFragment$private fun ensureBluetoothReady: Boolean</ID>
+    <ID>TooManyFunctions:BluetoothController.kt:BluetoothController</ID>
+  </CurrentIssues>
+</SmellBaseline>

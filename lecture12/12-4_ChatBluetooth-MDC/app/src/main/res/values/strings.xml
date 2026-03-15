@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">ChatBluetooth</string>
+
+    <!-- Home Fragment -->
+    <string name="bluetooth_status">Bluetooth Status</string>
+    <string name="enable_bluetooth">Enable Bluetooth</string>
+    <string name="paired_devices">Paired Devices</string>
+    <string name="discover_devices">Discover Devices</string>
+    <string name="start_server">Start Server (Wait for Connection)</string>
+
+    <!-- Bluetooth Status -->
+    <string name="bt_enabled">Bluetooth is ON</string>
+    <string name="bt_disabled">Bluetooth is OFF</string>
+    <string name="bt_not_supported">Bluetooth not supported on this device</string>
+
+    <!-- Connection States -->
+    <string name="state_idle">Idle</string>
+    <string name="state_discovering">Discovering…</string>
+    <string name="state_listening">Waiting for connection…</string>
+    <string name="state_connecting">Connecting…</string>
+    <string name="state_connected">Connected</string>
+    <string name="state_connection_failed">Connection failed</string>
+    <string name="state_disconnected">Disconnected</string>
+
+    <!-- Paired Devices Fragment -->
+    <string name="no_paired_devices">No paired devices found.\nPair a device in Bluetooth settings first.</string>
+
+    <!-- Discovery Fragment -->
+    <string name="start_scan">Start Scan</string>
+    <string name="stop_scan">Stop Scan</string>
+    <string name="scanning">Scanning for nearby devices…</string>
+    <string name="no_devices_found">No devices discovered yet.\nTap \"Start Scan\" to begin.</string>
+
+    <!-- Chat Fragment -->
+    <string name="chat">Chat</string>
+    <string name="hint_message">Type a message…</string>
+    <string name="send">Send</string>
+
+    <!-- Errors & Messages -->
+    <string name="error_bluetooth_required">Bluetooth must be enabled to use this feature.</string>
+    <string name="error_permissions_required">Bluetooth permissions are required.</string>
+    <string name="error_connection_failed">Could not connect to the device. Make sure the remote device is in server mode.</string>
+    <string name="error_connection_lost">Connection lost.</string>
+    <string name="info_discovery_stopped">Discovery stopped.</string>
+</resources>
