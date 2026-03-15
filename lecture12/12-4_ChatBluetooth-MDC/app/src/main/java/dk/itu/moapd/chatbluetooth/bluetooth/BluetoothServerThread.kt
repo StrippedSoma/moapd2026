@@ -58,7 +58,7 @@ class BluetoothServerThread(
         /**
          * Tag for logging.
          */
-        private val TAG = BluetoothDiscoveryReceiver::class.qualifiedName
+        private val TAG = BluetoothServerThread::class.qualifiedName
     }
 
     /**
