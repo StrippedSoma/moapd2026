@@ -94,7 +94,12 @@ fun HomeScreen(
             ActivityResultContracts.StartActivityForResult(),
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                Toast.makeText(context, R.string.bt_enabled, Toast.LENGTH_SHORT).show()
+                Toast
+                    .makeText(
+                        context,
+                        R.string.bt_enabled,
+                        Toast.LENGTH_SHORT
+                    ).show()
             }
         }
 
@@ -102,9 +107,7 @@ fun HomeScreen(
         rememberLauncherForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions(),
         ) { result ->
-            if (result.values.all { it }) {
-                Toast.makeText(context, R.string.bt_enabled, Toast.LENGTH_SHORT).show()
-            } else {
+            if (!result.values.all { it }) {
                 Toast
                     .makeText(
                         context,
@@ -194,7 +197,12 @@ fun HomeScreen(
                             )
                         }
                         else -> {
-                            Toast.makeText(context, R.string.bt_enabled, Toast.LENGTH_SHORT).show()
+                            Toast
+                                .makeText(
+                                    context,
+                                    R.string.bt_enabled,
+                                    Toast.LENGTH_SHORT
+                                ).show()
                         }
                     }
                 },
