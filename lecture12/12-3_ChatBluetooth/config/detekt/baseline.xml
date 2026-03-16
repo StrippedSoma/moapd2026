@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>FunctionNaming:ChatBubble.kt:@Composable fun ChatBubble</ID>
+    <ID>FunctionNaming:ChatScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun ChatScreen</ID>
+    <ID>FunctionNaming:DeviceList.kt:@Composable fun DeviceList</ID>
+    <ID>FunctionNaming:DiscoveryScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun DiscoveryScreen</ID>
+    <ID>FunctionNaming:HomeScreen.kt:@Composable fun HomeScreen</ID>
+    <ID>FunctionNaming:MainScreen.kt:@Composable fun MainScreen</ID>
+    <ID>FunctionNaming:PairedDevicesScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun PairedDevicesScreen</ID>
+    <ID>FunctionNaming:Theme.kt:@Composable fun ChatBluetoothTheme</ID>
+    <ID>LongMethod:ChatScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun ChatScreen</ID>
+    <ID>LongMethod:DiscoveryScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun DiscoveryScreen</ID>
+    <ID>LongMethod:HomeScreen.kt:@Composable fun HomeScreen</ID>
+    <ID>LongMethod:MainScreen.kt:@Composable fun MainScreen</ID>
+    <ID>LoopWithTooManyJumpStatements:BluetoothConnectedThread.kt:BluetoothConnectedThread$while</ID>
+    <ID>MagicNumber:Color.kt:0xFF625b71</ID>
+    <ID>MagicNumber:Color.kt:0xFF6650a4</ID>
+    <ID>MagicNumber:Color.kt:0xFF7D5260</ID>
+    <ID>MagicNumber:Color.kt:0xFFCCC2DC</ID>
+    <ID>MagicNumber:Color.kt:0xFFD0BCFF</ID>
+    <ID>MagicNumber:Color.kt:0xFFEFB8C8</ID>
+    <ID>NewLineAtEndOfFile:Theme.kt:dk.itu.moapd.chatbluetooth.ui.theme.Theme.kt</ID>
+    <ID>NewLineAtEndOfFile:Type.kt:dk.itu.moapd.chatbluetooth.ui.theme.Type.kt</ID>
+  </CurrentIssues>
+</SmellBaseline>
