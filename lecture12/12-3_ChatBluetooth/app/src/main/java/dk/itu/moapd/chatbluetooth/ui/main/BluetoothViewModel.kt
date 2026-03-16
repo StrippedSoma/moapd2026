@@ -185,9 +185,7 @@ class BluetoothViewModel(
     }
 
     /**
-     * Disconnects the active connection.
-     *
-     * @return `true` if a connection was active, `false` otherwise.
+     * Disconnects the active connection, if any.
      */
     fun disconnect() = controller.disconnect()
 
