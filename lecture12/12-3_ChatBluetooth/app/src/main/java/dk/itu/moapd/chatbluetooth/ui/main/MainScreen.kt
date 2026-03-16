@@ -82,7 +82,7 @@ fun MainScreen(viewModel: BluetoothViewModel) {
                     viewModel.clearMessages()
                     viewModel.setRemoteDeviceName("Remote Device")
                     viewModel.startServer()
-                    navController.navigate("chat/none/true/${encodeRoute("Remote Device")}")
+                    navController.navigate("chat/none/true/Remote Device")
                 },
             )
         }
