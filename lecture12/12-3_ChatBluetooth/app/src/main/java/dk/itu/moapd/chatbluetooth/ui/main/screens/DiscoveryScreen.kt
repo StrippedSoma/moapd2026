@@ -87,6 +87,7 @@ fun DiscoveryScreen(
     val discoveryReceiver =
         remember(viewModel) {
             BluetoothDiscoveryReceiver(
+                onDiscoveryFinished = { viewModel.stopDiscovery() },
                 onDeviceFound = viewModel.controller.onDeviceDiscovered ?: {},
             )
         }
