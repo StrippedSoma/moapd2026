@@ -25,7 +25,7 @@ This lecture covers advanced UI patterns in the Android Framework UI Toolkit. St
 
 ## Further Reading
 
-- [Material Design components for Android](https://material.io/develop/android)
+- [Material Design components for Android](https://m3.material.io/develop/android)
 - [Fragments](https://developer.android.com/guide/fragments)
 - [Navigation component](https://developer.android.com/guide/navigation)
 - [Toasts overview](https://developer.android.com/guide/topics/ui/notifiers/toasts)
