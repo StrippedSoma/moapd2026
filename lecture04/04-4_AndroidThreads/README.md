@@ -1,0 +1,83 @@
+# Android Threads
+
+An Android app that compares **three different approaches to background threading**: raw Java `Thread`, `Handler`/`Looper` message passing, and Kotlin Coroutines. Each approach is implemented in its own Fragment, accessible via bottom navigation. A shared `ViewModel` holds the counter state that each threading mechanism updates, demonstrating the trade-offs between different concurrency strategies.
+
+## Learning Outcomes
+
+After studying this app, students will be able to:
+
+- Create and manage raw Java `Thread` instances with proper interrupt handling
+- Use `Handler` and `Looper` for message-based communication between threads
+- Implement Kotlin Coroutines with `lifecycleScope` for lifecycle-aware background work
+- Compare the complexity, safety, and ergonomics of the three approaches
+- Share state across fragments using a shared `ViewModel`
+- Use Data Binding for two-way UI data synchronization
+- Handle fragment lifecycle correctly when managing background tasks
+
+## Architecture
+
+**Pattern:** Single Activity with Navigation + Shared ViewModel
+
+Each threading approach is encapsulated in its own Fragment. A shared `DataViewModel` holds the counter state, and the Navigation framework manages fragment transitions.
+
+| Class | Role |
+|-------|------|
+| `MainActivity` | Hosts NavHostFragment with bottom navigation |
+| `ThreadFragment` | Demonstrates raw `Thread` with interrupt handling |
+| `HandlerFragment` | Demonstrates `Handler`/`Looper` message passing |
+| `CoroutinesFragment` | Demonstrates Kotlin Coroutines with `lifecycleScope` |
+| `DataViewModel` | Shared ViewModel holding counter state across fragments |
+| `ThreadsApplication` | Custom Application subclass |
+
+## Technologies
+
+| Technology | Purpose |
+|------------|---------|
+| Kotlin | Programming language |
+| Thread | Raw Java threading for background work |
+| Handler / Looper | Message-based thread communication |
+| Kotlin Coroutines | Lightweight, lifecycle-aware concurrency |
+| lifecycleScope | Coroutine scope tied to fragment lifecycle |
+| ViewModel | Shared state holder across fragments |
+| Data Binding | Two-way UI data synchronization |
+| AndroidX Navigation | Fragment transitions with bottom navigation |
+
+## How to Run
+
+1. Open the `04-4_AndroidThreads` project in **Android Studio**.
+2. Sync Gradle and let dependencies download.
+3. Run the app on an emulator or physical device (min SDK 28).
+4. Switch between tabs to see each threading approach increment a counter.
+
+## Project Structure
+
+```
+app/src/main/
+├── java/dk/itu/moapd/androidthreads/
+│   ├── app/
+│   │   └── ThreadsApplication.kt                # Application subclass
+│   └── ui/
+│       ├── main/
+│       │   └── MainActivity.kt                  # Navigation + bottom nav setup
+│       ├── shared/
+│       │   └── DataViewModel.kt                 # Shared counter state ViewModel
+│       └── samples/
+│           ├── thread/
+│           │   └── ThreadFragment.kt            # Raw Thread implementation
+│           ├── handler/
+│           │   └── HandlerFragment.kt           # Handler/Looper implementation
+│           └── coroutines/
+│               └── CoroutinesFragment.kt        # Kotlin Coroutines implementation
+└── res/
+    ├── layout/                                   # Fragment and activity layouts
+    └── navigation/                               # Navigation graph
+```
+
+## Dependencies
+
+- AndroidX Lifecycle ViewModel KTX
+- AndroidX Navigation Fragment KTX
+- AndroidX Navigation UI KTX
+- Kotlin Coroutines Android
+- Material Components for Android
+- AndroidX AppCompat
