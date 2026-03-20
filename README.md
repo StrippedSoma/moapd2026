@@ -52,7 +52,7 @@ The apps presented in the lectures and those developed in the exercise sessions 
 | ---- | ---------- | ---------------------------------------------------------------------- |
 | 01   | 30/01/2026 | [Getting Started](lecture01)                                           |
 | 02   | 06/02/2026 | [Android Framework UI Toolkit](lecture02)                              |
-| 03   | 13/02/2026 | [Advanced User Interfaces Components](lecture03)                       |
+| 03   | 13/02/2026 | [Advanced User Interface Components](lecture03)                       |
 | 04   | 20/02/2026 | [Flexible Data View and Threads](lecture04)                            |
 | 05   | 27/02/2026 | [Jetpack Compose](lecture05)                                           |
 | 06   | 06/03/2026 | [Google Firebase and Testing Android Apps](lecture06)                  |
