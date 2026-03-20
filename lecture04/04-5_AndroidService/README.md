@@ -57,17 +57,37 @@ The `MainFragment` provides Start/Stop controls. The `AudioPlaybackService` runs
 app/src/main/
 ├── java/dk/itu/moapd/androidservice/
 │   ├── app/
-│   │   └── ServiceDemoApplication.kt        # Application subclass
+│   │   └── ServiceDemoApplication.kt            # Application class with Dynamic Colors
 │   ├── service/
-│   │   └── AudioPlaybackService.kt          # Foreground service with MediaPlayer
-│   └── ui/main/
-│       ├── MainActivity.kt                  # Container activity
-│       ├── MainFragment.kt                  # Start/Stop UI controls
-│       └── MainViewModel.kt                 # Observes service broadcasts
-└── res/
-    ├── layout/
-    │   └── fragment_main.xml                # UI with playback controls
-    └── raw/                                  # Audio resource files
+│   │   └── AudioPlaybackService.kt              # Foreground service with MediaPlayer
+│   └── ui/
+│       ├── main/
+│       │   ├── MainActivity.kt                  # Navigation host activity
+│       │   ├── MainFragment.kt                  # Fragment with Start/Stop UI controls
+│       │   └── MainViewModel.kt                 # ViewModel observing service broadcasts
+│       └── utils/
+│           └── FragmentViewBindingDelegate.kt    # Lifecycle-safe Fragment ViewBinding delegate
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml           # Launcher icon background
+│   │   └── ic_launcher_foreground.xml           # Launcher icon foreground
+│   ├── layout/
+│   │   ├── activity_main.xml                    # Main activity layout
+│   │   ├── content_main.xml                     # NavHostFragment container
+│   │   └── fragment_main.xml                    # Fragment layout with playback controls
+│   ├── navigation/
+│   │   └── nav_graph.xml                        # Navigation graph
+│   ├── values/
+│   │   ├── colors.xml                           # Color definitions
+│   │   ├── dimens.xml                           # Dimension resources
+│   │   ├── strings.xml                          # String resources
+│   │   └── themes.xml                           # App theme
+│   ├── values-night/
+│   │   └── themes.xml                           # Dark mode theme
+│   └── xml/
+│       ├── backup_rules.xml                     # Backup rules for Android 12+
+│       └── data_extraction_rules.xml            # Data extraction rules
+└── AndroidManifest.xml                          # App manifest
 ```
 
 ## Dependencies

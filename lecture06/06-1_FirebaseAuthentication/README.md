@@ -65,13 +65,51 @@ This app requires a Firebase project. Follow these steps:
 ```
 app/src/main/
 ├── java/dk/itu/moapd/firebaseauthentication/
+│   ├── app/
+│   │   └── FirebaseAuthenticationApplication.kt  # Custom Application subclass for global state
 │   └── ui/
+│       ├── auth/
+│       │   └── LoginActivity.kt                  # FirebaseUI sign-in flow
+│       ├── dialogs/
+│       │   └── UserInfoDialog.kt                  # Compose dialog showing user profile info
 │       ├── main/
-│       │   └── MainActivity.kt          # Main screen for authenticated users
-│       └── auth/
-│           └── LoginActivity.kt         # FirebaseUI sign-in flow
-├── AndroidManifest.xml                   # INTERNET permission
-└── google-services.json                  # Firebase configuration (not committed)
+│       │   ├── MainActivity.kt                    # Main screen for authenticated users
+│       │   └── MainScaffold.kt                    # Scaffold with top/bottom bars and navigation
+│       ├── screens/
+│       │   ├── albums/
+│       │   │   └── AlbumsScreen.kt                # Grid screen displaying album artwork
+│       │   ├── articles/
+│       │   │   └── ArticlesScreen.kt              # Scrollable articles screen with fake data
+│       │   └── contacts/
+│       │       └── ContactsScreen.kt              # Lazy list of contacts with avatars
+│       └── theme/
+│           ├── Color.kt                           # Material 3 color definitions
+│           ├── Theme.kt                           # App-wide theme configuration
+│           └── Type.kt                            # Material typography styles
+├── res/
+│   ├── drawable/
+│   │   ├── baseline_article_24.xml                # Article icon
+│   │   ├── baseline_circle_24.xml                 # Circle icon
+│   │   ├── baseline_dashboard_24.xml              # Dashboard icon
+│   │   ├── baseline_firebase_24.xml               # Firebase logo icon
+│   │   ├── baseline_people_24.xml                 # People icon
+│   │   ├── baseline_person_24.xml                 # Person icon
+│   │   ├── ic_launcher_background.xml             # Launcher icon background
+│   │   └── ic_launcher_foreground.xml             # Launcher icon foreground
+│   ├── drawable-nodpi/
+│   │   ├── album_art_01.jpg ... album_art_20.jpg  # Album cover artwork images
+│   │   ├── chuck_norris.jpg                       # Sample image for articles
+│   │   └── meme.jpg                               # Sample meme image
+│   ├── values/
+│   │   ├── colors.xml                             # Color definitions
+│   │   ├── strings.xml                            # String resources
+│   │   └── themes.xml                             # App theme
+│   ├── values-v31/
+│   │   └── themes.xml                             # Theme overrides for API 31+
+│   └── xml/
+│       ├── backup_rules.xml                       # Backup rules for Android 12+
+│       └── data_extraction_rules.xml              # Data extraction rules
+└── AndroidManifest.xml                            # App manifest with INTERNET permission
 ```
 
 ## Dependencies

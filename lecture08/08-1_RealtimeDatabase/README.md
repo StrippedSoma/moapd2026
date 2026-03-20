@@ -70,17 +70,53 @@ The `ViewModel` manages Firebase database operations and exposes state to the Co
 app/src/main/
 ├── java/dk/itu/moapd/realtimedatabase/
 │   ├── app/
-│   │   └── RealtimeDatabaseApplication.kt   # Application subclass
+│   │   └── RealtimeDatabaseApplication.kt   # Application subclass with Firebase DB persistence
+│   ├── core/
+│   │   ├── FirebaseConfig.kt                # Firebase database URL from dotenv config
+│   │   └── LoggingExtensions.kt             # Logging tag extension function
+│   ├── data/
+│   │   └── repository/
+│   │       └── DummyRepository.kt           # Firebase CRUD operations for Dummy data
+│   ├── domain/
+│   │   └── model/
+│   │       └── Dummy.kt                     # Data model for Firebase Realtime Database
 │   └── ui/
+│       ├── auth/
+│       │   └── LoginActivity.kt             # FirebaseUI authentication flow
+│       ├── common/
+│       │   └── ViewExtensions.kt            # Snackbar view extension helpers
 │       ├── main/
-│       │   ├── MainActivity.kt              # Main Compose screen
-│       │   ├── MainScreen.kt               # Real-time data display
-│       │   ├── MainViewModel.kt            # Firebase database operations
-│       │   └── MainUiState.kt              # UI state data class
-│       └── auth/
-│           └── LoginActivity.kt             # FirebaseUI sign-in
-├── AndroidManifest.xml                       # INTERNET permission
-└── google-services.json                      # Firebase config (not committed)
+│       │   ├── components/
+│       │   │   ├── DummyEditDialog.kt       # Composable dialog for editing dummy data
+│       │   │   └── DummyRow.kt              # Composable row item for dummy list
+│       │   ├── MainActivity.kt              # Main Compose activity with auth gating
+│       │   ├── MainScreen.kt                # Composable screen with real-time data list
+│       │   ├── MainUiState.kt               # UI state data class
+│       │   └── MainViewModel.kt             # ViewModel managing Firebase database state
+│       └── theme/
+│           ├── Color.kt                     # Material 3 color definitions
+│           ├── Theme.kt                     # Material 3 theme configuration
+│           └── Type.kt                      # Material 3 typography definitions
+├── res/
+│   ├── drawable/
+│   │   ├── baseline_account_box_24.xml      # Account icon
+│   │   ├── baseline_add_box_24.xml          # Add icon
+│   │   ├── baseline_firebase_24.xml         # Firebase icon
+│   │   ├── baseline_swap_horiz_24.xml       # Swap icon
+│   │   ├── ic_launcher_background.xml       # Launcher icon background
+│   │   └── ic_launcher_foreground.xml       # Launcher icon foreground
+│   ├── values-v31/
+│   │   └── themes.xml                       # Theme overrides for Android 12+
+│   ├── values/
+│   │   ├── colors.xml                       # Color definitions
+│   │   ├── strings.xml                      # String resources
+│   │   └── themes.xml                       # App theme
+│   └── xml/
+│       ├── backup_rules.xml                 # Backup rules for Android 12+
+│       └── data_extraction_rules.xml        # Data extraction rules
+├── assets/
+│   └── env                                  # Environment configuration file
+└── AndroidManifest.xml                      # App manifest
 ```
 
 ## Dependencies

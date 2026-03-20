@@ -55,15 +55,42 @@ This project includes OpenCV 4.12 as a local library module. The module should b
 ## Project Structure
 
 ```
-10-5_OpenCV/
-├── app/src/main/
-│   ├── java/dk/itu/moapd/opencv/
-│   │   └── ui/main/
-│   │       └── MainActivity.kt          # OpenCV init + Compose UI
-│   └── AndroidManifest.xml              # CAMERA permission
-├── opencv-4.12.0/                        # Local OpenCV library module
-├── build.gradle.kts
-└── settings.gradle.kts                   # Includes opencv module
+app/src/main/
+├── java/dk/itu/moapd/opencv/
+│   ├── camera/
+│   │   └── CameraController.kt            # Camera initialization and lifecycle
+│   ├── media/capture/
+│   │   └── PhotoCaptureManager.kt         # Photo capture and storage logic
+│   ├── permissions/
+│   │   └── CameraPermissionHelper.kt      # Camera permission handling
+│   └── ui/
+│       ├── main/
+│       │   ├── MainActivity.kt            # Entry point with Compose content
+│       │   ├── MainScreen.kt              # Main camera Compose screen
+│       │   └── MainViewModel.kt           # ViewModel for camera state
+│       ├── session/
+│       │   └── OpenCvSession.kt           # OpenCV camera view listener
+│       ├── theme/
+│       │   ├── Color.kt                   # Color definitions
+│       │   ├── Theme.kt                   # Material theme setup
+│       │   └── Type.kt                    # Typography definitions
+│       ├── viewer/
+│       │   └── ImageScreen.kt             # Composable processed image viewer
+│       └── widgets/
+│           └── OutlinedIconCircleButton.kt # Custom circular icon button
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml     # Launcher icon background
+│   │   └── ic_launcher_foreground.xml     # Launcher icon foreground
+│   ├── values/
+│   │   ├── colors.xml                     # Color resources
+│   │   ├── dimens.xml                     # Dimension resources
+│   │   ├── strings.xml                    # String resources
+│   │   └── themes.xml                     # App theme
+│   └── xml/
+│       ├── backup_rules.xml               # Backup rules for Android 12+
+│       └── data_extraction_rules.xml      # Data extraction rules
+└── AndroidManifest.xml                    # App manifest with CAMERA permission
 ```
 
 ## Dependencies

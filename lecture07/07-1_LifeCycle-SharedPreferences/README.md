@@ -51,12 +51,27 @@ The `ViewModel` manages UI state and coordinates with `SharedPreferences` for pe
 ```
 app/src/main/
 ├── java/dk/itu/moapd/lifecycle/
-│   └── ui/main/
-│       ├── MainActivity.kt              # Compose entry point
-│       ├── MainScreen.kt               # Composable UI
-│       ├── MainViewModel.kt            # ViewModel with SharedPreferences access
-│       └── MainUiState.kt              # UI state data class
-└── AndroidManifest.xml
+│   └── ui/
+│       ├── main/
+│       │   ├── MainActivity.kt                  # Compose entry point with setContent
+│       │   ├── MainScreen.kt                    # Composable UI for SharedPreferences demo
+│       │   └── MainUiState.kt                   # Data class representing the UI state
+│       └── theme/
+│           ├── Color.kt                          # Material Design color definitions
+│           ├── Theme.kt                          # App theme composable
+│           └── Type.kt                           # Typography definitions
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml            # Launcher icon background
+│   │   └── ic_launcher_foreground.xml            # Launcher icon foreground
+│   ├── values/
+│   │   ├── colors.xml                            # Color resources
+│   │   ├── strings.xml                           # String resources
+│   │   └── themes.xml                            # App theme attributes
+│   └── xml/
+│       ├── backup_rules.xml                      # Backup rules for Android 12+
+│       └── data_extraction_rules.xml             # Data extraction rules
+└── AndroidManifest.xml                           # App manifest
 ```
 
 ## Dependencies

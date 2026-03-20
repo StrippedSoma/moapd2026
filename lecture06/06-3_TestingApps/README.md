@@ -57,12 +57,38 @@ The app is intentionally simple to focus on testability. Test tags are defined i
 
 ```
 app/src/
-├── main/java/dk/itu/moapd/testingapps/
-│   └── ui/main/
-│       ├── MainActivity.kt              # Compose entry point
-│       └── MainTestTags.kt             # Test tag constants for composables
-├── test/                                 # Unit tests (JUnit + Hamcrest)
-└── androidTest/                          # Instrumented Compose UI tests
+├── main/
+│   ├── java/dk/itu/moapd/testingapps/
+│   │   ├── domain/validation/
+│   │   │   └── InputValidator.kt                  # Reusable input validation logic (name, email, password)
+│   │   └── ui/
+│   │       ├── components/
+│   │       │   └── ValidatedTextField.kt           # Custom text field with validation error display
+│   │       ├── main/
+│   │       │   ├── MainActivity.kt                 # Compose entry point with setContent
+│   │       │   ├── MainScreen.kt                   # Main form screen with input fields and buttons
+│   │       │   └── MainTestTags.kt                 # Test tag string constants for composables
+│   │       └── theme/
+│   │           ├── Color.kt                        # Material 3 color definitions
+│   │           ├── Theme.kt                        # App-wide theme configuration
+│   │           └── Type.kt                         # Material typography styles
+│   ├── res/
+│   │   ├── drawable/
+│   │   │   ├── ic_launcher_background.xml          # Launcher icon background
+│   │   │   └── ic_launcher_foreground.xml          # Launcher icon foreground
+│   │   ├── values/
+│   │   │   ├── colors.xml                          # Color definitions
+│   │   │   ├── dimens.xml                          # Dimension values
+│   │   │   ├── strings.xml                         # String resources
+│   │   │   └── themes.xml                          # App theme
+│   │   └── xml/
+│   │       ├── backup_rules.xml                    # Backup rules for Android 12+
+│   │       └── data_extraction_rules.xml           # Data extraction rules
+│   └── AndroidManifest.xml                         # App manifest
+├── test/java/dk/itu/moapd/testingapps/
+│   └── InputValidatorTest.kt                       # Unit tests for input validation (JUnit + Hamcrest)
+└── androidTest/java/dk/itu/moapd/testingapps/
+    └── MainActivityTest.kt                         # Instrumented Compose UI tests
 ```
 
 ## Dependencies

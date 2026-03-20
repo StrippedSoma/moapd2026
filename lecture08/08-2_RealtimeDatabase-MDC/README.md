@@ -66,17 +66,64 @@ The `MainActivity` hosts a `NavHostFragment`. Fragments observe Firebase databas
 app/src/main/
 ├── java/dk/itu/moapd/realtimedatabase/
 │   ├── app/
-│   │   └── RealtimeDatabaseApplication.kt   # Application subclass
+│   │   └── RealtimeDatabaseApplication.kt   # Application subclass with Dynamic Colors
+│   ├── core/
+│   │   ├── FirebaseConfig.kt                # Firebase database URL from dotenv config
+│   │   └── LoggingExtensions.kt             # Logging tag extension function
+│   ├── data/
+│   │   └── repository/
+│   │       └── DummyRepository.kt           # Firebase CRUD operations for Dummy data
+│   ├── domain/
+│   │   └── model/
+│   │       └── Dummy.kt                     # Data model for Firebase Realtime Database
 │   └── ui/
+│       ├── auth/
+│       │   └── LoginActivity.kt             # FirebaseUI authentication flow
+│       ├── common/
+│       │   └── ViewExtensions.kt            # Snackbar view extension helpers
+│       ├── dialogs/
+│       │   ├── AddDataDialogFragment.kt     # Dialog for adding new data
+│       │   └── UpdateDataDialogFragment.kt  # Dialog for updating existing data
+│       ├── list/
+│       │   ├── DummiesAdapter.kt            # FirebaseRecyclerAdapter for dummy list
+│       │   ├── DummyItemLongClickListener.kt # Long-press listener interface
+│       │   └── SwipeToDeleteCallback.kt     # Swipe-to-delete gesture handler
 │       ├── main/
-│       │   ├── MainActivity.kt              # Navigation host
-│       │   └── MainFragment.kt             # Real-time data list
-│       └── auth/
-│           └── LoginActivity.kt             # FirebaseUI sign-in
+│       │   ├── MainActivity.kt              # Navigation host with app bar
+│       │   └── MainFragment.kt              # Fragment displaying real-time data list
+│       └── utils/
+│           └── FragmentViewBindingDelegate.kt # View binding lifecycle delegate
 ├── res/
-│   ├── layout/                               # Activity, fragment, dialog layouts
-│   └── navigation/                           # Navigation graph
-└── google-services.json                      # Firebase config (not committed)
+│   ├── drawable/
+│   │   ├── baseline_account_box_24.xml      # Account icon
+│   │   ├── baseline_add_box_24.xml          # Add icon
+│   │   ├── baseline_firebase_24.xml         # Firebase icon
+│   │   ├── baseline_swap_horiz_24.xml       # Swap icon
+│   │   ├── ic_launcher_background.xml       # Launcher icon background
+│   │   └── ic_launcher_foreground.xml       # Launcher icon foreground
+│   ├── layout/
+│   │   ├── activity_main.xml                # Main activity layout with NavHost
+│   │   ├── content_main.xml                 # Content area layout
+│   │   ├── dialog_dummy_data.xml            # Dialog layout for data input
+│   │   ├── fragment_main.xml                # Main fragment layout with RecyclerView
+│   │   └── row_item.xml                     # List item layout for dummy data
+│   ├── menu/
+│   │   └── top_app_bar.xml                  # Top app bar menu items
+│   ├── navigation/
+│   │   └── nav_graph.xml                    # Navigation graph
+│   ├── values-night/
+│   │   └── themes.xml                       # Dark theme overrides
+│   ├── values/
+│   │   ├── colors.xml                       # Color definitions
+│   │   ├── dimens.xml                       # Dimension values
+│   │   ├── strings.xml                      # String resources
+│   │   └── themes.xml                       # App theme
+│   └── xml/
+│       ├── backup_rules.xml                 # Backup rules for Android 12+
+│       └── data_extraction_rules.xml        # Data extraction rules
+├── assets/
+│   └── env                                  # Environment configuration file
+└── AndroidManifest.xml                      # App manifest
 ```
 
 ## Dependencies

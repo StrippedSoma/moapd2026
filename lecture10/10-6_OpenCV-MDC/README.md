@@ -51,21 +51,49 @@ This project includes OpenCV 4.12 as a local library module.
 ## Project Structure
 
 ```
-10-6_OpenCV-MDC/
-├── app/src/main/
-│   ├── java/dk/itu/moapd/opencv/
-│   │   └── ui/main/
-│   │       └── MainActivity.kt          # Navigation host, OpenCV init
-│   ├── res/
-│   │   ├── layout/
-│   │   │   ├── activity_main.xml
-│   │   │   ├── content_main.xml
-│   │   │   ├── fragment_main.xml        # Camera preview
-│   │   │   └── fragment_image.xml       # Processed image display
-│   │   └── navigation/                   # Navigation graph
-│   └── AndroidManifest.xml              # CAMERA permission
-├── opencv-4.12.0/                        # Local OpenCV library module
-└── settings.gradle.kts                   # Includes opencv module
+app/src/main/
+├── java/dk/itu/moapd/opencv/
+│   ├── camera/
+│   │   └── CameraController.kt            # Camera initialization and lifecycle
+│   ├── media/capture/
+│   │   └── PhotoCaptureManager.kt         # Photo capture and storage logic
+│   ├── permissions/
+│   │   └── CameraPermissionHelper.kt      # Camera permission handling
+│   └── ui/
+│       ├── main/
+│       │   ├── MainActivity.kt            # Navigation host activity with OpenCV init
+│       │   ├── MainFragment.kt            # Camera preview fragment with OpenCV processing
+│       │   └── MainViewModel.kt           # ViewModel for camera state
+│       ├── utils/
+│       │   └── FragmentViewBindingDelegate.kt # View binding delegate for fragments
+│       └── viewer/
+│           └── ImageFragment.kt           # Processed image viewer fragment
+├── res/
+│   ├── drawable/
+│   │   ├── baseline_arrow_back_24.xml     # Back arrow icon
+│   │   ├── baseline_circle_24.xml         # Capture button icon
+│   │   ├── baseline_flip_camera_android_24.xml # Camera flip icon
+│   │   ├── baseline_photo_24.xml          # Photo gallery icon
+│   │   ├── ic_launcher_background.xml     # Launcher icon background
+│   │   └── ic_launcher_foreground.xml     # Launcher icon foreground
+│   ├── layout/
+│   │   ├── activity_main.xml              # Main activity layout
+│   │   ├── content_main.xml               # Content area with NavHostFragment
+│   │   ├── fragment_image.xml             # Processed image layout
+│   │   └── fragment_main.xml              # Camera preview layout
+│   ├── navigation/
+│   │   └── nav_graph.xml                  # Navigation graph
+│   ├── values-night/
+│   │   └── themes.xml                     # Dark theme
+│   ├── values/
+│   │   ├── colors.xml                     # Color resources
+│   │   ├── dimens.xml                     # Dimension resources
+│   │   ├── strings.xml                    # String resources
+│   │   └── themes.xml                     # App theme
+│   └── xml/
+│       ├── backup_rules.xml               # Backup rules for Android 12+
+│       └── data_extraction_rules.xml      # Data extraction rules
+└── AndroidManifest.xml                    # App manifest with CAMERA permission
 ```
 
 ## Dependencies

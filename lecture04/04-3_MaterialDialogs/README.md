@@ -48,14 +48,49 @@ The `MainActivity` hosts a `NavHostFragment`. Navigation destinations include bo
 app/src/main/
 ├── java/dk/itu/moapd/materialdialogs/
 │   ├── app/
-│   │   └── DialogsApplication.kt            # Application subclass
-│   └── ui/main/
-│       └── MainActivity.kt                  # Navigation setup with dialog destinations
-└── res/
-    ├── layout/
-    │   └── activity_main.xml                # Layout with NavHostFragment
-    └── navigation/
-        └── nav_graph.xml                    # Navigation graph with dialog destinations
+│   │   └── DialogsApplication.kt                # Application class with Dynamic Colors
+│   ├── domain/model/
+│   │   └── DialogOption.kt                      # Data class representing a dialog option
+│   └── ui/
+│       ├── common/
+│       │   └── SnackbarExtensions.kt             # View extension for Snackbar messages
+│       ├── dialogs/
+│       │   ├── AlertFragment.kt                  # Alert dialog fragment
+│       │   ├── ConfirmationFragment.kt           # Confirmation dialog fragment
+│       │   └── SimpleFragment.kt                 # Simple dialog fragment
+│       ├── list/
+│       │   ├── DialogOptionsAdapter.kt           # RecyclerView adapter for dialog options
+│       │   └── OnItemClickListener.kt            # Click listener interface for dialog items
+│       ├── main/
+│       │   ├── MainActivity.kt                   # Navigation host activity
+│       │   └── MainFragment.kt                   # Fragment with dialog trigger list
+│       └── utils/
+│           └── FragmentViewBindingDelegate.kt     # Lifecycle-safe Fragment ViewBinding delegate
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml            # Launcher icon background
+│   │   └── ic_launcher_foreground.xml            # Launcher icon foreground
+│   ├── layout/
+│   │   ├── activity_main.xml                     # Main activity layout
+│   │   ├── content_main.xml                      # NavHostFragment container
+│   │   ├── fragment_alert.xml                    # Alert dialog layout
+│   │   ├── fragment_confirmation.xml             # Confirmation dialog layout
+│   │   ├── fragment_main.xml                     # Main fragment layout
+│   │   ├── fragment_simple.xml                   # Simple dialog layout
+│   │   └── row_item.xml                          # Dialog option row layout
+│   ├── navigation/
+│   │   └── nav_graph.xml                         # Navigation graph with dialog destinations
+│   ├── values/
+│   │   ├── colors.xml                            # Color definitions
+│   │   ├── dimens.xml                            # Dimension resources
+│   │   ├── strings.xml                           # String resources
+│   │   └── themes.xml                            # App theme
+│   ├── values-night/
+│   │   └── themes.xml                            # Dark mode theme
+│   └── xml/
+│       ├── backup_rules.xml                      # Backup rules for Android 12+
+│       └── data_extraction_rules.xml             # Data extraction rules
+└── AndroidManifest.xml                           # App manifest
 ```
 
 ## Dependencies

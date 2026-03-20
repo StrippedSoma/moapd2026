@@ -55,22 +55,54 @@ Each threading approach is encapsulated in its own Fragment. A shared `DataViewM
 app/src/main/
 ├── java/dk/itu/moapd/androidthreads/
 │   ├── app/
-│   │   └── ThreadsApplication.kt                # Application subclass
+│   │   └── ThreadsApplication.kt                    # Application class with Dynamic Colors
 │   └── ui/
 │       ├── main/
-│       │   └── MainActivity.kt                  # Navigation + bottom nav setup
+│       │   └── MainActivity.kt                      # Navigation host with BottomNavigationView
+│       ├── samples/
+│       │   ├── coroutines/
+│       │   │   └── CoroutinesFragment.kt             # Kotlin Coroutines implementation
+│       │   ├── handler/
+│       │   │   └── HandlerFragment.kt                # Handler/Looper implementation
+│       │   └── thread/
+│       │       └── ThreadFragment.kt                 # Raw Thread implementation
 │       ├── shared/
-│       │   └── DataViewModel.kt                 # Shared counter state ViewModel
-│       └── samples/
-│           ├── thread/
-│           │   └── ThreadFragment.kt            # Raw Thread implementation
-│           ├── handler/
-│           │   └── HandlerFragment.kt           # Handler/Looper implementation
-│           └── coroutines/
-│               └── CoroutinesFragment.kt        # Kotlin Coroutines implementation
-└── res/
-    ├── layout/                                   # Fragment and activity layouts
-    └── navigation/                               # Navigation graph
+│       │   └── DataViewModel.kt                      # Shared counter state ViewModel
+│       └── utils/
+│           └── FragmentViewBindingDelegate.kt         # Lifecycle-safe Fragment ViewBinding delegate
+├── res/
+│   ├── drawable/
+│   │   ├── baseline_android_24.xml                   # Android icon
+│   │   ├── baseline_handshake_24.xml                 # Handshake icon
+│   │   ├── baseline_restart_alt_24.xml               # Restart icon
+│   │   ├── baseline_sync_24.xml                      # Sync icon
+│   │   ├── circular_determinative.xml                # Circular progress drawable
+│   │   ├── ic_launcher_background.xml                # Launcher icon background
+│   │   └── ic_launcher_foreground.xml                # Launcher icon foreground
+│   ├── layout/
+│   │   ├── activity_main.xml                         # Main activity layout
+│   │   ├── content_main.xml                          # NavHostFragment container
+│   │   ├── fragment_coroutines.xml                   # Coroutines fragment layout
+│   │   ├── fragment_handler.xml                      # Handler fragment layout
+│   │   └── fragment_thread.xml                       # Thread fragment layout
+│   ├── layout-land/
+│   │   ├── activity_main.xml                         # Landscape main layout
+│   │   └── content_main.xml                          # Landscape content layout
+│   ├── menu/
+│   │   └── bottom_navigation_menu.xml                # Bottom navigation menu items
+│   ├── navigation/
+│   │   └── nav_graph.xml                             # Navigation graph
+│   ├── values/
+│   │   ├── colors.xml                                # Color definitions
+│   │   ├── dimens.xml                                # Dimension resources
+│   │   ├── strings.xml                               # String resources
+│   │   └── themes.xml                                # App theme
+│   ├── values-night/
+│   │   └── themes.xml                                # Dark mode theme
+│   └── xml/
+│       ├── backup_rules.xml                          # Backup rules for Android 12+
+│       └── data_extraction_rules.xml                 # Data extraction rules
+└── AndroidManifest.xml                               # App manifest
 ```
 
 ## Dependencies

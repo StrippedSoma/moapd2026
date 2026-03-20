@@ -51,15 +51,42 @@ The `MainActivity` hosts a `NavHostFragment`. Fragments display location data ob
 ```
 app/src/main/
 ├── java/dk/itu/moapd/mylocation/
-│   └── ui/main/
-│       └── MainActivity.kt              # Navigation host
+│   ├── app/
+│   │   └── MyLocationApplication.kt             # Application class with initialization
+│   ├── core/
+│   │   ├── preferences/
+│   │   │   └── LocationTrackingPreferences.kt    # Shared preferences for tracking settings
+│   │   └── time/
+│   │       └── TimeFormatExtensions.kt           # Long-to-date/time formatting extensions
+│   ├── service/
+│   │   └── LocationService.kt                   # Foreground service for location updates
+│   └── ui/
+│       ├── main/
+│       │   ├── MainActivity.kt                   # Navigation host with app bar
+│       │   └── MainFragment.kt                   # Fragment displaying location data
+│       └── utils/
+│           └── FragmentViewBindingDelegate.kt     # Delegate for Fragment view binding
 ├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml            # Launcher icon background
+│   │   └── ic_launcher_foreground.xml            # Launcher icon foreground
 │   ├── layout/
-│   │   ├── activity_main.xml            # Main layout
-│   │   ├── content_main.xml             # Content area
-│   │   └── fragment_main.xml            # Location display fragment
-│   └── navigation/                       # Navigation graph
-└── AndroidManifest.xml                   # Location and service permissions
+│   │   ├── activity_main.xml                     # Main activity layout with NavHostFragment
+│   │   ├── content_main.xml                      # Content area within coordinator layout
+│   │   └── fragment_main.xml                     # Location display fragment layout
+│   ├── navigation/
+│   │   └── nav_graph.xml                         # Navigation graph
+│   ├── values/
+│   │   ├── colors.xml                            # Color resources
+│   │   ├── dimens.xml                            # Dimension resources
+│   │   ├── strings.xml                           # String resources
+│   │   └── themes.xml                            # App theme
+│   ├── values-night/
+│   │   └── themes.xml                            # Dark theme overrides
+│   └── xml/
+│       ├── backup_rules.xml                      # Backup rules for Android 12+
+│       └── data_extraction_rules.xml             # Data extraction rules
+└── AndroidManifest.xml                           # Location and foreground service permissions
 ```
 
 ## Dependencies

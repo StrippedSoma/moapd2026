@@ -50,10 +50,23 @@ Same minimal architecture as the Java variant. The `Activity` acts as both the c
 app/src/main/
 ├── java/dk/itu/moapd/gettingstarted/
 │   └── presentation/main/
-│       └── MainActivity.kt          # Main activity with Kotlin idioms
-└── res/
-    └── layout/
-        └── activity_main.xml        # UI layout with EditText, TextView, Button
+│       └── MainActivity.kt               # Main activity with Kotlin idioms
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml    # Launcher icon background
+│   │   └── ic_launcher_foreground.xml    # Launcher icon foreground
+│   ├── layout/
+│   │   └── activity_main.xml             # UI layout with EditText, TextView, Button
+│   ├── values/
+│   │   ├── colors.xml                    # Color definitions
+│   │   ├── strings.xml                   # String resources
+│   │   └── themes.xml                    # App theme
+│   ├── values-night/
+│   │   └── themes.xml                    # Dark mode theme
+│   └── xml/
+│       ├── backup_rules.xml              # Backup rules for Android 12+
+│       └── data_extraction_rules.xml     # Data extraction rules
+└── AndroidManifest.xml                   # App manifest
 ```
 
 ## Dependencies

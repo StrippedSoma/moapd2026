@@ -51,12 +51,28 @@ The `ViewModel` exposes state that Compose observes reactively. State changes tr
 ```
 app/src/main/
 ├── java/dk/itu/moapd/lifecycle/
-│   └── ui/main/
-│       ├── MainActivity.kt              # Compose entry point
-│       ├── MainScreen.kt               # Composable observing ViewModel state
-│       ├── MainViewModel.kt            # ViewModel with reactive state
-│       └── MainUiState.kt              # UI state data class
-└── AndroidManifest.xml
+│   └── ui/
+│       ├── main/
+│       │   ├── MainActivity.kt               # Compose entry point activity
+│       │   ├── MainScreen.kt                 # Composable observing ViewModel state
+│       │   ├── MainUiState.kt                # UI state data class
+│       │   └── MainViewModel.kt              # ViewModel with reactive state
+│       └── theme/
+│           ├── Color.kt                      # Color palette definitions
+│           ├── Theme.kt                      # Material 3 theme configuration
+│           └── Type.kt                       # Typography definitions
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml        # Launcher icon background
+│   │   └── ic_launcher_foreground.xml        # Launcher icon foreground
+│   ├── values/
+│   │   ├── colors.xml                        # Color resources
+│   │   ├── strings.xml                       # String resources
+│   │   └── themes.xml                        # App theme
+│   └── xml/
+│       ├── backup_rules.xml                  # Backup rules for Android 12+
+│       └── data_extraction_rules.xml         # Data extraction rules
+└── AndroidManifest.xml                       # App manifest
 ```
 
 ## Dependencies

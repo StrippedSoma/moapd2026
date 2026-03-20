@@ -59,10 +59,34 @@ The `MainActivity` hosts Compose content with a `GoogleMap` composable for map d
 ```
 app/src/main/
 ├── java/dk/itu/moapd/googlemaps/
-│   └── ui/main/
-│       └── MainActivity.kt              # Google Maps Compose integration
-├── AndroidManifest.xml                   # Maps API key, location permissions
-└── res/
+│   ├── app/
+│   │   └── GoogleMapsApplication.kt              # Application class with Maps SDK init
+│   ├── core/
+│   │   └── LoggingExtensions.kt                  # Extension function for log tags
+│   └── ui/
+│       ├── main/
+│       │   ├── MainActivity.kt                   # Entry point with Compose content
+│       │   └── MainScreen.kt                     # Main screen composable with GoogleMap
+│       └── theme/
+│           ├── Color.kt                          # Color definitions
+│           ├── Theme.kt                          # Material 3 theme configuration
+│           └── Type.kt                           # Typography definitions
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml            # Launcher icon background
+│   │   └── ic_launcher_foreground.xml            # Launcher icon foreground
+│   ├── raw/
+│   │   └── maps_style_json                       # Map style for light theme
+│   ├── raw-night/
+│   │   └── maps_style_json                       # Map style for dark theme
+│   ├── values/
+│   │   ├── colors.xml                            # Color resources
+│   │   ├── strings.xml                           # String resources
+│   │   └── themes.xml                            # App theme
+│   └── xml/
+│       ├── backup_rules.xml                      # Backup rules for Android 12+
+│       └── data_extraction_rules.xml             # Data extraction rules
+└── AndroidManifest.xml                           # Maps API key, location permissions
 ```
 
 ## Dependencies

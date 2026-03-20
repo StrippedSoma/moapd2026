@@ -66,16 +66,69 @@ This app requires a Firebase project. Follow these steps:
 app/src/main/
 ├── java/dk/itu/moapd/firebaseauthentication/
 │   ├── app/
-│   │   └── FirebaseAuthenticationApplication.kt  # Application subclass
+│   │   └── FirebaseAuthenticationApplication.kt   # Custom Application subclass for global state
 │   └── ui/
+│       ├── auth/
+│       │   └── LoginActivity.kt                   # FirebaseUI sign-in flow
+│       ├── common/
+│       │   ├── Dimens.kt                           # dp-to-px conversion utility
+│       │   └── ViewExtensions.kt                  # Snackbar and dimension extension functions
+│       ├── dialogs/
+│       │   └── UserInfoDialogFragment.kt           # Dialog showing user profile info
 │       ├── main/
-│       │   └── MainActivity.kt                   # Navigation host with app bar
-│       └── auth/
-│           └── LoginActivity.kt                  # FirebaseUI sign-in
+│       │   └── MainActivity.kt                    # Navigation host with app bar
+│       ├── tabs/
+│       │   ├── albums/
+│       │   │   └── AlbumsFragment.kt               # Grid fragment displaying album artwork
+│       │   ├── articles/
+│       │   │   └── ArticlesFragment.kt             # Fragment displaying article content
+│       │   └── contacts/
+│       │       └── ContactsFragment.kt             # Fragment with contacts list
+│       └── utils/
+│           └── FragmentViewBindingDelegate.kt      # Lifecycle-aware view binding delegate
 ├── res/
-│   ├── layout/                                    # Activity and fragment layouts
-│   └── navigation/                                # Navigation graph
-└── google-services.json                           # Firebase configuration (not committed)
+│   ├── drawable/
+│   │   ├── baseline_article_24.xml                # Article icon
+│   │   ├── baseline_circle_24.xml                 # Circle icon
+│   │   ├── baseline_dashboard_24.xml              # Dashboard icon
+│   │   ├── baseline_firebase_24.xml               # Firebase logo icon
+│   │   ├── baseline_people_24.xml                 # People icon
+│   │   ├── baseline_person_24.xml                 # Person icon
+│   │   ├── ic_launcher_background.xml             # Launcher icon background
+│   │   └── ic_launcher_foreground.xml             # Launcher icon foreground
+│   ├── drawable-nodpi/
+│   │   ├── album_art_01.jpg ... album_art_20.jpg  # Album cover artwork images
+│   │   ├── chuck_norris.jpg                       # Sample image for articles
+│   │   └── meme.jpg                               # Sample meme image
+│   ├── layout/
+│   │   ├── activity_main.xml                      # Main activity layout with toolbar
+│   │   ├── contact_row_item.xml                   # Contact list row item layout
+│   │   ├── content_main.xml                       # NavHostFragment container
+│   │   ├── dialog_user_info.xml                   # User info dialog layout
+│   │   ├── fragment_albums.xml                    # Albums grid layout
+│   │   ├── fragment_articles.xml                  # Articles content layout
+│   │   └── fragment_contacts.xml                  # Contacts list layout
+│   ├── layout-land/
+│   │   ├── activity_main.xml                      # Landscape main activity layout
+│   │   ├── content_main.xml                       # Landscape NavHostFragment container
+│   │   ├── dialog_user_info.xml                   # Landscape user info dialog layout
+│   │   └── fragment_albums.xml                    # Landscape albums grid layout
+│   ├── menu/
+│   │   ├── bottom_navigation_menu.xml             # Bottom navigation bar items
+│   │   └── top_app_bar.xml                        # Top app bar menu items
+│   ├── navigation/
+│   │   └── nav_graph.xml                          # Navigation graph with fragment destinations
+│   ├── values/
+│   │   ├── colors.xml                             # Color definitions
+│   │   ├── dimens.xml                             # Dimension values
+│   │   ├── strings.xml                            # String resources
+│   │   └── themes.xml                             # App theme
+│   ├── values-night/
+│   │   └── themes.xml                             # Dark mode theme overrides
+│   └── xml/
+│       ├── backup_rules.xml                       # Backup rules for Android 12+
+│       └── data_extraction_rules.xml              # Data extraction rules
+└── AndroidManifest.xml                            # App manifest with INTERNET permission
 ```
 
 ## Dependencies

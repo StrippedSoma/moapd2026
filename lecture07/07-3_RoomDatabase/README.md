@@ -62,17 +62,45 @@ The architecture separates concerns into four layers: UI (Compose), ViewModel, R
 app/src/main/
 ├── java/dk/itu/moapd/roomdatabase/
 │   ├── app/
-│   │   └── RoomStorageApplication.kt    # Initializes Room database
+│   │   └── RoomStorageApplication.kt            # Application class initializing Room database
 │   ├── data/
-│   │   ├── Dummy.kt                     # @Entity data class
-│   │   ├── DummyDao.kt                  # @Dao interface with SQL queries
-│   │   ├── DummyRoomDatabase.kt         # @Database singleton
-│   │   └── DummyRepository.kt           # Repository abstracting DAO access
-│   └── ui/main/
-│       ├── MainActivity.kt              # Compose entry point
-│       ├── MainScreen.kt               # LazyColumn with SwipeToDismiss
-│       └── DummyViewModel.kt           # ViewModel with Repository access
-└── AndroidManifest.xml
+│   │   ├── local/
+│   │   │   ├── DummyDao.kt                      # @Dao interface with SQL query methods
+│   │   │   └── DummyRoomDatabase.kt             # @Database singleton with entity config
+│   │   └── repository/
+│   │       └── DummyRepository.kt               # Repository abstracting DAO access
+│   ├── domain/model/
+│   │   └── Dummy.kt                             # @Entity data class for database rows
+│   └── ui/
+│       ├── common/
+│       │   └── LoggingExtensions.kt             # Extension function for class tag logging
+│       ├── main/
+│       │   ├── DummyViewModel.kt                # ViewModel with Repository access
+│       │   ├── MainActivity.kt                  # Compose entry point with setContent
+│       │   ├── MainScreen.kt                    # LazyColumn with SwipeToDismiss
+│       │   └── components/
+│       │       ├── DummyEditDialog.kt            # Dialog composable for editing items
+│       │       └── DummyRow.kt                   # Row composable for list items
+│       └── theme/
+│           ├── Color.kt                          # Material Design color definitions
+│           ├── Theme.kt                          # App theme composable
+│           └── Type.kt                           # Typography definitions
+├── res/
+│   ├── drawable/
+│   │   ├── baseline_account_box_24.xml           # Account box icon
+│   │   ├── baseline_add_box_24.xml               # Add box icon
+│   │   ├── baseline_swap_horiz_24.xml            # Swap horizontal icon
+│   │   ├── ic_launcher_background.xml            # Launcher icon background
+│   │   └── ic_launcher_foreground.xml            # Launcher icon foreground
+│   ├── values/
+│   │   ├── colors.xml                            # Color resources
+│   │   ├── dimens.xml                            # Dimension resources
+│   │   ├── strings.xml                           # String resources
+│   │   └── themes.xml                            # App theme attributes
+│   └── xml/
+│       ├── backup_rules.xml                      # Backup rules for Android 12+
+│       └── data_extraction_rules.xml             # Data extraction rules
+└── AndroidManifest.xml                           # App manifest
 ```
 
 ## Dependencies

@@ -52,21 +52,60 @@ The `MainActivity` hosts a `NavHostFragment` as the navigation container. Each s
 app/src/main/
 ├── java/dk/itu/moapd/fragments/
 │   ├── app/
-│   │   └── FragmentsApplication.kt           # Application subclass
+│   │   └── FragmentsApplication.kt               # Application class with Dynamic Colors
 │   └── ui/
-│       ├── main/
-│       │   └── MainActivity.kt               # Navigation setup with BottomNavigationView
-│       ├── contacts/
-│       │   └── ContactsFragment.kt           # Contacts screen
+│       ├── albums/
+│       │   └── AlbumsFragment.kt                 # Fragment displaying artist photo list
 │       ├── articles/
-│       │   └── ArticlesFragment.kt           # Articles screen
-│       └── albums/
-│           └── AlbumsFragment.kt             # Albums screen
-└── res/
-    ├── layout/                                # Portrait layouts
-    ├── layout-land/                           # Landscape layouts
-    ├── navigation/                            # Navigation graph XML
-    └── menu/                                  # Bottom navigation menu
+│       │   └── ArticlesFragment.kt               # Fragment displaying article example
+│       ├── common/
+│       │   └── Dimens.kt                         # Extension function converting dp to px
+│       ├── contacts/
+│       │   └── ContactsFragment.kt               # Fragment displaying fake contacts list
+│       ├── main/
+│       │   └── MainActivity.kt                   # Navigation host with BottomNavigationView
+│       └── utils/
+│           └── FragmentViewBindingDelegate.kt     # Lifecycle-safe Fragment ViewBinding delegate
+├── res/
+│   ├── drawable/
+│   │   ├── baseline_article_24.xml               # Article icon
+│   │   ├── baseline_circle_24.xml                # Circle icon
+│   │   ├── baseline_dashboard_24.xml             # Dashboard icon
+│   │   ├── baseline_people_24.xml                # People icon
+│   │   ├── ic_launcher_background.xml            # Launcher icon background
+│   │   └── ic_launcher_foreground.xml            # Launcher icon foreground
+│   ├── drawable-nodpi/
+│   │   ├── album_art_01.jpg ... album_art_20.jpg # Album artwork images
+│   │   ├── chuck_norris.jpg                      # Article image
+│   │   └── meme.jpg                              # Article image
+│   ├── layout/
+│   │   ├── activity_main.xml                     # Main activity layout
+│   │   ├── contact_row_item.xml                  # Contact list row layout
+│   │   ├── content_main.xml                      # NavHostFragment container
+│   │   ├── fragment_albums.xml                   # Albums fragment layout
+│   │   ├── fragment_articles.xml                 # Articles fragment layout
+│   │   └── fragment_contacts.xml                 # Contacts fragment layout
+│   ├── layout-land/
+│   │   ├── activity_main.xml                     # Landscape main layout
+│   │   ├── content_main.xml                      # Landscape content layout
+│   │   └── fragment_albums.xml                   # Landscape albums layout
+│   ├── menu/
+│   │   └── bottom_navigation_menu.xml            # Bottom navigation menu items
+│   ├── navigation/
+│   │   └── nav_graph.xml                         # Navigation graph
+│   ├── values/
+│   │   ├── colors.xml                            # Color definitions
+│   │   ├── dimens.xml                            # Dimension resources
+│   │   ├── strings.xml                           # String resources
+│   │   └── themes.xml                            # App theme
+│   ├── values-land/
+│   │   └── dimens.xml                            # Landscape dimension overrides
+│   ├── values-night/
+│   │   └── themes.xml                            # Dark mode theme
+│   └── xml/
+│       ├── backup_rules.xml                      # Backup rules for Android 12+
+│       └── data_extraction_rules.xml             # Data extraction rules
+└── AndroidManifest.xml                           # App manifest
 ```
 
 ## Dependencies

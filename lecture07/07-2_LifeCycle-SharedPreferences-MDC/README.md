@@ -49,12 +49,26 @@ The `MainActivity` directly manages SharedPreferences access through lifecycle c
 app/src/main/
 ├── java/dk/itu/moapd/lifecycle/
 │   ├── app/
-│   │   └── LifecycleApplication.kt      # Application subclass
+│   │   └── LifecycleApplication.kt              # Custom Application subclass
 │   └── presentation/main/
-│       └── MainActivity.kt              # Activity with SharedPreferences lifecycle
-└── res/
-    └── layout/
-        └── activity_main.xml            # UI layout
+│       └── MainActivity.kt                      # Activity with SharedPreferences lifecycle
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml            # Launcher icon background
+│   │   └── ic_launcher_foreground.xml            # Launcher icon foreground
+│   ├── layout/
+│   │   ├── activity_main.xml                     # Main activity layout
+│   │   └── content_main.xml                      # Content area layout
+│   ├── values/
+│   │   ├── colors.xml                            # Color resources
+│   │   ├── strings.xml                           # String resources
+│   │   └── themes.xml                            # Light theme attributes
+│   ├── values-night/
+│   │   └── themes.xml                            # Dark theme attributes
+│   └── xml/
+│       ├── backup_rules.xml                      # Backup rules for Android 12+
+│       └── data_extraction_rules.xml             # Data extraction rules
+└── AndroidManifest.xml                           # App manifest
 ```
 
 ## Dependencies

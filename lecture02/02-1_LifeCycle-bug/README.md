@@ -51,10 +51,23 @@ This app deliberately omits state preservation to illustrate the problem. The `A
 app/src/main/
 ├── java/dk/itu/moapd/lifecycle/
 │   └── activities/presentation/main/
-│       └── MainActivity.kt           # Activity with lifecycle logging, no state saving
-└── res/
-    └── layout/
-        └── activity_main.xml         # UI with True/False buttons, checkbox, and text view
+│       └── MainActivity.kt               # Activity with lifecycle logging, no state saving
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml    # Launcher icon background
+│   │   └── ic_launcher_foreground.xml    # Launcher icon foreground
+│   ├── layout/
+│   │   └── activity_main.xml             # UI with True/False buttons, checkbox, and text view
+│   ├── values/
+│   │   ├── colors.xml                    # Color definitions
+│   │   ├── strings.xml                   # String resources
+│   │   └── themes.xml                    # App theme
+│   ├── values-night/
+│   │   └── themes.xml                    # Dark mode theme
+│   └── xml/
+│       ├── backup_rules.xml              # Backup rules for Android 12+
+│       └── data_extraction_rules.xml     # Data extraction rules
+└── AndroidManifest.xml                   # App manifest
 ```
 
 ## Dependencies

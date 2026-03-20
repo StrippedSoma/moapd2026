@@ -53,19 +53,46 @@ The `MainActivity` hosts a `MainFragment` that sets up the `RecyclerView` with a
 app/src/main/
 ├── java/dk/itu/moapd/recyclerview/
 │   ├── app/
-│   │   └── RecyclerViewApplication.kt       # Application subclass
+│   │   └── RecyclerViewApplication.kt           # Application class with Dynamic Colors
 │   ├── domain/model/
-│   │   └── DummyModel.kt                    # Data model for list items
+│   │   └── DummyModel.kt                        # Data class representing a city with metadata
 │   └── ui/
+│       ├── common/
+│       │   └── SnackbarExtensions.kt             # View extension for Snackbar messages
+│       ├── list/
+│       │   └── CustomAdapter.kt                  # RecyclerView.Adapter with ViewHolder
 │       ├── main/
-│       │   ├── MainActivity.kt              # Container activity
-│       │   └── MainFragment.kt              # Fragment setting up RecyclerView
-│       └── list/
-│           └── CustomAdapter.kt             # RecyclerView.Adapter with ViewHolder
-└── res/
-    └── layout/
-        ├── fragment_main.xml                 # Fragment layout with RecyclerView
-        └── row_item.xml                      # Row layout for each item
+│       │   ├── MainActivity.kt                   # Navigation host activity
+│       │   └── MainFragment.kt                   # Fragment setting up RecyclerView
+│       └── utils/
+│           └── FragmentViewBindingDelegate.kt     # Lifecycle-safe Fragment ViewBinding delegate
+├── res/
+│   ├── drawable/
+│   │   ├── baseline_favorite_24.xml              # Favorite icon
+│   │   ├── baseline_share_24.xml                 # Share icon
+│   │   ├── baseline_thumb_up_24.xml              # Thumb up icon
+│   │   ├── ic_launcher_background.xml            # Launcher icon background
+│   │   └── ic_launcher_foreground.xml            # Launcher icon foreground
+│   ├── layout/
+│   │   ├── activity_main.xml                     # Main activity layout
+│   │   ├── content_main.xml                      # NavHostFragment container
+│   │   ├── fragment_main.xml                     # Fragment layout with RecyclerView
+│   │   └── row_item.xml                          # Custom row layout for each item
+│   ├── navigation/
+│   │   └── nav_graph.xml                         # Navigation graph
+│   ├── values/
+│   │   ├── colors.xml                            # Color definitions
+│   │   ├── dimens.xml                            # Dimension resources
+│   │   ├── strings.xml                           # String resources
+│   │   └── themes.xml                            # App theme
+│   ├── values-land/
+│   │   └── dimens.xml                            # Landscape dimension overrides
+│   ├── values-night/
+│   │   └── themes.xml                            # Dark mode theme
+│   └── xml/
+│       ├── backup_rules.xml                      # Backup rules for Android 12+
+│       └── data_extraction_rules.xml             # Data extraction rules
+└── AndroidManifest.xml                           # App manifest
 ```
 
 ## Dependencies

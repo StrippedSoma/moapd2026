@@ -55,14 +55,46 @@ The app uses Navigation component with fragments, providing clear test targets f
 
 ```
 app/src/
-├── main/java/dk/itu/moapd/testingapps/
-│   └── ui/main/
-│       └── MainActivity.kt              # Navigation host activity
-├── main/res/
-│   ├── layout/                           # Activity and fragment layouts
-│   └── navigation/                       # Navigation graph
-├── test/                                  # Unit tests (JUnit + Hamcrest)
-└── androidTest/                           # Instrumented Espresso UI tests
+├── main/
+│   ├── java/dk/itu/moapd/testingapps/
+│   │   ├── app/
+│   │   │   └── TestingApplication.kt               # Custom Application subclass for global state
+│   │   ├── domain/validation/
+│   │   │   └── InputValidator.kt                   # Reusable input validation logic (name, email, password)
+│   │   └── ui/
+│   │       ├── common/
+│   │       │   ├── KeyboardExtensions.kt            # Extension function to hide soft keyboard
+│   │       │   └── SnackbarExtensions.kt            # Extension function to show Snackbar messages
+│   │       ├── main/
+│   │       │   ├── MainActivity.kt                  # Navigation host activity with app bar
+│   │       │   └── MainFragment.kt                  # Form fragment with input validation
+│   │       └── utils/
+│   │           └── FragmentViewBindingDelegate.kt    # Lifecycle-aware view binding delegate
+│   ├── res/
+│   │   ├── drawable/
+│   │   │   ├── ic_launcher_background.xml           # Launcher icon background
+│   │   │   └── ic_launcher_foreground.xml           # Launcher icon foreground
+│   │   ├── layout/
+│   │   │   ├── activity_main.xml                    # Main activity layout with toolbar
+│   │   │   ├── content_main.xml                     # NavHostFragment container
+│   │   │   └── fragment_main.xml                    # Main form fragment layout
+│   │   ├── navigation/
+│   │   │   └── nav_graph.xml                        # Navigation graph with fragment destinations
+│   │   ├── values/
+│   │   │   ├── colors.xml                           # Color definitions
+│   │   │   ├── dimens.xml                           # Dimension values
+│   │   │   ├── strings.xml                          # String resources
+│   │   │   └── themes.xml                           # App theme
+│   │   ├── values-night/
+│   │   │   └── themes.xml                           # Dark mode theme overrides
+│   │   └── xml/
+│   │       ├── backup_rules.xml                     # Backup rules for Android 12+
+│   │       └── data_extraction_rules.xml            # Data extraction rules
+│   └── AndroidManifest.xml                          # App manifest
+├── test/java/dk/itu/moapd/testingapps/
+│   └── InputValidatorTest.kt                        # Unit tests for input validation (JUnit + Hamcrest)
+└── androidTest/java/dk/itu/moapd/testingapps/
+    └── MainActivityTest.kt                          # Instrumented Espresso UI tests
 ```
 
 ## Dependencies

@@ -69,15 +69,47 @@ The `ViewModel` coordinates between Firebase Storage (files) and Realtime Databa
 app/src/main/
 ├── java/dk/itu/moapd/firebasestorage/
 │   ├── app/
-│   │   └── FirebaseStorageApplication.kt    # Application subclass
+│   │   └── FirebaseStorageApplication.kt    # Application subclass with Firebase DB persistence
+│   ├── core/
+│   │   ├── FirebaseConfig.kt                # Firebase configuration from dotenv
+│   │   └── LoggingExtensions.kt             # Logging tag extension function
+│   ├── data/
+│   │   └── repository/
+│   │       ├── ImageRepository.kt           # Firebase database operations for image metadata
+│   │       └── StorageRepository.kt         # Firebase Storage file upload/download
+│   ├── domain/
+│   │   └── model/
+│   │       └── Image.kt                     # Data model for image metadata
 │   └── ui/
+│       ├── auth/
+│       │   └── LoginActivity.kt             # FirebaseUI authentication flow
 │       ├── main/
-│       │   ├── MainActivity.kt              # Main Compose screen
-│       │   └── MainScaffold.kt             # File management scaffold
-│       └── auth/
-│           └── LoginActivity.kt             # FirebaseUI sign-in
-├── AndroidManifest.xml                       # INTERNET, POST_NOTIFICATIONS permissions
-└── google-services.json                      # Firebase config (not committed)
+│       │   ├── components/
+│       │   │   └── NotificationPermissionRationaleDialog.kt # Permission rationale dialog
+│       │   ├── MainActivity.kt              # Main Compose activity with auth and permissions
+│       │   └── MainScaffold.kt              # Scaffold composable with image list and actions
+│       ├── screens/
+│       │   ├── ImageDetailScreen.kt         # Full-screen image detail view
+│       │   └── ImagesGridScreen.kt          # Composable grid of uploaded images
+│       └── theme/
+│           ├── Color.kt                     # Material 3 color definitions
+│           ├── Theme.kt                     # Material 3 theme configuration
+│           └── Type.kt                      # Material 3 typography definitions
+├── res/
+│   ├── drawable/
+│   │   ├── baseline_firebase_24.xml         # Firebase icon
+│   │   ├── ic_launcher_background.xml       # Launcher icon background
+│   │   └── ic_launcher_foreground.xml       # Launcher icon foreground
+│   ├── values/
+│   │   ├── colors.xml                       # Color definitions
+│   │   ├── strings.xml                      # String resources
+│   │   └── themes.xml                       # App theme
+│   └── xml/
+│       ├── backup_rules.xml                 # Backup rules for Android 12+
+│       └── data_extraction_rules.xml        # Data extraction rules
+├── assets/
+│   └── env                                  # Environment configuration file
+└── AndroidManifest.xml                      # App manifest
 ```
 
 ## Dependencies

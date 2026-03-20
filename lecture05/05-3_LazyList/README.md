@@ -53,10 +53,33 @@ The UI is defined entirely with composable functions. `LazyListScreen` is the ma
 ```
 app/src/main/
 ├── java/dk/itu/moapd/lazylist/
-│   └── ui/main/
-│       ├── MainActivity.kt              # Compose entry point
-│       └── LazyListScreen.kt           # LazyColumn with RowItem composables
-└── AndroidManifest.xml                   # INTERNET permission
+│   ├── domain/
+│   │   ├── model/
+│   │   │   └── DummyModel.kt                 # Data class for list items
+│   │   └── sampledata/
+│   │       └── DummyDataFactory.kt           # Factory generating fake data with JavaFaker
+│   └── ui/
+│       ├── components/
+│       │   └── RowItem.kt                    # Composable row item for the list
+│       ├── main/
+│       │   ├── LazyListScreen.kt             # Composable screen with LazyColumn
+│       │   └── MainActivity.kt               # Compose entry point activity
+│       └── theme/
+│           ├── Color.kt                      # Color palette definitions
+│           ├── Theme.kt                      # Material 3 theme configuration
+│           └── Type.kt                       # Typography definitions
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml        # Launcher icon background
+│   │   └── ic_launcher_foreground.xml        # Launcher icon foreground
+│   ├── values/
+│   │   ├── colors.xml                        # Color resources
+│   │   ├── strings.xml                       # String resources
+│   │   └── themes.xml                        # App theme
+│   └── xml/
+│       ├── backup_rules.xml                  # Backup rules for Android 12+
+│       └── data_extraction_rules.xml         # Data extraction rules
+└── AndroidManifest.xml                       # App manifest
 ```
 
 ## Dependencies

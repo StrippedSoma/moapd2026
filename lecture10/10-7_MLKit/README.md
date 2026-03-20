@@ -57,10 +57,37 @@ The app captures camera frames, passes them through ML Kit models, and displays 
 ```
 app/src/main/
 ├── java/dk/itu/moapd/mlkit/
-│   └── ui/main/
-│       └── MainActivity.kt              # ML Kit + CameraX + Compose UI
-├── AndroidManifest.xml                   # CAMERA permission
-└── google-services.json                  # Firebase config (not committed)
+│   ├── domain/
+│   │   ├── model/
+│   │   │   └── DetectionLabel.kt          # Data class for detection results
+│   │   └── vision/
+│   │       └── ObjectDetectionProcessor.kt # ML Kit object detection processing
+│   └── ui/
+│       ├── common/
+│       │   └── LoggingExtensions.kt       # Logging utility extensions
+│       ├── main/
+│       │   ├── MainActivity.kt            # Entry point with Compose content
+│       │   └── MainScreen.kt              # Camera preview with ML detection overlay
+│       └── theme/
+│           ├── Color.kt                   # Color definitions
+│           ├── Theme.kt                   # Material theme setup
+│           └── Type.kt                    # Typography definitions
+├── res/
+│   ├── drawable-night-nodpi/
+│   │   └── mlkit_firebase.png             # ML Kit sample image (dark)
+│   ├── drawable-nodpi/
+│   │   └── mlkit_firebase.png             # ML Kit sample image
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml     # Launcher icon background
+│   │   └── ic_launcher_foreground.xml     # Launcher icon foreground
+│   ├── values/
+│   │   ├── colors.xml                     # Color resources
+│   │   ├── strings.xml                    # String resources
+│   │   └── themes.xml                     # App theme
+│   └── xml/
+│       ├── backup_rules.xml               # Backup rules for Android 12+
+│       └── data_extraction_rules.xml      # Data extraction rules
+└── AndroidManifest.xml                    # App manifest with CAMERA permission
 ```
 
 ## Dependencies

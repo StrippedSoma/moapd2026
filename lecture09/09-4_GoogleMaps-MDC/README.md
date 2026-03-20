@@ -59,15 +59,40 @@ The `MainActivity` hosts a `NavHostFragment`. A map fragment integrates `Support
 ```
 app/src/main/
 ├── java/dk/itu/moapd/googlemaps/
-│   └── ui/main/
-│       └── MainActivity.kt              # Navigation host
+│   ├── app/
+│   │   └── GoogleMapsApplication.kt              # Application class with Maps SDK init
+│   └── ui/
+│       ├── common/
+│       │   └── LoggingExtensions.kt              # Extension function for log tags
+│       ├── main/
+│       │   ├── MainActivity.kt                   # Navigation host with app bar
+│       │   └── MainFragment.kt                   # Fragment with SupportMapFragment
+│       └── utils/
+│           └── FragmentViewBindingDelegate.kt     # Delegate for Fragment view binding
 ├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml            # Launcher icon background
+│   │   └── ic_launcher_foreground.xml            # Launcher icon foreground
 │   ├── layout/
-│   │   ├── activity_main.xml            # Main layout
-│   │   ├── content_main.xml             # Content area
-│   │   └── fragment_main.xml            # Map fragment layout
-│   └── navigation/                       # Navigation graph
-└── AndroidManifest.xml                   # Maps API key, location permissions
+│   │   ├── activity_main.xml                     # Main activity layout with NavHostFragment
+│   │   ├── content_main.xml                      # Content area within coordinator layout
+│   │   └── fragment_main.xml                     # Map fragment layout
+│   ├── navigation/
+│   │   └── nav_graph.xml                         # Navigation graph
+│   ├── raw/
+│   │   └── maps_style_json                       # Map style for light theme
+│   ├── raw-night/
+│   │   └── maps_style_json                       # Map style for dark theme
+│   ├── values/
+│   │   ├── colors.xml                            # Color resources
+│   │   ├── strings.xml                           # String resources
+│   │   └── themes.xml                            # App theme
+│   ├── values-night/
+│   │   └── themes.xml                            # Dark theme overrides
+│   └── xml/
+│       ├── backup_rules.xml                      # Backup rules for Android 12+
+│       └── data_extraction_rules.xml             # Data extraction rules
+└── AndroidManifest.xml                           # Maps API key, location permissions
 ```
 
 ## Dependencies

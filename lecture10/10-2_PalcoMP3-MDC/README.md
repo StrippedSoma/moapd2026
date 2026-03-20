@@ -54,22 +54,51 @@ The `MainActivity` hosts fragments via Navigation component. The main fragment d
 ```
 app/src/main/
 ├── java/dk/itu/moapd/palcomp3/
+│   ├── app/
+│   │   └── PalcoMP3Application.kt         # Application class setup
+│   ├── domain/model/
+│   │   ├── ArtistModel.kt                 # Data class for artist information
+│   │   ├── ExpandableModel.kt             # Expandable list data model
+│   │   └── SongModel.kt                   # Data class for song information
 │   ├── service/
-│   │   └── AudioPlaybackService.kt      # Foreground audio service
+│   │   └── AudioPlaybackService.kt        # Foreground service with MediaPlayer
 │   └── ui/
+│       ├── list/
+│       │   ├── ExpandableAdapter.kt       # RecyclerView expandable adapter
+│       │   └── ItemClickListener.kt       # Click listener interface
 │       ├── main/
-│       │   ├── MainActivity.kt          # Navigation host
-│       │   └── MainFragment.kt         # RecyclerView with artists/songs
-│       └── list/
-│           └── CustomAdapter.kt         # RecyclerView adapter
+│       │   ├── MainActivity.kt            # Navigation host activity
+│       │   ├── MainFragment.kt            # RecyclerView with artists/songs
+│       │   └── MainViewModel.kt           # ViewModel for data management
+│       └── utils/
+│           └── FragmentViewBindingDelegate.kt # View binding delegate for fragments
 ├── res/
-│   └── layout/
-│       ├── activity_main.xml
-│       ├── content_main.xml
-│       ├── fragment_main.xml
-│       ├── row_artist_item.xml           # Artist row layout
-│       └── row_song_item.xml            # Song row layout
-└── AndroidManifest.xml                   # INTERNET, FOREGROUND_SERVICE permissions
+│   ├── drawable/
+│   │   ├── baseline_keyboard_arrow_down_24.xml # Arrow down icon
+│   │   ├── baseline_keyboard_arrow_up_24.xml   # Arrow up icon
+│   │   ├── baseline_play_circle_outline_64.xml # Play button icon
+│   │   ├── baseline_stop_circle_64.xml    # Stop button icon
+│   │   ├── ic_launcher_background.xml     # Launcher icon background
+│   │   └── ic_launcher_foreground.xml     # Launcher icon foreground
+│   ├── layout/
+│   │   ├── activity_main.xml              # Main activity layout
+│   │   ├── content_main.xml               # Content area with NavHostFragment
+│   │   ├── fragment_main.xml              # Main fragment with RecyclerView
+│   │   ├── row_artist_item.xml            # Artist row layout
+│   │   └── row_song_item.xml              # Song row layout
+│   ├── navigation/
+│   │   └── nav_graph.xml                  # Navigation graph
+│   ├── values-night/
+│   │   └── themes.xml                     # Dark theme
+│   ├── values/
+│   │   ├── colors.xml                     # Color resources
+│   │   ├── dimens.xml                     # Dimension resources
+│   │   ├── strings.xml                    # String resources
+│   │   └── themes.xml                     # App theme
+│   └── xml/
+│       ├── backup_rules.xml               # Backup rules for Android 12+
+│       └── data_extraction_rules.xml      # Data extraction rules
+└── AndroidManifest.xml                    # App manifest with INTERNET and FOREGROUND_SERVICE permissions
 ```
 
 ## Dependencies

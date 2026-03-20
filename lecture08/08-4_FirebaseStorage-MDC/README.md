@@ -68,17 +68,65 @@ The `MainActivity` hosts a `NavHostFragment`. Fragments handle file listing, upl
 app/src/main/
 ├── java/dk/itu/moapd/firebasestorage/
 │   ├── app/
-│   │   └── FirebaseStorageApplication.kt    # Application subclass
+│   │   └── FirebaseStorageApplication.kt    # Application subclass with Dynamic Colors
+│   ├── core/
+│   │   ├── FirebaseConfig.kt                # Firebase configuration from dotenv
+│   │   └── LoggingExtensions.kt             # Logging tag extension function
+│   ├── data/
+│   │   └── repository/
+│   │       ├── ImageRepository.kt           # Firebase database operations for image metadata
+│   │       └── StorageRepository.kt         # Firebase Storage file upload/download
+│   ├── domain/
+│   │   └── model/
+│   │       └── Image.kt                     # Data model for image metadata
 │   └── ui/
+│       ├── auth/
+│       │   └── LoginActivity.kt             # FirebaseUI authentication flow
+│       ├── common/
+│       │   └── ViewExtensions.kt            # Snackbar view extension helpers
+│       ├── detail/
+│       │   └── ImageFragment.kt             # Fragment for full-screen image display
+│       ├── dialogs/
+│       │   └── DeleteImageDialogFragment.kt # Confirmation dialog for image deletion
+│       ├── list/
+│       │   ├── ImageItemListener.kt         # Click/long-press listener interface
+│       │   └── ImagesAdapter.kt             # FirebaseRecyclerAdapter for image grid
 │       ├── main/
-│       │   ├── MainActivity.kt              # Navigation host
-│       │   └── MainFragment.kt             # File list and operations
-│       └── auth/
-│           └── LoginActivity.kt             # FirebaseUI sign-in
+│       │   ├── MainActivity.kt              # Navigation host with permissions handling
+│       │   └── MainFragment.kt              # Fragment displaying image grid
+│       └── utils/
+│           ├── FragmentViewBindingDelegate.kt # View binding lifecycle delegate
+│           └── NavigationArgs.kt            # Navigation argument key constants
 ├── res/
-│   ├── layout/                               # Activity and fragment layouts
-│   └── navigation/                           # Navigation graph
-└── google-services.json                      # Firebase config (not committed)
+│   ├── drawable/
+│   │   ├── baseline_add_box_24.xml          # Add icon
+│   │   ├── baseline_arrow_back_24.xml       # Back arrow icon
+│   │   ├── baseline_firebase_24.xml         # Firebase icon
+│   │   ├── ic_launcher_background.xml       # Launcher icon background
+│   │   └── ic_launcher_foreground.xml       # Launcher icon foreground
+│   ├── layout/
+│   │   ├── activity_main.xml                # Main activity layout with NavHost
+│   │   ├── content_main.xml                 # Content area layout
+│   │   ├── fragment_image.xml               # Image detail fragment layout
+│   │   ├── fragment_main.xml                # Main fragment layout with grid
+│   │   └── row_item.xml                     # Grid item layout for images
+│   ├── menu/
+│   │   └── top_app_bar.xml                  # Top app bar menu items
+│   ├── navigation/
+│   │   └── nav_graph.xml                    # Navigation graph
+│   ├── values-night/
+│   │   └── themes.xml                       # Dark theme overrides
+│   ├── values/
+│   │   ├── colors.xml                       # Color definitions
+│   │   ├── dimens.xml                       # Dimension values
+│   │   ├── strings.xml                      # String resources
+│   │   └── themes.xml                       # App theme
+│   └── xml/
+│       ├── backup_rules.xml                 # Backup rules for Android 12+
+│       └── data_extraction_rules.xml        # Data extraction rules
+├── assets/
+│   └── env                                  # Environment configuration file
+└── AndroidManifest.xml                      # App manifest
 ```
 
 ## Dependencies

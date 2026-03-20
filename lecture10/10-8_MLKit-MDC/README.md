@@ -56,16 +56,46 @@ The `MainActivity` hosts fragments. Camera frames are analyzed by ML Kit models 
 ```
 app/src/main/
 ├── java/dk/itu/moapd/mlkit/
-│   └── ui/main/
-│       └── MainActivity.kt              # Navigation host
+│   ├── app/
+│   │   └── MLKitApplication.kt            # Application class setup
+│   ├── domain/
+│   │   ├── model/
+│   │   │   └── DetectionLabel.kt          # Data class for detection results
+│   │   └── vision/
+│   │       └── ObjectDetectionProcessor.kt # ML Kit object detection processing
+│   └── ui/
+│       ├── common/
+│       │   └── LoggingExtensions.kt       # Logging utility extensions
+│       ├── main/
+│       │   ├── MainActivity.kt            # Navigation host activity
+│       │   └── MainFragment.kt            # Camera preview with ML detection
+│       └── utils/
+│           └── FragmentViewBindingDelegate.kt # View binding delegate for fragments
 ├── res/
+│   ├── drawable-night-nodpi/
+│   │   └── mlkit_firebase.png             # ML Kit sample image (dark)
+│   ├── drawable-nodpi/
+│   │   └── mlkit_firebase.png             # ML Kit sample image
+│   ├── drawable/
+│   │   ├── baseline_photo_camera_24.xml   # Camera button icon
+│   │   ├── ic_launcher_background.xml     # Launcher icon background
+│   │   └── ic_launcher_foreground.xml     # Launcher icon foreground
 │   ├── layout/
-│   │   ├── activity_main.xml
-│   │   ├── content_main.xml
-│   │   └── fragment_main.xml            # Camera + ML results layout
-│   └── navigation/                       # Navigation graph
-├── AndroidManifest.xml                   # CAMERA permission
-└── google-services.json                  # Firebase config (not committed)
+│   │   ├── activity_main.xml              # Main activity layout
+│   │   ├── content_main.xml               # Content area with NavHostFragment
+│   │   └── fragment_main.xml              # Camera and ML results layout
+│   ├── navigation/
+│   │   └── nav_graph.xml                  # Navigation graph
+│   ├── values-night/
+│   │   └── themes.xml                     # Dark theme
+│   ├── values/
+│   │   ├── colors.xml                     # Color resources
+│   │   ├── strings.xml                    # String resources
+│   │   └── themes.xml                     # App theme
+│   └── xml/
+│       ├── backup_rules.xml               # Backup rules for Android 12+
+│       └── data_extraction_rules.xml      # Data extraction rules
+└── AndroidManifest.xml                    # App manifest with CAMERA permission
 ```
 
 ## Dependencies

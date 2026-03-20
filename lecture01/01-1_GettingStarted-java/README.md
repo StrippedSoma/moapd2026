@@ -49,10 +49,23 @@ The app follows a minimal architecture where the `Activity` acts as both the con
 app/src/main/
 ├── java/dk/itu/moapd/gettingstarted/
 │   └── presentation/main/
-│       └── MainActivity.java       # Main activity with UI logic
-└── res/
-    └── layout/
-        └── activity_main.xml       # UI layout with EditText, TextView, Button
+│       └── MainActivity.java             # Main activity with UI logic
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml    # Launcher icon background
+│   │   └── ic_launcher_foreground.xml    # Launcher icon foreground
+│   ├── layout/
+│   │   └── activity_main.xml             # UI layout with EditText, TextView, Button
+│   ├── values/
+│   │   ├── colors.xml                    # Color definitions
+│   │   ├── strings.xml                   # String resources
+│   │   └── themes.xml                    # App theme
+│   ├── values-night/
+│   │   └── themes.xml                    # Dark mode theme
+│   └── xml/
+│       ├── backup_rules.xml              # Backup rules for Android 12+
+│       └── data_extraction_rules.xml     # Data extraction rules
+└── AndroidManifest.xml                   # App manifest
 ```
 
 ## Dependencies

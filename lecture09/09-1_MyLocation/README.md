@@ -50,10 +50,46 @@ The `ViewModel` manages location state. A foreground service provides continuous
 ```
 app/src/main/
 ├── java/dk/itu/moapd/mylocation/
-│   └── ui/main/
-│       └── MainActivity.kt              # Location tracking with Compose UI
-├── AndroidManifest.xml                   # Location and foreground service permissions
-└── res/
+│   ├── app/
+│   │   └── MyLocationApplication.kt             # Application class with initialization
+│   ├── core/
+│   │   ├── preferences/
+│   │   │   └── LocationTrackingPreferences.kt    # Shared preferences for tracking settings
+│   │   └── time/
+│   │       └── TimeFormatExtensions.kt           # Long-to-date/time formatting extensions
+│   ├── domain/model/
+│   │   └── CurrentLocation.kt                   # Data class for current location state
+│   ├── mapper/
+│   │   └── CurrentLocationMapper.kt              # Maps Location to CurrentLocation model
+│   ├── service/
+│   │   └── LocationService.kt                   # Foreground service for location updates
+│   └── ui/
+│       ├── main/
+│       │   ├── components/
+│       │   │   └── ReadOnlyFilledField.kt        # Read-only text field composable
+│       │   ├── LocationServiceConnection.kt      # ServiceConnection for binding to LocationService
+│       │   ├── MainActivity.kt                   # Entry point, permissions, Compose content
+│       │   ├── MainScreen.kt                     # Main screen composable with location display
+│       │   └── MyLocationScaffold.kt             # Scaffold layout composable
+│       ├── state/
+│       │   └── TrackingEnabledState.kt           # Compose state for tracking toggle
+│       └── theme/
+│           ├── Color.kt                          # Color definitions
+│           ├── Theme.kt                          # Material 3 theme configuration
+│           └── Type.kt                           # Typography definitions
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml            # Launcher icon background
+│   │   └── ic_launcher_foreground.xml            # Launcher icon foreground
+│   ├── values/
+│   │   ├── colors.xml                            # Color resources
+│   │   ├── dimens.xml                            # Dimension resources
+│   │   ├── strings.xml                           # String resources
+│   │   └── themes.xml                            # App theme
+│   └── xml/
+│       ├── backup_rules.xml                      # Backup rules for Android 12+
+│       └── data_extraction_rules.xml             # Data extraction rules
+└── AndroidManifest.xml                           # Location and foreground service permissions
 ```
 
 ## Dependencies

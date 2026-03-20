@@ -56,18 +56,38 @@ The `MainViewModel` fetches data from a REST API and manages the expandable list
 ```
 app/src/main/
 ├── java/dk/itu/moapd/palcomp3/
+│   ├── domain/model/
+│   │   ├── ArtistModel.kt                # Data class for artist information
+│   │   ├── ExpandableModel.kt            # Expandable list data model
+│   │   ├── PlaybackAction.kt             # Sealed class for playback actions
+│   │   └── SongModel.kt                  # Data class for song information
 │   ├── service/
-│   │   └── AudioPlaybackService.kt      # Foreground service with MediaPlayer
+│   │   └── AudioPlaybackService.kt       # Foreground service with MediaPlayer
 │   └── ui/
 │       ├── main/
-│       │   ├── MainActivity.kt          # Entry point with service management
-│       │   ├── MainScreen.kt           # Expandable list Compose UI
-│       │   └── MainViewModel.kt        # API fetching and state management
-│       └── model/
-│           ├── ExpandableModel.kt       # Expandable list data model
-│           └── SongModel.kt            # Song data model
-├── AndroidManifest.xml                   # INTERNET, FOREGROUND_SERVICE permissions
-└── res/
+│       │   ├── MainActivity.kt            # Entry point with Compose content
+│       │   ├── MainScreen.kt              # Expandable list Compose UI
+│       │   ├── MainViewModel.kt           # API fetching and state management
+│       │   └── components/
+│       │       ├── ArtistRow.kt           # Composable artist row item
+│       │       └── SongRow.kt            # Composable song row item
+│       └── theme/
+│           ├── Color.kt                   # Color definitions
+│           ├── Theme.kt                   # Material theme setup
+│           └── Type.kt                    # Typography definitions
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml     # Launcher icon background
+│   │   └── ic_launcher_foreground.xml     # Launcher icon foreground
+│   ├── values/
+│   │   ├── colors.xml                     # Color resources
+│   │   ├── dimens.xml                     # Dimension resources
+│   │   ├── strings.xml                    # String resources
+│   │   └── themes.xml                     # App theme
+│   └── xml/
+│       ├── backup_rules.xml               # Backup rules for Android 12+
+│       └── data_extraction_rules.xml      # Data extraction rules
+└── AndroidManifest.xml                    # App manifest with INTERNET and FOREGROUND_SERVICE permissions
 ```
 
 ## Dependencies

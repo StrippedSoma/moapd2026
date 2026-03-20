@@ -60,19 +60,57 @@ The architecture uses Navigation-managed fragments for each screen, with a share
 app/src/main/
 ├── java/dk/itu/moapd/roomdatabase/
 │   ├── app/
-│   │   └── RoomStorageApplication.kt    # Initializes Room database
+│   │   └── RoomStorageApplication.kt            # Application class initializing Room database
 │   ├── data/
-│   │   ├── Dummy.kt                     # @Entity data class
-│   │   ├── DummyDao.kt                  # @Dao interface
-│   │   ├── DummyRoomDatabase.kt         # @Database singleton
-│   │   └── DummyRepository.kt           # Repository
-│   └── ui/main/
-│       ├── MainActivity.kt              # Navigation host
-│       └── MainFragment.kt             # List display fragment
+│   │   ├── local/
+│   │   │   ├── DummyDao.kt                      # @Dao interface with SQL query methods
+│   │   │   └── DummyRoomDatabase.kt             # @Database singleton with entity config
+│   │   └── repository/
+│   │       └── DummyRepository.kt               # Repository abstracting DAO access
+│   ├── domain/model/
+│   │   └── Dummy.kt                             # @Entity data class for database rows
+│   └── ui/
+│       ├── common/
+│       │   └── LoggingExtensions.kt             # Extension function for class tag logging
+│       ├── dialogs/
+│       │   ├── AddDataDialogFragment.kt         # DialogFragment for adding new items
+│       │   └── UpdateDataDialogFragment.kt      # DialogFragment for updating existing items
+│       ├── list/
+│       │   ├── DummyItemLongClickListener.kt    # Interface for item long-click events
+│       │   ├── DummyListAdapter.kt              # ListAdapter for RecyclerView
+│       │   └── SwipeToDeleteCallback.kt         # ItemTouchHelper callback for swipe delete
+│       ├── main/
+│       │   ├── DummyViewModel.kt                # ViewModel with Repository access
+│       │   ├── MainActivity.kt                  # Navigation host activity
+│       │   └── MainFragment.kt                  # Fragment displaying list of items
+│       └── utils/
+│           └── FragmentViewBindingDelegate.kt    # Delegate for Fragment view binding
 ├── res/
-│   ├── layout/                           # Activity, fragment, and dialog layouts
-│   └── navigation/                       # Navigation graph with dialog destinations
-└── AndroidManifest.xml
+│   ├── drawable/
+│   │   ├── baseline_account_box_24.xml           # Account box icon
+│   │   ├── baseline_add_box_24.xml               # Add box icon
+│   │   ├── baseline_swap_horiz_24.xml            # Swap horizontal icon
+│   │   ├── ic_launcher_background.xml            # Launcher icon background
+│   │   └── ic_launcher_foreground.xml            # Launcher icon foreground
+│   ├── layout/
+│   │   ├── activity_main.xml                     # Main activity layout
+│   │   ├── content_main.xml                      # Content area with NavHostFragment
+│   │   ├── dialog_dummy_data.xml                 # Dialog layout for data input
+│   │   ├── fragment_main.xml                     # Main fragment layout with RecyclerView
+│   │   └── row_item.xml                          # RecyclerView item layout
+│   ├── navigation/
+│   │   └── nav_graph.xml                         # Navigation graph with dialog destinations
+│   ├── values/
+│   │   ├── colors.xml                            # Color resources
+│   │   ├── dimens.xml                            # Dimension resources
+│   │   ├── strings.xml                           # String resources
+│   │   └── themes.xml                            # Light theme attributes
+│   ├── values-night/
+│   │   └── themes.xml                            # Dark theme attributes
+│   └── xml/
+│       ├── backup_rules.xml                      # Backup rules for Android 12+
+│       └── data_extraction_rules.xml             # Data extraction rules
+└── AndroidManifest.xml                           # App manifest
 ```
 
 ## Dependencies

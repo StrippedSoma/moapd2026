@@ -53,11 +53,24 @@ The `ViewModel` holds and exposes UI state via `LiveData`, decoupling business l
 app/src/main/
 ├── java/dk/itu/moapd/lifecycle/
 │   └── presentation/main/
-│       ├── MainActivity.kt           # Activity observing LiveData from ViewModel
-│       └── MainViewModel.kt          # ViewModel with MutableLiveData<String>
-└── res/
-    └── layout/
-        └── activity_main.xml         # UI layout
+│       ├── MainActivity.kt               # Activity observing LiveData from ViewModel
+│       └── MainViewModel.kt              # ViewModel with MutableLiveData<String>
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml    # Launcher icon background
+│   │   └── ic_launcher_foreground.xml    # Launcher icon foreground
+│   ├── layout/
+│   │   └── activity_main.xml             # UI layout
+│   ├── values/
+│   │   ├── colors.xml                    # Color definitions
+│   │   ├── strings.xml                   # String resources
+│   │   └── themes.xml                    # App theme
+│   ├── values-night/
+│   │   └── themes.xml                    # Dark mode theme
+│   └── xml/
+│       ├── backup_rules.xml              # Backup rules for Android 12+
+│       └── data_extraction_rules.xml     # Data extraction rules
+└── AndroidManifest.xml                   # App manifest
 ```
 
 ## Dependencies

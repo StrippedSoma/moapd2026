@@ -62,35 +62,62 @@ The `MainActivity` hosts fragments via Navigation component. Each screen (home, 
 ```
 app/src/main/
 ├── java/dk/itu/moapd/chatbluetooth/
+│   ├── app/
+│   │   └── ChatBluetoothApplication.kt       # Application class
 │   ├── bluetooth/
-│   │   ├── BluetoothController.kt        # Bluetooth operations facade
-│   │   ├── BluetoothServerThread.kt      # Server thread
-│   │   ├── BluetoothClientThread.kt      # Client thread
-│   │   └── BluetoothConnectedThread.kt   # Connected I/O thread
-│   └── ui/
-│       ├── main/
-│       │   ├── MainActivity.kt           # Navigation host + permissions
-│       │   └── BluetoothViewModel.kt    # Shared Bluetooth state
-│       ├── home/
-│       │   └── HomeFragment.kt          # Main menu
-│       ├── discovery/
-│       │   └── DiscoveryFragment.kt     # Discover nearby devices
-│       ├── paired/
-│       │   └── PairedDevicesFragment.kt # Paired device list
-│       └── chat/
-│           └── ChatFragment.kt          # Chat message interface
+│   │   ├── BluetoothClientThread.kt          # Initiates outgoing connections
+│   │   ├── BluetoothConnectedThread.kt       # Socket I/O for message exchange
+│   │   ├── BluetoothController.kt            # Bluetooth operations facade
+│   │   ├── BluetoothDiscoveryReceiver.kt     # BroadcastReceiver for device discovery
+│   │   └── BluetoothServerThread.kt          # Accepts incoming connections
+│   ├── data/model/
+│   │   ├── BluetoothDeviceItem.kt            # Discovered device data class
+│   │   ├── ChatMessage.kt                    # Chat message data class
+│   │   └── ConnectionState.kt                # Connection state enum
+│   ├── ui/
+│   │   ├── adapters/
+│   │   │   ├── ChatMessageAdapter.kt         # RecyclerView adapter for chat messages
+│   │   │   └── DeviceListAdapter.kt          # RecyclerView adapter for device lists
+│   │   ├── chat/
+│   │   │   └── ChatFragment.kt               # Chat message interface fragment
+│   │   ├── discovery/
+│   │   │   └── DiscoveryFragment.kt          # Device discovery fragment
+│   │   ├── home/
+│   │   │   └── HomeFragment.kt               # Home menu fragment
+│   │   ├── main/
+│   │   │   ├── BluetoothViewModel.kt         # Shared Bluetooth ViewModel
+│   │   │   └── MainActivity.kt               # Navigation host + permissions
+│   │   ├── paired/
+│   │   │   └── PairedDevicesFragment.kt      # Paired devices fragment
+│   │   └── utils/
+│   │       └── FragmentViewBindingDelegate.kt # View binding delegate for fragments
+│   └── util/
+│       └── Constants.kt                      # Bluetooth constants (UUIDs, message types)
 ├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml        # Launcher icon background
+│   │   └── ic_launcher_foreground.xml        # Launcher icon foreground
 │   ├── layout/
-│   │   ├── activity_main.xml
-│   │   ├── content_main.xml
-│   │   ├── fragment_home.xml
-│   │   ├── fragment_discovery.xml
-│   │   ├── fragment_paired_devices.xml
-│   │   ├── fragment_chat.xml
-│   │   ├── item_device.xml              # Device list item
-│   │   └── item_chat_message.xml        # Chat message item
-│   └── navigation/                       # Navigation graph
-└── AndroidManifest.xml                    # Bluetooth + location permissions
+│   │   ├── activity_main.xml                 # Main activity layout
+│   │   ├── content_main.xml                  # Content layout with navigation host
+│   │   ├── fragment_chat.xml                 # Chat screen fragment layout
+│   │   ├── fragment_discovery.xml            # Device discovery fragment layout
+│   │   ├── fragment_home.xml                 # Home menu fragment layout
+│   │   ├── fragment_paired_devices.xml       # Paired devices fragment layout
+│   │   ├── item_chat_message.xml             # Chat message list item layout
+│   │   └── item_device.xml                   # Device list item layout
+│   ├── navigation/
+│   │   └── nav_graph.xml                     # Navigation graph
+│   ├── values/
+│   │   ├── colors.xml                        # Color definitions
+│   │   ├── strings.xml                       # String resources
+│   │   └── themes.xml                        # App theme
+│   ├── values-night/
+│   │   └── themes.xml                        # Dark theme
+│   └── xml/
+│       ├── backup_rules.xml                  # Backup rules for Android 12+
+│       └── data_extraction_rules.xml         # Data extraction rules
+└── AndroidManifest.xml                       # Bluetooth + location permissions
 ```
 
 ## Dependencies

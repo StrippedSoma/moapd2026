@@ -53,10 +53,40 @@ The app uses Compose Navigation for switching between the camera preview screen 
 ```
 app/src/main/
 ├── java/dk/itu/moapd/camerax/
-│   └── ui/main/
-│       └── MainActivity.kt              # CameraX + Compose UI
-├── AndroidManifest.xml                   # CAMERA permission
-└── res/
+│   ├── camerax/
+│   │   └── CameraXController.kt           # CameraX initialization and lifecycle
+│   ├── media/capture/
+│   │   └── PhotoCaptureManager.kt         # Photo capture and storage logic
+│   ├── permissions/
+│   │   └── CameraPermissionHelper.kt      # Camera permission handling
+│   └── ui/
+│       ├── main/
+│       │   ├── MainActivity.kt            # Entry point with Compose content
+│       │   ├── MainScreen.kt              # Main camera Compose screen
+│       │   ├── MainViewModel.kt           # ViewModel for camera state
+│       │   └── components/
+│       │       └── CameraXApp.kt          # Composable camera preview component
+│       ├── theme/
+│       │   ├── Color.kt                   # Color definitions
+│       │   ├── Theme.kt                   # Material theme setup
+│       │   └── Type.kt                    # Typography definitions
+│       ├── viewer/
+│       │   └── ImageScreen.kt             # Composable captured image viewer
+│       └── widgets/
+│           └── OutlinedIconCircleButton.kt # Custom circular icon button
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml     # Launcher icon background
+│   │   └── ic_launcher_foreground.xml     # Launcher icon foreground
+│   ├── values/
+│   │   ├── colors.xml                     # Color resources
+│   │   ├── dimens.xml                     # Dimension resources
+│   │   ├── strings.xml                    # String resources
+│   │   └── themes.xml                     # App theme
+│   └── xml/
+│       ├── backup_rules.xml               # Backup rules for Android 12+
+│       └── data_extraction_rules.xml      # Data extraction rules
+└── AndroidManifest.xml                    # App manifest with CAMERA permission
 ```
 
 ## Dependencies

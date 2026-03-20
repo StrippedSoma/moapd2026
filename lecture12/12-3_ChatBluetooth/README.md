@@ -67,22 +67,48 @@ A `BluetoothController` facade encapsulates all low-level Bluetooth operations. 
 app/src/main/
 ├── java/dk/itu/moapd/chatbluetooth/
 │   ├── bluetooth/
-│   │   ├── BluetoothController.kt        # Bluetooth operations facade
-│   │   ├── BluetoothServerThread.kt      # Accept incoming connections
-│   │   ├── BluetoothClientThread.kt      # Initiate outgoing connections
-│   │   └── BluetoothConnectedThread.kt   # Socket I/O for messages
-│   ├── model/
-│   │   ├── ConnectionState.kt            # Connection state enum
-│   │   ├── ChatMessage.kt                # Chat message data class
-│   │   └── BluetoothDeviceItem.kt        # Discovered device model
-│   └── ui/
-│       ├── main/
-│       │   ├── MainActivity.kt           # Entry point + permissions
-│       │   ├── MainScreen.kt            # Compose navigation (Home, Discovery, Chat)
-│       │   └── BluetoothViewModel.kt    # State management for Bluetooth
-│       └── discovery/
-│           └── BluetoothDiscoveryReceiver.kt  # BroadcastReceiver for discovery
-└── AndroidManifest.xml                    # Bluetooth + location permissions
+│   │   ├── BluetoothClientThread.kt          # Initiates outgoing connections
+│   │   ├── BluetoothConnectedThread.kt       # Socket I/O for message exchange
+│   │   ├── BluetoothController.kt            # Bluetooth operations facade
+│   │   ├── BluetoothDiscoveryReceiver.kt     # BroadcastReceiver for device discovery
+│   │   └── BluetoothServerThread.kt          # Accepts incoming connections
+│   ├── data/model/
+│   │   ├── BluetoothDeviceItem.kt            # Discovered device data class
+│   │   ├── ChatMessage.kt                    # Chat message data class
+│   │   └── ConnectionState.kt                # Connection state enum
+│   ├── ui/
+│   │   ├── main/
+│   │   │   ├── BluetoothViewModel.kt         # ViewModel for Bluetooth state management
+│   │   │   ├── MainActivity.kt               # Entry point + permission handling
+│   │   │   ├── MainScreen.kt                 # Compose navigation (Home, Discovery, Chat)
+│   │   │   ├── screens/
+│   │   │   │   ├── ChatScreen.kt             # Chat message screen
+│   │   │   │   ├── DiscoveryScreen.kt        # Device discovery screen
+│   │   │   │   ├── HomeScreen.kt             # Home/main menu screen
+│   │   │   │   └── PairedDevicesScreen.kt    # Paired devices screen
+│   │   │   ├── utils/
+│   │   │   │   └── BluetoothUiUtils.kt       # UI utility functions for Bluetooth
+│   │   │   └── widgets/
+│   │   │       ├── ChatBubble.kt             # Chat bubble composable
+│   │   │       └── DeviceList.kt             # Device list composable
+│   │   └── theme/
+│   │       ├── Color.kt                      # Color definitions
+│   │       ├── Theme.kt                      # App theme composable
+│   │       └── Type.kt                       # Typography definitions
+│   └── util/
+│       └── Constants.kt                      # Bluetooth constants (UUIDs, message types)
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml        # Launcher icon background
+│   │   └── ic_launcher_foreground.xml        # Launcher icon foreground
+│   ├── values/
+│   │   ├── colors.xml                        # Color definitions
+│   │   ├── strings.xml                       # String resources
+│   │   └── themes.xml                        # App theme
+│   └── xml/
+│       ├── backup_rules.xml                  # Backup rules for Android 12+
+│       └── data_extraction_rules.xml         # Data extraction rules
+└── AndroidManifest.xml                       # Bluetooth + location permissions
 ```
 
 ## Dependencies

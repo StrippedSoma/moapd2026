@@ -51,17 +51,36 @@ The `MainActivity` hosts a `MainFragment` that handles user interactions and tri
 app/src/main/
 ├── java/dk/itu/moapd/popupmessages/
 │   ├── app/
-│   │   └── PopupMessagesApplication.kt      # Application subclass
+│   │   └── PopupMessagesApplication.kt          # Application class with Dynamic Colors
 │   └── ui/
+│       ├── common/
+│       │   ├── SnackbarExtensions.kt             # View extension for Snackbar messages
+│       │   └── ToastExtensions.kt                # Fragment extension for Toast messages
 │       ├── main/
-│       │   ├── MainActivity.kt              # Container activity
-│       │   └── MainFragment.kt              # Fragment with message triggers
-│       └── extensions/
-│           ├── ToastExtensions.kt           # Reusable Toast helpers
-│           └── SnackbarExtensions.kt        # Reusable Snackbar helpers
-└── res/
-    └── layout/
-        └── fragment_main.xml                # UI with trigger buttons
+│       │   ├── MainActivity.kt                   # Navigation host activity
+│       │   └── MainFragment.kt                   # Fragment demonstrating Toast and Snackbar
+│       └── utils/
+│           └── FragmentViewBindingDelegate.kt     # Lifecycle-safe Fragment ViewBinding delegate
+├── res/
+│   ├── drawable/
+│   │   ├── ic_launcher_background.xml            # Launcher icon background
+│   │   └── ic_launcher_foreground.xml            # Launcher icon foreground
+│   ├── layout/
+│   │   ├── activity_main.xml                     # Main activity layout
+│   │   ├── content_main.xml                      # NavHostFragment container
+│   │   └── fragment_main.xml                     # Fragment layout with trigger buttons
+│   ├── navigation/
+│   │   └── nav_graph.xml                         # Navigation graph
+│   ├── values/
+│   │   ├── colors.xml                            # Color definitions
+│   │   ├── strings.xml                           # String resources
+│   │   └── themes.xml                            # App theme
+│   ├── values-night/
+│   │   └── themes.xml                            # Dark mode theme
+│   └── xml/
+│       ├── backup_rules.xml                      # Backup rules for Android 12+
+│       └── data_extraction_rules.xml             # Data extraction rules
+└── AndroidManifest.xml                           # App manifest
 ```
 
 ## Dependencies
