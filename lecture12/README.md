@@ -28,5 +28,7 @@ This lecture covers hardware sensor access and Bluetooth communication on Androi
 
 - [Sensors overview](https://developer.android.com/develop/sensors-and-location/sensors/sensors_overview)
 - [Motion sensors](https://developer.android.com/develop/sensors-and-location/sensors/sensors_motion)
+- [Position sensors](https://developer.android.com/develop/sensors-and-location/sensors/sensors_position)
+- [Environment sensors](https://developer.android.com/develop/sensors-and-location/sensors/sensors_environment)
 - [Bluetooth overview](https://developer.android.com/develop/connectivity/bluetooth)
-- [Bluetooth Classic](https://developer.android.com/develop/connectivity/bluetooth/bt-permissions)
+- [Bluetooth permissions](https://developer.android.com/develop/connectivity/bluetooth/bt-permissions)

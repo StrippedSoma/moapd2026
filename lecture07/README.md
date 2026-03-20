@@ -1,6 +1,6 @@
 # Lecture 07 — Local Storage on Android
 
-This lecture focuses on persisting data locally on Android devices. Students learn two key persistence mechanisms: `SharedPreferences` for simple key-value storage and Room for structured SQLite database access. Each mechanism is demonstrated in both Jetpack Compose and XML (MDC) variants, showing how local storage integrates with different UI paradigms.
+This lecture focuses on persisting data locally on Android devices. Students learn two key persistence mechanisms: `SharedPreferences` for simple key-value storage and Room for structured `SQLite database` access. Each mechanism is demonstrated in both Jetpack Compose and XML (MDC) variants, showing how local storage integrates with different UI paradigms.
 
 ## Apps
 
